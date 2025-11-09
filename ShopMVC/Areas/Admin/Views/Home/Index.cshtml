@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Tổng quan";
+}
+<div class="container-fluid">
+    <h3 class="mb-3">Dashboard</h3>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="card rounded-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="bi bi-box-seam fs-3 text-primary"></i>
+                        <div>
+                            <div class="text-muted small">Sản phẩm</div>
+                            <div class="fs-4 fw-bold">@ViewBag.SoSP</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card rounded-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="bi bi-bag-check fs-3 text-success"></i>
+                        <div>
+                            <div class="text-muted small">Đơn hàng</div>
+                            <div class="fs-4 fw-bold">@ViewBag.SoDH</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card rounded-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center gap-3">
+                        <i class="bi bi-cash-stack fs-3 text-danger"></i>
+                        <div>
+                            <div class="text-muted small">Doanh thu</div>
+                            <div class="fs-4 fw-bold">@((decimal)ViewBag.DoanhThu) đ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+﻿@model ShopMVC.Models.ViewModels.SanPhamListVM
+@{
+    ViewData["Title"] = "Sản phẩm";
+    string qs(string key, object? val)
+    {
+        // helper build querystring giữ các filter khác khi đổi trang/sắp xếp
+        var dict = new Dictionary<string, string?>
+                {
+                    ["idDanhMuc"] = Model.IdDanhMuc?.ToString(),
+                    ["idThuongHieu"] = Model.IdThuongHieu?.ToString(),
+                    ["giaMin"] = Model.GiaMin?.ToString(),
+                    ["giaMax"] = Model.GiaMax?.ToString(),
+                    ["tuKhoa"] = Model.TuKhoa,
+                    ["sapXep"] = Model.SapXep,
+                    ["page"] = Model.Page.ToString(),
+                    ["pageSize"] = Model.PageSize.ToString()
+                };
+        dict[key] = val?.ToString();
+        return string.Join("&", dict.Where(kv => !string.IsNullOrWhiteSpace(kv.Value))
+                                    .Select(kv => $"{kv.Key}={kv.Value}"));
+    }
+    var reps = ViewBag.DaiDienNhom as IEnumerable<ShopMVC.Models.SanPham> ?? Model.Items;
+}
+
+<div class="container py-4">
+    <h1 class="mb-3">Danh sách sản phẩm</h1>
+
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <input name="tuKhoa" class="form-control" value="@Model.TuKhoa" placeholder="Tìm kiếm..." />
+        </div>
+        <div class="col-md-2">
+            <select name="idDanhMuc" class="form-select">
+                <option value="">-- Danh mục --</option>
+                @foreach (var d in Model.DanhMucs)
+                {
+                    <option value="@d.Id" selected="@(Model.IdDanhMuc==d.Id)">
+                        @d.Ten
+                    </option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select name="idThuongHieu" class="form-select">
+                <option value="">-- Thương hiệu --</option>
+                @foreach (var th in Model.ThuongHieus)
+                {
+                    <option value="@th.Id" selected="@(Model.IdThuongHieu==th.Id)">
+                        @th.Ten
+                    </option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input name="giaMin" type="number" class="form-control" value="@(Model.GiaMin?.ToString() ?? "")" placeholder="Giá từ" />
+        </div>
+        <div class="col-md-2">
+            <input name="giaMax" type="number" class="form-control" value="@(Model.GiaMax?.ToString() ?? "")" placeholder="Giá đến" />
+        </div>
+        <div class="col-md-1 d-grid">
+            <button class="btn btn-primary">Lọc</button>
+        </div>
+    </form>
+
+    <div class="d-flex justify-content-end mb-3">
+        <div>
+            Sắp xếp:
+            <a class="btn btn-link p-0" href="?@qs("sapXep","moi")">Mới</a> ·
+            <a class="btn btn-link p-0" href="?@qs("sapXep","gia-asc")">Giá ↑</a> ·
+            <a class="btn btn-link p-0" href="?@qs("sapXep","gia-desc")">Giá ↓</a>
+        </div>
+    </div>
+
+    <div class="row row-cols-2 row-cols-md-4 g-3">
+        @foreach (var p in Model.Items)
+        {
+            var anh = p.Anhs?.OrderBy(a => a.LaAnhChinh ? 0 : 1).ThenBy(a => a.ThuTu).FirstOrDefault()?.Url ?? "/images/no-image.png";
+            <div class="col">
+                <div class="card h-100">
+                    <img class="card-img-top" src="@anh" alt="@p.Ten" />
+                    <div class="card-body">
+                        <h6 class="card-title">@p.Ten</h6>
+                        <div>
+                            @if (p.GiaKhuyenMai.HasValue)
+                            {
+                                <span class="fw-bold text-danger">@p.GiaKhuyenMai.Value.ToString("n0") đ</span>
+                                <span class="text-muted text-decoration-line-through">@p.Gia.ToString("n0") đ</span>
+                            }
+                            else
+                            {
+                                <span class="fw-bold">@p.Gia.ToString("n0") đ</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white d-flex gap-2">
+                        <a asp-controller="SanPham" asp-action="ChiTiet" asp-route-id="@p.Id" class="btn btn-sm btn-outline-primary">Xem</a>
+
+                        <form method="post" asp-controller="GioHang" asp-action="Them" asp-route-id="@p.Id" class="d-inline">
+                            <button class="btn btn-sm btn-primary">Thêm giỏ</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i==Model.Page ? "active" : "")">
+                        <a class="page-link" href="?@qs("page", i)">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+</div>

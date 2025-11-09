@@ -1,0 +1,11 @@
+﻿@model int
+@{
+    var total = (decimal)(ViewBag.Total ?? 0m);
+}
+<a class="btn btn-outline-primary position-relative" asp-controller="GioHang" asp-action="Index">
+    Giỏ hàng
+    @if (Model > 0)
+    {
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">@Model</span>
+    }
+</a>

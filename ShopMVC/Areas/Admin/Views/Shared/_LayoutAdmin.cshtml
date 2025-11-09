@@ -1,0 +1,97 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    Layout = null;
+
+    string ctl = (ViewContext.RouteData.Values["controller"]?.ToString() ?? "").ToLower();
+    string act = (ViewContext.RouteData.Values["action"]?.ToString() ?? "").ToLower();
+    bool Is(string c, string? a = null)
+        => ctl == c.ToLower() && (a == null || act == a.ToLower());
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@(ViewData["Title"] ?? "Quản trị") · Admin</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+
+    <style>
+        /* === Admin theme === */
+        .admin-shell{ min-height:100vh; display:grid; grid-template-columns:260px 1fr; }
+        .admin-sidebar{ background:#0f172a; color:#cbd5e1; }
+        .admin-sidebar a{ color:#cbd5e1; text-decoration:none; display:flex; gap:.6rem; align-items:center; padding:.6rem .9rem; border-radius:.6rem; }
+        .admin-sidebar a:hover{ background:#1e293b; color:#fff; }
+        .admin-sidebar .active{ background:#334155; color:#fff; }
+        .admin-topbar{ background:#0b1223; color:#e2e8f0; }
+        .admin-content{ background:#f8fafc; }
+        .chip{ background:#e2e8f0; border-radius:999px; padding:.15rem .6rem; font-size:.85rem; }
+    </style>
+</head>
+<body>
+    <!-- Topbar -->
+    <nav class="admin-topbar py-2">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center gap-3">
+                <a class="navbar-brand text-white fw-bold mb-0" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-speedometer2 me-1"></i> Admin Panel
+                </a>
+                <span class="chip">@DateTime.Now:dd/MM/yyyy</span>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+                <a class="btn btn-sm btn-outline-light"
+                   asp-area="" asp-controller="Home" asp-action="Index">
+                    ← Về trang bán hàng
+                </a>
+                <partial name="~/Views/Shared/_LoginPartial.cshtml" />
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-shell">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar p-3">
+            <div class="mb-3 small text-uppercase text-secondary">Quản lý</div>
+            <nav class="d-grid gap-1">
+                <a class="@(Is("Home")?"active":"")" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-house"></i> Tổng quan
+                </a>
+                <a class="@(Is("DanhMuc")?"active":"")" asp-area="Admin" asp-controller="DanhMuc" asp-action="Index">
+                    <i class="bi bi-list-ul"></i> Danh mục
+                </a>
+                <a class="@(Is("ThuongHieu")?"active":"")" asp-area="Admin" asp-controller="ThuongHieu" asp-action="Index">
+                    <i class="bi bi-award"></i> Thương hiệu
+                </a>
+                <a class="@(Is("SanPham")?"active":"")" asp-area="Admin" asp-controller="SanPham" asp-action="Index">
+                    <i class="bi bi-box-seam"></i> Sản phẩm
+                </a>
+                <a class="@(Is("DonHang")?"active":"")" asp-area="Admin" asp-controller="DonHang" asp-action="Index">
+                    <i class="bi bi-bag-check"></i> Đơn hàng
+                </a>
+    
+                    <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Voucher" ? "active" : "")"
+                       asp-area="Admin" asp-controller="Voucher" asp-action="Index">
+                        <i class="bi bi-ticket-perforated me-2"></i> Voucher / Mã giảm giá
+                    </a>
+                
+            </nav>
+
+            <div class="mt-4 small text-uppercase text-secondary">Khác</div>
+            <nav class="d-grid gap-1">
+                <a href="https://localhost" target="_blank"><i class="bi bi-bookmark"></i> Tài liệu (dummy)</a>
+            </nav>
+        </aside>
+
+        <!-- Content -->
+        <main class="admin-content p-4">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

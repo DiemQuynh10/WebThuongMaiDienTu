@@ -1,0 +1,573 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\ShopMVC.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ShopMVC.eedcc0oynj.bundle.scp.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\ao-khoac-windbreaker-xanh-m-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-khoac-windbreaker-xanh-m-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\ao-khoac-windbreaker-xanh-m-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-khoac-windbreaker-xanh-m-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\ao-polo-pique-trang-m-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-polo-pique-trang-m-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\ao-polo-pique-trang-m-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-polo-pique-trang-m-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\ao-so-mi-oxford-slim-trang-m-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-so-mi-oxford-slim-trang-m-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\ao-so-mi-oxford-slim-trang-m-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-so-mi-oxford-slim-trang-m-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\ao-thun-basic-cotton-220g-den-m-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-thun-basic-cotton-220g-den-m-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\ao-thun-basic-cotton-220g-den-m-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-thun-basic-cotton-220g-den-m-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\ao-thun-basic-cotton-220g-trang-m-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-thun-basic-cotton-220g-trang-m-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\ao-thun-basic-cotton-220g-trang-m-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-thun-basic-cotton-220g-trang-m-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\asus-rog-zephyrus-g14-den-16gb-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\asus-rog-zephyrus-g14-den-16gb-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\asus-rog-zephyrus-g14-den-16gb-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\asus-rog-zephyrus-g14-den-16gb-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\asus-vivobook-15-bac-8gb-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\asus-vivobook-15-bac-8gb-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\asus-vivobook-15-bac-8gb-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\asus-vivobook-15-bac-8gb-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\asus-vivobook-15-xam-16gb-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\asus-vivobook-15-xam-16gb-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\asus-vivobook-15-xam-16gb-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\asus-vivobook-15-xam-16gb-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\ban-phim-co-87-phim-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ban-phim-co-87-phim-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\ban-phim-co-87-phim-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ban-phim-co-87-phim-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\chuot-khong-day-silent-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\chuot-khong-day-silent-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\chuot-khong-day-silent-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\chuot-khong-day-silent-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\giay-luoi-canvas-den-40-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\giay-luoi-canvas-den-40-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\giay-luoi-canvas-nau-41-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\giay-luoi-canvas-nau-41-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\giay-luoi-canvas-nau-41-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\giay-luoi-canvas-nau-41-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-den-128gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-den-128gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-den-128gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-den-128gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-den-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-den-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-den-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-den-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-hong-128gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-hong-128gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-hong-128gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-hong-128gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-plus-xanh-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-plus-xanh-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-plus-xanh-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-plus-xanh-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-plus-xanhlam-128gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-plus-xanhlam-128gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-plus-xanhlam-128gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-plus-xanhlam-128gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-pro-den-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-pro-den-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-pro-den-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-pro-den-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-pro-titan-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-pro-titan-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-pro-titan-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-pro-titan-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\kem-chong-nang-spf50+-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\kem-chong-nang-spf50+-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\kem-chong-nang-spf50+-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\kem-chong-nang-spf50+-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\lenovo-thinkpad-x1-carbon-gen-11-den-16gb-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\lenovo-thinkpad-x1-carbon-gen-11-den-16gb-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\lenovo-thinkpad-x1-carbon-gen-11-den-16gb-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\lenovo-thinkpad-x1-carbon-gen-11-den-16gb-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\macbook-air-m2-13-bac-8gb-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\macbook-air-m2-13-bac-8gb-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\macbook-air-m2-13-bac-8gb-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\macbook-air-m2-13-bac-8gb-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\macbook-air-m2-13-xam-16gb-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\macbook-air-m2-13-xam-16gb-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\macbook-air-m2-13-xam-16gb-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\macbook-air-m2-13-xam-16gb-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\macbook-pro-m3-14-bac-16gb-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\macbook-pro-m3-14-bac-16gb-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\macbook-pro-m3-14-bac-16gb-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\macbook-pro-m3-14-bac-16gb-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\quan-jean-straight-xanh-dam-29-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\quan-jean-straight-xanh-dam-29-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\quan-jean-straight-xanh-dam-29-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\quan-jean-straight-xanh-dam-29-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\sac-nhanh-35w-usb-c-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\sac-nhanh-35w-usb-c-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\sac-nhanh-35w-usb-c-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\sac-nhanh-35w-usb-c-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\samsung-galaxy-s24-den-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\samsung-galaxy-s24-den-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\samsung-galaxy-s24-den-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\samsung-galaxy-s24-den-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\samsung-galaxy-s24-kem-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\samsung-galaxy-s24-kem-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\samsung-galaxy-s24-kem-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\samsung-galaxy-s24-kem-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\samsung-galaxy-s24-tim-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\samsung-galaxy-s24-tim-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\samsung-galaxy-s24-tim-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\samsung-galaxy-s24-tim-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\sneaker-daily-run-den-40-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\sneaker-daily-run-den-40-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\sneaker-daily-run-den-40-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\sneaker-daily-run-den-40-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\sneaker-daily-run-trang-39-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\sneaker-daily-run-trang-39-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\sneaker-daily-run-trang-39-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\sneaker-daily-run-trang-39-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\tai-nghe-sony-wh-ch520-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\tai-nghe-sony-wh-ch520-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\tai-nghe-sony-wh-ch520-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\tai-nghe-sony-wh-ch520-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-14t-pro-den-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-14t-pro-den-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-14t-pro-den-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-14t-pro-den-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-14t-pro-xanh-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-14t-pro-xanh-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-14t-pro-xanh-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-14t-pro-xanh-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-redmi-note-13-pro-den-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-redmi-note-13-pro-den-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-redmi-note-13-pro-den-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-redmi-note-13-pro-den-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-redmi-note-13-pro-xanh-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-redmi-note-13-pro-xanh-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-redmi-note-13-pro-xanh-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-redmi-note-13-pro-xanh-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery\\dist\\jquery.slim.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.js"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.map"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\uploads\\products\\903fdb5bf0224345baeae1c70fce7c7d.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\903fdb5bf0224345baeae1c70fce7c7d.jpg"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\uploads\\products\\976a14b8779445fb875630129a604083.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\976a14b8779445fb875630129a604083.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.ShopMVC.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.ShopMVC.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.ShopMVC.props",
+      "PackagePath": "build\\ShopMVC.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.ShopMVC.props",
+      "PackagePath": "buildMultiTargeting\\ShopMVC.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.ShopMVC.props",
+      "PackagePath": "buildTransitive\\ShopMVC.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

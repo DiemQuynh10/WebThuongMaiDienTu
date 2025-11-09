@@ -1,0 +1,323 @@
+﻿@model ShopMVC.Models.ViewModels.ProductDetailsVM
+@{
+    var p = Model.Product;
+    var imgs = (p.Anhs ?? new List<ShopMVC.Models.AnhSanPham>())
+               .OrderByDescending(a => a.LaAnhChinh).ThenBy(a => a.ThuTu).ToList();
+    var mainUrl = imgs.FirstOrDefault()?.Url ?? "/images/no-image.png";
+    var price = p.GiaKhuyenMai ?? p.Gia;
+    int? percentOff = p.GiaKhuyenMai.HasValue && p.Gia > 0
+        ? (int)Math.Round((p.Gia - p.GiaKhuyenMai.Value) * 100m / p.Gia)
+        : (int?)null;
+
+    // có biến thể khi tồn tại ít nhất 1 anh em khác mình
+    bool hasVariants = Model.Siblings != null && Model.Siblings.Any(s => s.Id != Model.Product.Id);
+
+    // nếu các biến thể có trường Mau => coi như đang chọn màu
+    bool hasColor = hasVariants && (
+        !string.IsNullOrWhiteSpace(Model.Product.Mau) ||
+        Model.Siblings.Any(s => !string.IsNullOrWhiteSpace(s.Mau))
+    );
+    string variantTitle = hasColor ? "Chọn màu" : "Chọn biến thể";
+}
+
+<div class="container py-4 product-detail">
+    <div class="row g-4">
+
+        <!-- LEFT: Gallery -->
+        <div class="col-lg-5">
+            <div class="p-3 bg-white rounded-4 shadow-sm">
+                <div class="ratio ratio-1x1 soft-border">
+                    <img id="mainImage" src="@mainUrl" alt="@p.Ten" class="w-100 h-100 object-fit-contain rounded-3">
+                </div>
+                <div class="d-flex gap-2 mt-3 overflow-auto thumbs">
+                    @foreach (var a in imgs)
+                    {
+                        <button type="button" class="thumb btn p-1 border rounded-3">
+                            <img src="@a.Url" class="thumb-img rounded-2" alt="">
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Info -->
+        <div class="col-lg-7">
+            <div class="p-3 p-md-4 bg-white rounded-4 shadow-sm">
+                <div class="d-flex align-items-start gap-2 mb-2">
+                    <span class="badge bg-danger-subtle text-danger fw-semibold">Choice</span>
+                    <span class="badge bg-warning-subtle text-warning fw-semibold">Flash Sale</span>
+                </div>
+
+                <h1 class="h4 mb-2">@p.Ten</h1>
+
+                <div class="d-flex flex-wrap align-items-center gap-3 small text-secondary mb-3">
+                    <div>Thương hiệu: <a class="link-secondary">@p.ThuongHieu?.Ten</a></div>
+                    <div class="vr"></div>
+                    <div>Tồn kho: <strong id="stockVal">@p.TonKho</strong></div>
+                    <div class="vr d-none d-md-block"></div>
+                    <div class="d-none d-md-inline">Mã SP: <span class="text-muted">@p.Id</span></div>
+                </div>
+
+                <!-- Price section -->
+                <div class="price-box rounded-3 px-3 py-3 mb-3">
+                    <div class="d-flex align-items-baseline gap-3">
+                        <div class="h2 mb-0 text-danger fw-bold">@price.ToString("n0") đ</div>
+                        @if (p.GiaKhuyenMai.HasValue)
+                        {
+                            <del class="text-muted">@p.Gia.ToString("n0") đ</del>
+                            @if (percentOff.HasValue)
+                            {
+                                <span class="badge bg-danger text-white">-@percentOff%</span>
+                            }
+                        }
+                    </div>
+                    <div class="small text-secondary mt-1">
+                        Vận chuyển: Nhận từ <strong>@Model.ShippingEtaText</strong>, phí giao <strong>0đ</strong>
+                    </div>
+                </div>
+
+                <!-- Variants -->
+                @if (hasVariants)
+                {
+                    <div class="mb-3">
+                        <div class="label">@variantTitle</div>
+                        <div class="d-flex flex-wrap gap-2">
+                            @foreach (var s in Model.Siblings.Where(x => x.Id != Model.Product.Id))
+                            {
+                                var label = !string.IsNullOrWhiteSpace(s.Mau) ? s.Mau!.Trim() : (s.Ten ?? "").Trim();
+                                if (!string.IsNullOrEmpty(Model.ThuocTinh2Label) && !string.IsNullOrEmpty(s.ThuocTinh2))
+                                    label += $" - {s.ThuocTinh2}";
+
+                                <button type="button"
+                                        class="btn btn-variant"
+                                        data-url="@Url.Action("BienThe", "SanPham", new { id = s.Id })">
+                                    @label
+                                </button>
+                            }
+                        </div>
+                    </div>
+                }
+
+                <!-- FORM: Add to cart / Buy now -->
+                <form method="post"
+                      asp-controller="GioHang"
+                      asp-action="Them"
+                      asp-route-id="@p.Id"
+                      class="mt-3">
+                    <!-- Quantity -->
+                    <div class="mb-4">
+                        <div class="label">Số lượng</div>
+                        <div class="qty-wrap">
+                            <button type="button" class="btn-qty" data-delta="-1">−</button>
+                            <input id="qty" name="soLuong" type="text" value="1" inputmode="numeric" pattern="\d*">
+                            <button type="button" class="btn-qty" data-delta="1">+</button>
+                        </div>
+                        <div class="text-muted small mt-1">Tồn kho: @p.TonKho</div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="d-flex flex-wrap gap-2">
+                        <!-- Nút mặc định: sẽ POST đến /GioHang/Them/{id} và controller redirect sang giỏ -->
+                        <button type="submit" class="btn btn-lg btn-pink flex-grow-1">
+                            <i class="bi bi-cart2 me-1"></i> Thêm vào giỏ
+                        </button>
+                        <!-- "Mua ngay": cũng POST đến cùng action; vì controller của m luôn redirect sang giỏ nên coi như Buy Now -->
+                        <button type="submit" class="btn btn-lg btn-danger text-white">
+                            Mua ngay
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Trust / cam kết -->
+            <div class="d-flex flex-wrap gap-3 small text-secondary mt-3">
+                <div class="d-flex align-items-center gap-2"><i class="bi bi-shield-check"></i>Đổi trả 7 ngày</div>
+                <div class="d-flex align-items-center gap-2"><i class="bi bi-truck"></i>Miễn phí vận chuyển</div>
+                <div class="d-flex align-items-center gap-2"><i class="bi bi-patch-check"></i>Hàng chính hãng</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky bottom bar on mobile (đơn giản: chỉ hiển thị giá) -->
+    <div class="d-lg-none sticky-cta shadow-lg">
+        <div class="container d-flex align-items-center justify-content-between py-2">
+            <div class="h5 mb-0 text-danger fw-bold">@price.ToString("n0") đ</div>
+            <div class="small text-muted">Tồn kho: @p.TonKho</div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .product-detail .price-box {
+            background: #fff5f7;
+            border: 1px dashed #ffd6e0
+        }
+
+        .soft-border {
+            border: 1px solid #f1f1f1
+        }
+
+        .thumbs .thumb-img {
+            width: 68px;
+            height: 68px;
+            object-fit: cover
+        }
+
+        .thumbs .thumb.active, .thumbs .thumb:hover {
+            border-color: #ff4d8d;
+            box-shadow: 0 0 0 2px rgba(255,77,141,.15)
+        }
+
+        .btn-variant {
+            --bs-btn-padding-y: .375rem;
+            --bs-btn-padding-x: .75rem;
+            --bs-btn-border-radius: 999px;
+            border: 1px solid #e5e7eb;
+            background: #fff
+        }
+
+            .btn-variant:hover, .btn-variant.active {
+                border-color: #ff4d8d;
+                color: #ff4d8d;
+                background: #fff5f9
+            }
+
+        .btn-pink {
+            background: #ff4d8d1a;
+            color: #ff2d6f;
+            border: 1px solid #ffc2d4
+        }
+
+            .btn-pink:hover {
+                background: #ff2d6f;
+                color: #fff;
+                border-color: #ff2d6f
+            }
+
+        .label {
+            font-weight: 600;
+            margin-bottom: .4rem
+        }
+
+        .sticky-cta {
+            position: sticky;
+            bottom: 0;
+            background: #fff;
+            border-top: 1px solid #f1f1f1
+        }
+
+        @@media (min-width:992px) {
+            .sticky-cta {
+                display: none
+            }
+        }
+
+        .object-fit-contain {
+            object-fit: contain
+        }
+
+        /* qty */
+        .qty-wrap {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden
+        }
+
+        .btn-qty {
+            width: 40px;
+            height: 40px;
+            border: 0;
+            background: #fff;
+            font-size: 20px;
+            line-height: 1
+        }
+
+            .btn-qty:hover {
+                background: #fff5f9
+            }
+
+        #qty {
+            width: 70px;
+            height: 40px;
+            text-align: center;
+            border: 0;
+            outline: 0
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        (() => {
+          // thumbs -> main image
+          document.querySelectorAll('.thumbs .thumb').forEach(b=>{
+            b.addEventListener('click',()=>{
+              document.querySelectorAll('.thumbs .thumb').forEach(x=>x.classList.remove('active'));
+              b.classList.add('active');
+              const img = b.querySelector('img');
+              document.getElementById('mainImage').src = img.src;
+            });
+          });
+
+          // quantity with clamp 1..stock
+          const stock = parseInt(document.getElementById('stockVal')?.textContent ?? '0', 10) || 0;
+          const qtyInput = document.getElementById('qty');
+
+          function normalizeQty(){
+            let v = parseInt((qtyInput.value || '').replace(/\D/g,'')) || 1;
+            if (v < 1) v = 1;
+            if (stock && v > stock) v = stock;
+            qtyInput.value = v;
+            return v;
+          }
+          qtyInput.addEventListener('input', normalizeQty);
+          document.querySelectorAll('.btn-qty').forEach(btn=>{
+            btn.addEventListener('click', ()=>{
+              const delta = parseInt(btn.dataset.delta,10);
+              let v = normalizeQty() + delta;
+              if (v < 1) v = 1;
+              if (stock && v > stock) v = stock;
+              qtyInput.value = v;
+            });
+          });
+
+          // switch variant via AJAX (endpoint BienThe đã có)
+          document.querySelectorAll('.btn-variant[data-url]').forEach(btn=>{
+            btn.addEventListener('click', async ()=>{
+              document.querySelectorAll('.btn-variant').forEach(x=>x.classList.remove('active'));
+              btn.classList.add('active');
+
+              const res = await fetch(btn.dataset.url, { cache:'no-store' });
+              if(!res.ok) return;
+              const data = await res.json();
+
+              // update price + name + stock
+              document.querySelector('.product-detail .h4').textContent = data.ten;
+              document.querySelector('.price-box .h2').textContent = data.giaText;
+              const del = document.querySelector('.price-box del');
+              if (data.giaGocText){ del.textContent = data.giaGocText; del.classList.remove('d-none'); }
+              else { del?.classList.add('d-none'); }
+              document.getElementById('stockVal').textContent = data.tonKho;
+
+              // update images
+              const urls = data.images?.length ? data.images : ['/images/no-image.png'];
+              const main = document.getElementById('mainImage'); main.src = urls[0];
+              const wrap = document.querySelector('.thumbs'); wrap.innerHTML = '';
+              urls.forEach(u=>{
+                const b = document.createElement('button');
+                b.type='button'; b.className='thumb btn p-1 border rounded-3 active';
+                b.innerHTML = `<img src="${u}" class="thumb-img rounded-2">`;
+                b.onclick = ()=>{ main.src = u; document.querySelectorAll('.thumb').forEach(x=>x.classList.remove('active')); b.classList.add('active'); };
+                wrap.appendChild(b);
+              });
+
+              // reset quantity to 1 when switching variant (optional)
+              qtyInput.value = 1;
+            });
+          });
+        })();
+    </script>
+}

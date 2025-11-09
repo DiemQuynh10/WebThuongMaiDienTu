@@ -1,0 +1,173 @@
+﻿@model ShopMVC.Models.SanPham
+@{
+    var isEdit = Model.Id > 0;
+    ViewData["Title"] = (isEdit ? "Sửa" : "Thêm") + " sản phẩm";
+}
+
+<div class="container py-4">
+    <h3>@ViewData["Title"]</h3>
+
+    <form method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Tên & mô tả -->
+                <div class="mb-2">
+                    <label class="form-label">Tên</label>
+                    <input asp-for="Ten" class="form-control" />
+                    <span asp-validation-for="Ten" class="text-danger"></span>
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label">Mô tả ngắn</label>
+                    <input asp-for="MoTaNgan" class="form-control" />
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label">Mô tả chi tiết</label>
+                    <textarea asp-for="MoTaChiTiet" class="form-control" rows="5"></textarea>
+                </div>
+
+                <!-- Giá / KM / Tồn -->
+                <div class="row">
+                    <div class="col-md-4 mb-2">
+                        <label class="form-label">Giá</label>
+                        <input asp-for="Gia" class="form-control" />
+                        <span asp-validation-for="Gia" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <label class="form-label">Giá KM</label>
+                        <input asp-for="GiaKhuyenMai" class="form-control" />
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <label class="form-label">Tồn kho</label>
+                        <input asp-for="TonKho" class="form-control" />
+                    </div>
+                </div>
+
+                <!-- Danh mục / Thương hiệu -->
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <label class="form-label">Danh mục</label>
+                        <select asp-for="IdDanhMuc" asp-items="ViewBag.DanhMuc" class="form-select"></select>
+                        <span asp-validation-for="IdDanhMuc" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <label class="form-label">Thương hiệu</label>
+                        <select asp-for="IdThuongHieu" asp-items="ViewBag.ThuongHieu" class="form-select"></select>
+                        <span asp-validation-for="IdThuongHieu" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- NHÓM (CHA) & THUỘC TÍNH BIẾN THỂ -->
+                <div class="mb-2">
+                    <label class="form-label">Nhóm (cha)</label>
+                    <select asp-for="ParentId" asp-items="ViewBag.Parents" class="form-select">
+                        <option value="">— Đây là sản phẩm cha (mẫu) —</option>
+                    </select>
+                    <span asp-validation-for="ParentId" class="text-danger"></span>
+                    <div class="form-text">
+                        Để gom các màu/dung lượng vào <b>1 thẻ ngoài user</b>, hãy chọn cùng một <b>cha</b>.
+                        Nếu để trống thì sản phẩm này là <b>sản phẩm cha</b>.
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <label class="form-label">Hậu tố hiển thị (DisplaySuffix)</label>
+                        <input asp-for="DisplaySuffix" class="form-control" placeholder="VD: Hồng 128GB / M / 42mm" />
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <label class="form-label">Màu</label>
+                        <input asp-for="Mau" class="form-control" placeholder="VD: Hồng" />
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <label class="form-label">Thuộc tính 2</label>
+                        <input asp-for="ThuocTinh2" class="form-control" placeholder="VD: 128GB / M" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                        <label class="form-label">SKU (mã biến thể)</label>
+                        <input asp-for="SKU" class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-2">
+                        <div class="form-check mt-4">
+                            <input class="form-check-input" asp-for="IsActive" />
+                            <label class="form-check-label" for="IsActive">Biến thể đang hoạt động (bán được)</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cờ hiển thị -->
+                <div class="form-check mb-2">
+                    <input class="form-check-input" asp-for="LaNoiBat" />
+                    <label class="form-check-label" for="LaNoiBat">Nổi bật</label>
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label">Trạng thái</label>
+                    <select asp-for="TrangThai" class="form-select">
+                        <option value="0">Ẩn</option>
+                        <option value="1">Hiện</option>
+                    </select>
+                </div>
+
+                <!-- Upload ảnh -->
+                <div class="mb-3">
+                    <label class="form-label">Tải ảnh (có thể chọn nhiều)</label>
+                    <input type="file" name="files" multiple class="form-control" />
+                    <div class="form-text">
+                        Ảnh đầu tiên sẽ được đặt làm ảnh chính nếu sản phẩm chưa có ảnh.
+                    </div>
+                </div>
+
+                <button class="btn btn-primary">Lưu</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Quay lại</a>
+            </div>
+
+            @if (isEdit)
+            {
+                <div class="col-lg-4">
+                    <h6>Ảnh hiện có</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        @foreach (var a in Model.Anhs.OrderBy(x => x.ThuTu))
+                        {
+                            <div class="border rounded p-1" style="width:120px">
+                                <img src="@a.Url" style="width:100%;height:90px;object-fit:cover;border-radius:6px" />
+                                <div class="d-flex justify-content-between mt-1">
+                                    @if (!a.LaAnhChinh)
+                                    {
+                                        <form method="post" asp-action="DatAnhChinh" asp-route-id="@a.Id" class="d-inline">
+                                            @Html.AntiForgeryToken()
+                                            <button class="btn btn-sm btn-outline-primary">Đặt chính</button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success">Chính</span>
+                                    }
+                                    <form method="post" asp-action="XoaAnh" asp-route-id="@a.Id" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <button class="btn btn-sm btn-link text-danger"
+                                                onclick="return confirm('Xoá ảnh này?');">
+                                            Xoá
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

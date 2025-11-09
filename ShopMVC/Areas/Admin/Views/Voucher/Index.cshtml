@@ -1,0 +1,200 @@
+﻿@using ShopMVC.Models
+@model IEnumerable<Voucher>
+@{
+    ViewData["Title"] = "Voucher";
+    string DiscountText(Voucher v)
+        => (v.PhanTramGiam is > 0)
+           ? $"{v.PhanTramGiam:0.#}%{(v.GiamToiDa is > 0 ? $" (tối đa {v.GiamToiDa:n0}đ)" : "")}"
+           : $"{(v.GiamTrucTiep ?? 0):n0}đ";
+    string ValidText(Voucher v) => $"{v.NgayBatDau:dd/MM/yyyy} - {v.NgayHetHan:dd/MM/yyyy}";
+    string LeftText(Voucher v)
+    {
+        if (v.SoLanSuDungToiDa == 0) return "∞";
+        var left = v.SoLanSuDungToiDa - v.SoLanDaSuDung;
+        return left < 0 ? "0" : left.ToString();
+    }
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0">Danh sách voucher</h3>
+    <a asp-action="Create" class="btn btn-primary">Tạo voucher</a>
+
+
+</div>
+
+<form method="get" class="row g-2 mb-3">
+  <div class="col-md-3">
+    <input name="q" value="@ViewBag.Q" class="form-control" placeholder="Tìm mã hoặc tên..." />
+  </div>
+  <div class="col-md-2">
+    <select name="active" class="form-select">
+            <option value="">— Trạng thái —</option>
+      <option value="true"  selected="@(ViewBag.Active==true)">Đang bật</option>
+      <option value="false" selected="@(ViewBag.Active==false)">Đang tắt</option>
+    </select>
+  </div>
+  <div class="col-md-2">
+        <select name="time" class="form-select">
+            <option value="">— Hiệu lực —</option>
+            <option value="valid" selected="@(ViewBag.Time=="valid")">Còn hiệu lực</option>
+            <option value="soon" selected="@(ViewBag.Time=="soon")">Sắp hết hạn (≤3 ngày)</option>
+            <option value="expired" selected="@(ViewBag.Time=="expired")">Đã hết hạn</option>
+        </select>
+  </div>
+  <div class="col-md-2">
+        <select name="usage" class="form-select">
+            <option value="">— Lượt dùng —</option>
+            <option value="available" selected="@(ViewBag.Usage=="available")">Còn lượt</option>
+            <option value="exhausted" selected="@(ViewBag.Usage=="exhausted")">Hết lượt</option>
+        </select>
+  </div>
+  <div class="col-md-3 d-flex gap-2">
+    <button class="btn btn-primary">Lọc</button>
+    <a asp-action="Index" class="btn btn-outline-secondary">Xóa lọc</a>
+  </div>
+</form>
+
+<div class="table-responsive">
+    <form id="bulkForm" asp-action="BulkToggle" method="post" class="d-inline">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="enable" id="bulkEnable" value="true" />
+        <div class="btn-group mb-2">
+            <button type="submit" class="btn btn-success" onclick="document.getElementById('bulkEnable').value='true'">Bật đã chọn</button>
+            <button type="submit" class="btn btn-warning" onclick="document.getElementById('bulkEnable').value='false'">Tắt đã chọn</button>
+        </div>
+    </form>
+
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th style="width:36px;">
+                    <input type="checkbox" id="chkAll" />
+                </th>
+                <th>Mã</th>
+                <th>Tên</th>
+                <th>Giảm</th>
+                <th>Hiệu lực</th>
+                <th>Phạm vi áp dụng</th>
+                <th>Dùng/giới hạn</th>
+                <th>Trạng thái</th>
+                <th style="width:120px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in Model)
+            {
+                var hasBrand = v.VoucherThuongHieus?.Any() == true;
+                var hasCate = v.VoucherDanhMucs?.Any() == true;
+                <tr>
+                    <td>
+                        <input type="checkbox" name="ids" value="@v.Id" class="chkRow" form="bulkForm" />
+                    </td>
+                    <td class="fw-semibold">@v.Code</td>
+                    <td>@v.Ten</td>
+                    <td>@DiscountText(v)</td>
+                    <td>@ValidText(v)</td>
+                    <td>
+                        @if (hasBrand)
+                        {
+                            <span class="badge bg-info me-1">
+                                Brand:@string.Join(", ",
+                                   (v.VoucherThuongHieus ?? Enumerable.Empty<VoucherThuongHieu>())
+                                   .Select(x => x.ThuongHieu?.Ten ?? ""))
+                            </span>
+                        }
+                        @if (hasCate)
+                        {
+                            @string.Join(", ",
+                                     (v.VoucherDanhMucs ?? Enumerable.Empty<VoucherDanhMuc>())
+                                     .Select(x => x.DanhMuc?.Ten ?? ""))
+                        }
+                        @if (!hasBrand && !hasCate)
+                        {
+                            <span class="text-muted">Toàn shop</span>
+                        }
+                    </td>
+                    <td>@v.SoLanDaSuDung / @(v.SoLanSuDungToiDa == 0 ? "∞" : v.SoLanSuDungToiDa)</td>
+                    <td>
+                        @* đang bật/tắt *@
+                        @if (v.IsActive)
+                        {
+                            <span class="badge bg-success me-1">Bật</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-light text-muted me-1">Tắt</span>
+                        }
+
+                        @* hiệu lực *@
+                        @{
+                            var today = DateTime.Now.Date;
+                            if (today > v.NgayHetHan)
+                            {
+                                <span class="badge bg-danger me-1">Hết hạn</span>
+                            }
+                            else if ((v.NgayHetHan - today).TotalDays <= 3)
+                            {
+                                <span class="badge bg-warning text-dark me-1">Sắp hết hạn</span>
+                            }
+                        }
+
+                        @* lượt dùng *@
+                        @{
+                            bool exhausted = v.SoLanSuDungToiDa > 0 && v.SoLanDaSuDung >= v.SoLanSuDungToiDa;
+                            if (exhausted)
+                            {
+                                <span class="badge bg-secondary">Hết lượt</span>
+                            }
+                        }
+                    </td>
+
+                    <td class="text-end">
+                        <div class="btn-group">
+                            <a asp-action="Edit" asp-route-id="@v.Id" class="btn btn-sm btn-outline-primary">Sửa</a>
+                            <a asp-action="Usage" asp-route-id="@v.Id" class="btn btn-sm btn-outline-secondary">Báo cáo</a>
+                            <form asp-action="Toggle" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@v.Id" />
+                                <button class="btn btn-sm @(v.IsActive ? "btn-outline-warning" : "btn-outline-success")">
+                                    @(v.IsActive ? "Tắt" : "Bật")
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    @{
+        int page = ViewBag.Page, pageSize = ViewBag.PageSize, total = ViewBag.Total;
+        int totalPages = (int)Math.Ceiling((double)total / pageSize);
+    }
+    @if (totalPages > 1)
+    {
+        <nav>
+            <ul class="pagination">
+                <li class="page-item @(page==1 ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = page-1, pageSize, q=ViewBag.Q, active=ViewBag.Active, time=ViewBag.Time, usage=ViewBag.Usage })">«</a>
+                </li>
+                @for (int p = 1; p <= totalPages; p++)
+                {
+                    <li class="page-item @(p==page ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", new { page = p, pageSize, q=ViewBag.Q, active=ViewBag.Active, time=ViewBag.Time, usage=ViewBag.Usage })">@p</a>
+                    </li>
+                }
+                <li class="page-item @(page==totalPages ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = page+1, pageSize, q=ViewBag.Q, active=ViewBag.Active, time=ViewBag.Time, usage=ViewBag.Usage })">»</a>
+                </li>
+            </ul>
+        </nav>
+    }
+
+</div>
+@section Scripts {
+    <script>
+        document.getElementById('chkAll')?.addEventListener('change', function(){
+          document.querySelectorAll('.chkRow').forEach(c => c.checked = this.checked);
+        });
+    </script>
+}

@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ShopMVC.Models.DonHang>
+@{
+    ViewData["Title"] = "Đơn của tôi";
+}
+<div class="container py-4">
+    <h2>Đơn của tôi</h2>
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info mt-3">Bạn chưa có đơn nào.</div>
+        <a asp-controller="SanPham" asp-action="Index" class="btn btn-primary">Mua sắm</a>
+    }
+    else
+    {
+        <table class="table mt-3">
+            <thead><tr><th>Mã đơn</th><th>Ngày đặt</th><th>Trạng thái</th><th class="text-end">Tổng</th><th></th></tr></thead>
+            <tbody>
+                @foreach (var d in Model)
+                {
+                    <tr>
+                        <td>@d.MaDon</td>
+                        <td>@d.NgayDat.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@d.TrangThai</td>
+                        <td class="text-end">@d.TongThanhToan.ToString("n0") đ</td>
+                        <td><a asp-action="ChiTiet" asp-route-id="@d.Id" class="btn btn-sm btn-outline-primary">Xem</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

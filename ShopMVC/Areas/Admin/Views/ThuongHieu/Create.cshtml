@@ -1,0 +1,35 @@
+﻿@model ShopMVC.Models.ThuongHieu
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Thêm thương hiệu";
+}
+
+<h3 class="fw-bold mb-3">@ViewData["Title"]</h3>
+
+<form asp-action="Create" method="post" class="card p-3">
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label class="form-label">Tên</label>
+        <input asp-for="Ten" class="form-control" />
+        <span asp-validation-for="Ten" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Slug (nếu có)</label>
+        <input asp-for="Slug" class="form-control" />
+        <span asp-validation-for="Slug" class="text-danger"></span>
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="HienThi" class="form-check-input" />
+        <label class="form-check-label" for="HienThi">Hiển thị</label>
+    </div>
+
+    <button class="btn btn-primary">Lưu</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Hủy</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

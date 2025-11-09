@@ -1,0 +1,123 @@
+﻿@model ShopMVC.Models.ViewModels.VoucherEditVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Sửa voucher";
+    bool hasOrders = ViewBag.HasOrders == true;
+}
+
+<h2 class="mb-3">Sửa voucher</h2>
+
+<form asp-action="Edit" method="post" class="row g-3">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Voucher.Id" />
+    <input type="hidden" asp-for="Voucher.RowVersion" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <!-- ====== THÔNG TIN VOUCHER CƠ BẢN ====== -->
+<div class="col-md-4">
+  <label class="form-label">Mã voucher</label>
+        <input asp-for="Voucher.Code" class="form-control" readonly="@hasOrders" />
+  <span asp-validation-for="Voucher.Code" class="text-danger"></span>
+  @if (hasOrders)
+  {
+    <div class="form-text text-muted">Voucher đã được sử dụng trong đơn hàng — không thể đổi mã.</div>
+  }
+</div>
+
+     <div class="col-md-8">
+        <label class="form-label">Tên/ghi chú voucher</label>
+        <input asp-for="Voucher.Ten" class="form-control" />
+        <span asp-validation-for="Voucher.Ten" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">% giảm</label>
+        <input asp-for="Voucher.PhanTramGiam" type="number" step="0.01" min="0" max="100" class="form-control" />
+        <span asp-validation-for="Voucher.PhanTramGiam" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Giảm trực tiếp (đ)</label>
+        <input asp-for="Voucher.GiamTrucTiep" type="number" step="1000" min="0" class="form-control" />
+        <span asp-validation-for="Voucher.GiamTrucTiep" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Giảm tối đa (đ)</label>
+        <input asp-for="Voucher.GiamToiDa" type="number" step="1000" min="0" class="form-control" />
+        <span asp-validation-for="Voucher.GiamToiDa" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Ngày bắt đầu</label>
+        <input asp-for="Voucher.NgayBatDau" type="date" class="form-control" />
+        <span asp-validation-for="Voucher.NgayBatDau" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Ngày hết hạn</label>
+        <input asp-for="Voucher.NgayHetHan" type="date" class="form-control" />
+        <span asp-validation-for="Voucher.NgayHetHan" class="text-danger"></span>
+    </div>
+
+
+    <div class="col-md-4">
+        <label class="form-label">Lượt dùng tối đa</label>
+        <input asp-for="Voucher.SoLanSuDungToiDa" type="number" min="0" class="form-control" />
+        <span asp-validation-for="Voucher.SoLanSuDungToiDa" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-4 d-flex align-items-end">
+        <div class="form-check">
+            <input class="form-check-input" asp-for="Voucher.IsActive" />
+            <label class="form-check-label" for="Voucher_IsActive">Kích hoạt</label>
+        </div>
+    </div>
+
+    <hr class="my-3" />
+
+    <!-- ====== GIỚI HẠN THEO THƯƠNG HIỆU ====== -->
+    <div class="col-12">
+        <label class="form-label fw-bold">Giới hạn theo Thương hiệu</label>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-2">
+            @foreach (var th in Model.AllThuongHieus)
+            {
+                var checkedAttr = Model.SelectedThuongHieuIds.Contains(th.Id) ? "checked" : "";
+                <div class="col">
+                    <label class="form-check">
+                        <input class="form-check-input" type="checkbox"
+                               name="SelectedThuongHieuIds" value="@th.Id" @checkedAttr />
+                        <span class="form-check-label">@th.Ten</span>
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- ====== GIỚI HẠN THEO DANH MỤC ====== -->
+    <div class="col-12">
+        <label class="form-label fw-bold">Giới hạn theo Danh mục</label>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-2">
+            @foreach (var dm in Model.AllDanhMucs)
+            {
+                var checkedAttr = Model.SelectedDanhMucIds.Contains(dm.Id) ? "checked" : "";
+                <div class="col">
+                    <label class="form-check">
+                        <input class="form-check-input" type="checkbox"
+                               name="SelectedDanhMucIds" value="@dm.Id" @checkedAttr />
+                        <span class="form-check-label">@dm.Ten</span>
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="col-12 d-flex gap-2 mt-2">
+        <button type="submit" class="btn btn-primary">Cập nhật</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Quay lại</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

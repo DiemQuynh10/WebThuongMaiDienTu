@@ -1,0 +1,26 @@
+﻿@model (int Id, string Ten, IEnumerable<string> Images)
+
+@{
+    var galleryId = $"product-{Model.Id}";
+    var imgs = Model.Images?.ToList() ?? new List<string>();
+    var main = imgs.FirstOrDefault() ?? "/images/no-image.png";
+}
+
+<div class="product-gallery">
+    <a href="@main"
+       class="glightbox d-block mb-3"
+       data-gallery="@galleryId">
+        <img src="@main" class="w-100 rounded-3 border" alt="@Model.Ten" style="aspect-ratio:4/3;object-fit:contain;">
+    </a>
+
+    <div class="d-flex flex-wrap gap-2">
+        @foreach (var img in imgs)
+        {
+            <a href="@img"
+               class="glightbox"
+               data-gallery="@galleryId">
+                <img src="@img" class="rounded-3 border" width="80" height="80" style="object-fit:cover;">
+            </a>
+        }
+    </div>
+</div>

@@ -1,0 +1,164 @@
+﻿@model List<ShopMVC.Models.ViewModels.GioHangItem>
+@{
+    ViewData["Title"] = "Giỏ hàng";
+    decimal phiShip = 30000m;   // có thể tính động sau
+}
+
+<div class="container py-4">
+    <h2>Giỏ hàng</h2>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info mt-3">Giỏ hàng trống.</div>
+        <a asp-controller="SanPham" asp-action="Index" class="btn btn-primary mt-2">Mua sắm ngay</a>
+    }
+    else
+    {
+        <div class="row g-4 mt-2">
+            <div class="col-lg-8">
+
+                <div class="d-flex align-items-center mb-2">
+                    <input id="checkAll" type="checkbox" class="form-check-input me-2" checked>
+                    <label for="checkAll" class="form-check-label">Chọn tất cả</label>
+                </div>
+
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th style="width:42px;"></th>
+                            <th>Sản phẩm</th>
+                            <th class="text-end">Đơn giá</th>
+                            <th class="text-center">Số lượng</th>
+                            <th class="text-end">Thành tiền</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in Model)
+                        {
+                            <tr data-id="@i.IdSanPham" data-dongia="@i.DonGia" data-thanhtien="@i.ThanhTien">
+                                <td>
+                                    <input type="checkbox" class="row-check form-check-input" checked>
+                                </td>
+
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <img src="@i.Anh" alt="" style="width:60px;height:60px;object-fit:cover;border-radius:8px;border:1px solid #eee;">
+                                        <div>@i.Ten</div>
+                                    </div>
+                                </td>
+
+                                <td class="text-end">@i.DonGia.ToString("n0") đ</td>
+
+                                <td class="text-center">
+                                    <!-- KHÔNG lồng form. Mỗi nút là 1 form riêng -->
+                                    <form method="post" asp-controller="GioHang" asp-action="Giam" asp-route-id="@i.IdSanPham" class="d-inline">
+                                        <button class="btn btn-sm btn-outline-secondary" title="Giảm">−</button>
+                                    </form>
+                                    <span class="mx-2">@i.SoLuong</span>
+                                    <form method="post" asp-controller="GioHang" asp-action="Tang" asp-route-id="@i.IdSanPham" class="d-inline">
+                                        <button class="btn btn-sm btn-outline-secondary" title="Tăng">+</button>
+                                    </form>
+                                </td>
+
+                                <td class="text-end row-total">@i.ThanhTien.ToString("n0") đ</td>
+
+                                <td class="text-end">
+                                    <form method="post" asp-controller="GioHang" asp-action="Xoa" asp-route-id="@i.IdSanPham">
+                                        <button class="btn btn-sm btn-link text-danger">Xoá</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+                <form method="post" asp-controller="GioHang" asp-action="XoaHet">
+                    <button class="btn btn-outline-danger">Xoá hết</button>
+                </form>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Tóm tắt đơn</h5>
+
+                        <div class="d-flex justify-content-between">
+                            <span>Tạm tính</span><span id="subtotal">0 đ</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span>Phí vận chuyển</span><span>@phiShip.ToString("n0") đ</span>
+                        </div>
+                        <hr />
+                        <div class="d-flex justify-content-between fw-bold">
+                            <span>Tổng</span><span id="grandtotal">0 đ</span>
+                        </div>
+
+                        <!-- Gửi danh sách sản phẩm đã chọn sang Checkout -->
+                        <form id="checkoutForm" method="post" asp-controller="DatHang" asp-action="ChonMua" class="mt-3">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-primary w-100" id="btnCheckout" disabled>Tiến hành đặt hàng</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        // format tiền Việt
+        function fmt(n){ return n.toLocaleString('vi-VN') + ' đ'; }
+
+        // tính lại tạm tính theo các dòng được chọn
+        function recalc(){
+          const checks = document.querySelectorAll('.row-check');
+          let sum = 0;
+          checks.forEach(ch=>{
+            if(ch.checked){
+              const tr = ch.closest('tr');
+              sum += parseFloat(tr.dataset.thanhtien);
+            }
+          });
+
+          const ship = @phiShip;
+          document.getElementById('subtotal').textContent = fmt(sum);
+          document.getElementById('grandtotal').textContent = fmt(sum + ship);
+
+          const btn = document.getElementById('btnCheckout');
+          btn.disabled = (sum <= 0);
+        }
+
+        // sync checkbox “chọn tất cả”
+        const checkAll = document.getElementById('checkAll');
+        checkAll?.addEventListener('change', ()=>{
+          document.querySelectorAll('.row-check').forEach(x=> x.checked = checkAll.checked);
+          recalc();
+        });
+        document.querySelectorAll('.row-check').forEach(x=> x.addEventListener('change', ()=>{
+          // nếu có dòng bỏ chọn thì bỏ “chọn tất cả”
+          if(!x.checked) checkAll.checked = false;
+          recalc();
+        }));
+
+        // khởi tạo tổng lúc load
+        recalc();
+
+        // Khi bấm “Tiến hành đặt hàng”: gom ids đã chọn vào hidden inputs
+        document.getElementById('checkoutForm')?.addEventListener('submit', (e)=>{
+          const form = e.currentTarget;
+          // xoá hidden cũ
+          form.querySelectorAll('input[name="ids"]').forEach(h=>h.remove());
+          // thêm hidden mới
+          document.querySelectorAll('.row-check:checked').forEach(ch=>{
+            const id = ch.closest('tr').dataset.id;
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'ids';      // nhận ở server dưới dạng int[] ids
+            input.value = id;
+            form.appendChild(input);
+          });
+        });
+    </script>
+}

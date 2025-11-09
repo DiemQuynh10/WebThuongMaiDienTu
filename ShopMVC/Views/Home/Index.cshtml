@@ -1,0 +1,316 @@
+﻿@using ShopMVC.Models
+@{
+    ViewData["Title"] = "Trang chủ";
+    var noiBat = ViewBag.NoiBat as IEnumerable<SanPham> ?? Enumerable.Empty<SanPham>();
+    var danhMucs = ViewBag.DanhMucs as IEnumerable<DanhMuc> ?? Enumerable.Empty<DanhMuc>();
+}
+
+<div class="container py-5">
+
+    <!-- 🌸 Banner ưu đãi -->
+    <div class="p-5 mb-5 rounded-4 text-center text-dark position-relative overflow-hidden"
+         style="background: linear-gradient(135deg,#fce7f3,#fecdd3);">
+        <h2 class="fw-bold mb-2">🌸 Ưu đãi tháng này 🌸</h2>
+        <p class="mb-3 text-muted">Miễn phí vận chuyển đơn từ 299K · Giảm sốc cuối tuần</p>
+        <a asp-controller="SanPham" asp-action="Index"
+           class="btn btn-lg btn-pink shadow-sm px-4 py-2 rounded-pill">
+            Mua ngay
+        </a>
+    </div>
+
+    <!-- 🧁 DANH MỤC (cuộn ngang) -->
+    <div class="bg-white border rounded-4 p-3 mb-5 position-relative cat-wrap">
+        <h5 class="mb-3 fw-bold">Danh mục</h5>
+
+        <button id="cat-left" class="scroll-btn left" type="button" title="Trước">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <button id="cat-right" class="scroll-btn right" type="button" title="Sau">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+
+        <div id="cat-scroll" class="cat-scroll">
+            @foreach (var dm in danhMucs)
+            {
+                var slug = string.IsNullOrWhiteSpace(dm.Slug) ? "placeholder" : dm.Slug;
+                var icon = !string.IsNullOrWhiteSpace(dm.IconUrl) ? dm.IconUrl : $"/images/categories/{slug}.png";
+
+                <div class="cat-card">
+                    <a asp-controller="SanPham" asp-action="Index" asp-route-idDanhMuc="@dm.Id"
+                       class="d-flex flex-column align-items-center gap-2 text-decoration-none text-dark">
+                        <div class="cat-circle">
+                            <img src="@icon" alt="@(dm.Ten ?? "Danh mục")" loading="lazy" />
+                        </div>
+                        <div class="small text-center line-clamp-2">@(dm.Ten ?? "")</div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- 🔥 SẢN PHẨM NỔI BẬT -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0 fw-bold text-pink">Sản phẩm nổi bật</h4>
+        <a asp-controller="SanPham" asp-action="Index" class="btn btn-sm btn-outline-pink rounded-pill">Xem tất cả</a>
+    </div>
+
+    <div class="row row-cols-2 row-cols-md-4 g-4">
+        @foreach (var p in noiBat)
+        {
+            var anh = p.Anhs?.OrderBy(a => a.LaAnhChinh ? 0 : 1)
+            .ThenBy(a => a.ThuTu)
+            .FirstOrDefault()?.Url ?? "/images/no-image.png";
+
+            var coGiam = p.GiaKhuyenMai.HasValue && p.GiaKhuyenMai.Value < p.Gia;
+            var giaShow = coGiam ? p.GiaKhuyenMai.Value : p.Gia;
+            int? percent = coGiam ? (int)Math.Round((p.Gia - p.GiaKhuyenMai.Value) * 100m / p.Gia) : null;
+
+            <div class="col d-flex">
+                <!-- Bọc toàn card bằng <a> để click ở đâu cũng vào chi tiết -->
+                <a asp-controller="SanPham" asp-action="ChiTiet" asp-route-id="@p.Id"
+                   class="text-decoration-none text-dark d-block ">
+                    <div class="card h-100 border-0 rounded-4 shadow-sm hover-lift product-card">
+                        <div class="ratio ratio-4x3 bg-light rounded-top-4">
+                            <img src="@anh" alt="@p.Ten" class="img-fluid object-fit-contain p-3" loading="lazy" />
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <div class="small text-muted">@p.ThuongHieu?.Ten</div>
+                            <h6 class="fw-semibold text-truncate-2 mb-2">@p.Ten</h6>
+                            <div class="mt-auto">
+                                @if (coGiam)
+                                {
+                                    <div class="text-danger fw-bold">@giaShow.ToString("n0") đ</div>
+                                    <div class="text-muted text-decoration-line-through small">@p.Gia.ToString("n0") đ</div>
+                                    <span class="badge bg-rose-100 text-rose-600">@percent% OFF</span>
+                                }
+                                else
+                                {
+                                    <div class="fw-bold">@giaShow.ToString("n0") đ</div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-white border-0 pb-3 pt-0 d-flex gap-2 justify-content-center">
+                            <!-- Ngăn click lan lên thẻ <a> để khỏi bị redirect khi bấm Thêm giỏ -->
+                            <form method="post" asp-controller="GioHang" asp-action="Them" asp-route-id="@p.Id" onclick="event.stopPropagation()">
+                                @Html.AntiForgeryToken()
+                                <button class="btn btn-sm btn-pink rounded-pill">Thêm giỏ</button>
+                            </form>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    /* khung tổng */
+    .cat-wrap {
+        overflow: hidden;
+    }
+
+    /* thanh cuộn ngang */
+    .cat-scroll {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 0 56px 8px;
+        scroll-behavior: smooth;
+        scroll-snap-type: x proximity;
+    }
+
+        .cat-scroll.no-overflow {
+            justify-content: center;
+            padding: 0 12px 8px;
+        }
+
+    .scroll-btn.hidden {
+        visibility: hidden;
+    }
+
+    /* mỗi item cố định bề rộng */
+    .cat-card {
+        flex: 0 0 110px;
+        scroll-snap-align: center;
+        text-align: center;
+    }
+
+    .cat-circle {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: #f8f9fa;
+        border: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition: transform .2s ease, box-shadow .2s ease;
+        margin: 0 auto;
+    }
+
+        .cat-circle img {
+            max-width: 64px;
+            max-height: 64px;
+            object-fit: contain;
+        }
+
+    .cat-card:hover .cat-circle {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0,0,0,.08);
+    }
+
+    .scroll-btn {
+        position: absolute;
+        top: 64px;
+        background: #fff;
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        box-shadow: 0 2px 6px rgba(0,0,0,.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: .9;
+        z-index: 2;
+    }
+
+        .scroll-btn.left {
+            left: 8px;
+        }
+
+        .scroll-btn.right {
+            right: 8px;
+        }
+
+        .scroll-btn:hover {
+            transform: scale(1.04);
+        }
+
+    /* ẩn thanh cuộn mặc định (giữ khả năng cuộn) */
+    .cat-scroll::-webkit-scrollbar {
+        height: 8px;
+    }
+
+    .cat-scroll::-webkit-scrollbar-thumb {
+        background: transparent;
+    }
+
+    /* Nút & card */
+    .btn-pink {
+        background: #ec4899;
+        color: #fff;
+        border: none;
+        transition: .25s ease;
+    }
+
+        .btn-pink:hover {
+            background: #db2777;
+            color: #fff;
+        }
+
+    .btn-outline-pink {
+        color: #db2777;
+        border-color: #db2777;
+    }
+
+        .btn-outline-pink:hover {
+            background: #db2777;
+            color: #fff;
+        }
+
+    .badge.bg-rose-100 {
+        background: #ffe4ec !important;
+        color: #db2777 !important;
+        font-weight: 500;
+    }
+
+    .hover-lift {
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+        .hover-lift:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0,0,0,.08);
+        }
+
+    /* Clickable toàn card + hiệu ứng ảnh */
+    .product-card {
+        cursor: pointer;
+    }
+
+        .product-card img {
+            transition: transform .3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.03);
+        }
+
+    /* cắt 2 dòng tên */
+    .text-truncate-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .text-pink {
+        color: #db2777;
+    }
+    /* Card chiếm full chiều cao, xếp theo cột */
+    .product-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+        .product-card .card-body {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto; /* phần thân co giãn */
+        }
+
+        .product-card .card-footer {
+            margin-top: auto; /* dính đáy card */
+        }
+
+    /* Chặn lệch do phần giá/khuyến mãi */
+    .price-block {
+        min-height: 44px;
+    }
+    /* tuỳ giao diện: 40–52px */
+
+    /* Cột co giãn đều */
+    .row > .col.d-flex > a {
+        flex: 1 1 auto;
+    }
+
+    /* (đã có) hiệu ứng hover và clamp 2 dòng tên */
+
+</style>
+
+<script>
+    // Slider danh mục
+    const box = document.getElementById('cat-scroll');
+    const btnL = document.getElementById('cat-left');
+    const btnR = document.getElementById('cat-right');
+    const STEP = 240;
+
+    btnL.onclick = () => box.scrollBy({ left: -STEP, behavior: 'smooth' });
+    btnR.onclick = () => box.scrollBy({ left:  STEP, behavior: 'smooth' });
+
+    function refreshCatsUI(){
+      const over = box.scrollWidth > box.clientWidth + 1;
+      box.classList.toggle('no-overflow', !over);
+      btnL.classList.toggle('hidden', !over || box.scrollLeft <= 0);
+      const max = box.scrollWidth - box.clientWidth - 1;
+      btnR.classList.toggle('hidden', !over || box.scrollLeft >= max);
+    }
+    refreshCatsUI();
+    box.addEventListener('scroll', refreshCatsUI);
+    window.addEventListener('resize', refreshCatsUI);
+</script>

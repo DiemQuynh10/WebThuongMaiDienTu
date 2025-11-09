@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ShopMVC</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/ShopMVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    <script>
+        // Khởi tạo 1 lần cho toàn site
+        document.addEventListener('DOMContentLoaded', function () {
+          GLightbox({ selector: '.glightbox' });
+        });
+    </script>
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-white">
+            <div class="container">
+                <a class="navbar-brand text-pink" asp-controller="Home" asp-action="Index">ShopMVC</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="SanPham" asp-action="Index">Sản phẩm</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="DonHang" asp-action="CuaToi">Đơn của tôi</a></li>
+                    </ul>
+
+                    <!-- search mini -->
+                    <form class="d-none d-lg-flex me-3" method="get" asp-controller="SanPham" asp-action="Index">
+                        <input class="form-control" type="search" name="tuKhoa" placeholder="Tìm kiếm…">
+                    </form>
+
+                    <!-- LoginPartial + Cart -->
+                    <partial name="_LoginPartial" />
+                    <div class="ms-3">
+                        @await Component.InvokeAsync("CartBadge")
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2025 - ShopMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    @if (TempData["toast"] is string msg)
+    {
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index:1080">
+            <div class="toast align-items-center text-bg-dark show" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">@msg</div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        </div>
+    }
+
+</body>
+</html>

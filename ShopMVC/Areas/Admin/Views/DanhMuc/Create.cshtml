@@ -1,0 +1,23 @@
+﻿@model ShopMVC.Models.DanhMuc
+<div class="container py-4">
+<form asp-action="Create" method="post" enctype="multipart/form-data" class="card p-4">
+    @Html.AntiForgeryToken()
+        <div class="mb-2"><label class="form-label">Tên</label><input asp-for="Ten" class="form-control" /><span asp-validation-for="Ten" class="text-danger"></span></div>
+        <div class="mb-2"><label class="form-label">Slug</label><input asp-for="Slug" class="form-control" /></div>
+        <div class="mb-2"><label class="form-label">Mô tả</label><textarea asp-for="MoTa" class="form-control"></textarea></div>
+        <div class="row">
+            <div class="col-md-4 mb-2"><label class="form-label">Thứ tự</label><input asp-for="ThuTu" class="form-control" /></div>
+            <div class="col-md-4 mb-2 form-check mt-4"><input asp-for="HienThi" class="form-check-input" /><label class="form-check-label">Hiển thị</label></div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Icon</label>
+            <input type="file" name="icon" accept="image/*" class="form-control" />
+            <div class="form-text">PNG/JPG/WEBP, ~256x256 là đẹp.</div>
+        </div>
+        <button class="btn btn-primary">Lưu</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Huỷ</a>
+    </form>
+</div>
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+ }
