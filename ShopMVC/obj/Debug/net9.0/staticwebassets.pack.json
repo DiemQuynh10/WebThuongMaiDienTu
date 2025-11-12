@@ -13,6 +13,30 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\dien-thoai.webp",
+      "PackagePath": "staticwebassets\\images\\categories\\dien-thoai.webp"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\giay-dep.webp",
+      "PackagePath": "staticwebassets\\images\\categories\\giay-dep.webp"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\laptop.webp",
+      "PackagePath": "staticwebassets\\images\\categories\\laptop.webp"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\my-pham.webp",
+      "PackagePath": "staticwebassets\\images\\categories\\my-pham.webp"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\phu-kien.webp",
+      "PackagePath": "staticwebassets\\images\\categories\\phu-kien.webp"
+    },
+    {
+      "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\thoi-trang.webp",
+      "PackagePath": "staticwebassets\\images\\categories\\thoi-trang.webp"
+    },
+    {
       "Id": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\ao-khoac-windbreaker-xanh-m-1.jpg",
       "PackagePath": "staticwebassets\\images\\sp\\ao-khoac-windbreaker-xanh-m-1.jpg"
     },

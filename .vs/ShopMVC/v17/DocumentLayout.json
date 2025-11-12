@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "E:\\Web.net\\ShopMVC\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|e:\\web.net\\shopmvc\\shopmvc\\views\\sanpham\\chitiet.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|solutionrelative:shopmvc\\views\\sanpham\\chitiet.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|e:\\web.net\\shopmvc\\shopmvc\\views\\donhang\\chitiet.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|solutionrelative:shopmvc\\views\\donhang\\chitiet.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|e:\\web.net\\shopmvc\\shopmvc\\controllers\\sanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|solutionrelative:shopmvc\\controllers\\sanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|e:\\web.net\\shopmvc\\shopmvc\\views\\giohang\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|solutionrelative:shopmvc\\views\\giohang\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -17,14 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|e:\\web.net\\shopmvc\\shopmvc\\controllers\\giohangcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|solutionrelative:shopmvc\\controllers\\giohangcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|e:\\web.net\\shopmvc\\shopmvc\\views\\sanpham\\chitiet.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|solutionrelative:shopmvc\\views\\sanpham\\chitiet.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|e:\\web.net\\shopmvc\\shopmvc\\controllers\\sanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|solutionrelative:shopmvc\\controllers\\sanphamcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|e:\\web.net\\shopmvc\\shopmvc\\areas\\admin\\views\\voucher\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -219,10 +223,6 @@
       "RelativeMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|solutionrelative:shopmvc\\models\\donhang.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|e:\\web.net\\shopmvc\\shopmvc\\views\\donhang\\chitiet.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|solutionrelative:shopmvc\\views\\donhang\\chitiet.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|e:\\web.net\\shopmvc\\shopmvc\\areas\\admin\\views\\donhang\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{D75E8342-8AD5-45C5-936C-69EF35AF5594}|ShopMVC\\ShopMVC.csproj|solutionrelative:shopmvc\\areas\\admin\\views\\donhang\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -342,7 +342,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -350,33 +350,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "SanPhamController.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Controllers\\SanPhamController.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Controllers\\SanPhamController.cs",
               "ToolTip": "E:\\Web.net\\ShopMVC\\ShopMVC\\Controllers\\SanPhamController.cs",
               "RelativeToolTip": "ShopMVC\\Controllers\\SanPhamController.cs",
-              "ViewState": "AgIAALEAAAAAAAAAAAAmwMEAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAANwAAAAAAAAAAAAUwOUAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T07:15:41.876Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T07:15:41.876Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DonHangController.cs",
-              "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Controllers\\DonHangController.cs",
-              "RelativeDocumentMoniker": "ShopMVC\\Controllers\\DonHangController.cs",
-              "ToolTip": "E:\\Web.net\\ShopMVC\\ShopMVC\\Controllers\\DonHangController.cs",
-              "RelativeToolTip": "ShopMVC\\Controllers\\DonHangController.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAYwBQAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T07:48:48.175Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\Voucher\\Index.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\Voucher\\Index.cshtml",
@@ -384,25 +370,24 @@
               "RelativeToolTip": "ShopMVC\\Areas\\Admin\\Views\\Voucher\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-06T00:45:45.157Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-06T00:45:45.157Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "ChiTiet.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Views\\SanPham\\ChiTiet.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Views\\SanPham\\ChiTiet.cshtml",
               "ToolTip": "E:\\Web.net\\ShopMVC\\ShopMVC\\Views\\SanPham\\ChiTiet.cshtml",
               "RelativeToolTip": "ShopMVC\\Views\\SanPham\\ChiTiet.cshtml",
-              "ViewState": "AgIAAC4BAAAAAAAAAAAIwEMBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAF0BAAAAAAAAAAAIwHIBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-11-05T07:17:27.324Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Views\\GioHang\\Index.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Views\\GioHang\\Index.cshtml",
@@ -410,12 +395,11 @@
               "RelativeToolTip": "ShopMVC\\Views\\GioHang\\Index.cshtml",
               "ViewState": "AgIAAFYAAAAAAAAAAAAkwGIAAAA0AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-05T07:46:09.923Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T07:46:09.923Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "GioHangController.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Controllers\\GioHangController.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Controllers\\GioHangController.cs",
@@ -423,12 +407,35 @@
               "RelativeToolTip": "ShopMVC\\Controllers\\GioHangController.cs",
               "ViewState": "AgIAACIAAAAAAAAAAAAtwCwAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T07:45:38.06Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T07:45:38.06Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "ChiTiet.cshtml",
+              "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Views\\DonHang\\ChiTiet.cshtml",
+              "RelativeDocumentMoniker": "ShopMVC\\Views\\DonHang\\ChiTiet.cshtml",
+              "ToolTip": "E:\\Web.net\\ShopMVC\\ShopMVC\\Views\\DonHang\\ChiTiet.cshtml",
+              "RelativeToolTip": "ShopMVC\\Views\\DonHang\\ChiTiet.cshtml",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAADAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-05T07:50:38.934Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DonHangController.cs",
+              "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Controllers\\DonHangController.cs",
+              "RelativeDocumentMoniker": "ShopMVC\\Controllers\\DonHangController.cs",
+              "ToolTip": "E:\\Web.net\\ShopMVC\\ShopMVC\\Controllers\\DonHangController.cs",
+              "RelativeToolTip": "ShopMVC\\Controllers\\DonHangController.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAYwBQAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T07:48:48.175Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "DatHangController.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Controllers\\DatHangController.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Controllers\\DatHangController.cs",
@@ -436,12 +443,11 @@
               "RelativeToolTip": "ShopMVC\\Controllers\\DatHangController.cs",
               "ViewState": "AgIAAEwAAAAAAAAAAAAIwGEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T07:47:37.106Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T07:47:37.106Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "ProductDetailsVM.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Models\\ViewModels\\ProductDetailsVM.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Models\\ViewModels\\ProductDetailsVM.cs",
@@ -449,12 +455,11 @@
               "RelativeToolTip": "ShopMVC\\Models\\ViewModels\\ProductDetailsVM.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-06T16:55:05.719Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-06T16:55:05.719Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Views\\Shared\\_Layout.cshtml",
@@ -462,12 +467,11 @@
               "RelativeToolTip": "ShopMVC\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABIAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-05T07:18:09.186Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T07:18:09.186Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "SanPhamController.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Controllers\\SanPhamController.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Controllers\\SanPhamController.cs",
@@ -475,12 +479,11 @@
               "RelativeToolTip": "ShopMVC\\Areas\\Admin\\Controllers\\SanPhamController.cs",
               "ViewState": "AgIAAI8AAAAAAAAAAADgv54AAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T09:24:56.996Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-05T09:24:56.996Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "HomeController.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Controllers\\HomeController.cs",
@@ -492,7 +495,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Views\\Home\\Index.cshtml",
@@ -504,20 +507,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ShopMVC",
+              "DocumentIndex": 10,
+              "Title": "ShopMVC.csproj",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\ShopMVC.csproj",
               "RelativeDocumentMoniker": "ShopMVC\\ShopMVC.csproj",
               "ToolTip": "E:\\Web.net\\ShopMVC\\ShopMVC\\ShopMVC.csproj",
               "RelativeToolTip": "ShopMVC\\ShopMVC.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-11-09T13:30:39.117Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-09T13:30:39.117Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\DanhMuc\\Index.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\DanhMuc\\Index.cshtml",
@@ -529,7 +531,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\DanhMuc\\Edit.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\DanhMuc\\Edit.cshtml",
@@ -541,7 +543,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "Create.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\DanhMuc\\Create.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\DanhMuc\\Create.cshtml",
@@ -553,7 +555,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "DanhMucController.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Controllers\\DanhMucController.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Controllers\\DanhMucController.cs",
@@ -577,7 +579,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "_LayoutAdmin.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\Shared\\_LayoutAdmin.cshtml",
@@ -589,7 +591,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "HomeController.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Controllers\\HomeController.cs",
@@ -601,7 +603,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "DanhMuc.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Models\\DanhMuc.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Models\\DanhMuc.cs",
@@ -613,7 +615,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\ThuongHieu\\Edit.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\ThuongHieu\\Edit.cshtml",
@@ -625,7 +627,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\ThuongHieu\\Index.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\ThuongHieu\\Index.cshtml",
@@ -637,7 +639,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\SanPham\\Index.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\SanPham\\Index.cshtml",
@@ -649,7 +651,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "_ProductGallery.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Views\\Shared\\_ProductGallery.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Views\\Shared\\_ProductGallery.cshtml",
@@ -661,7 +663,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "Create.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\ThuongHieu\\Create.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\ThuongHieu\\Create.cshtml",
@@ -673,7 +675,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "site.css",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "ShopMVC\\wwwroot\\css\\site.css",
@@ -685,7 +687,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "ThuongHieuController.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Controllers\\ThuongHieuController.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Controllers\\ThuongHieuController.cs",
@@ -697,7 +699,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\SanPham\\Edit.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\SanPham\\Edit.cshtml",
@@ -709,7 +711,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "_ToastsSimple.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Views\\Shared\\_ToastsSimple.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Views\\Shared\\_ToastsSimple.cshtml",
@@ -721,7 +723,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "SessionExtensions.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Helpers\\SessionExtensions.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Helpers\\SessionExtensions.cs",
@@ -733,7 +735,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "Images.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\SanPham\\Images.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\SanPham\\Images.cshtml",
@@ -745,7 +747,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "Create.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\SanPham\\Create.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\SanPham\\Create.cshtml",
@@ -769,7 +771,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "SanPham.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Models\\SanPham.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Models\\SanPham.cs",
@@ -781,7 +783,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "DbSeeder.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Data\\DbSeeder.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Data\\DbSeeder.cs",
@@ -793,7 +795,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Data\\AppDbContext.cs",
@@ -817,7 +819,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Views\\SanPham\\Index.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Views\\SanPham\\Index.cshtml",
@@ -829,7 +831,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "Program.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Program.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Program.cs",
@@ -841,7 +843,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "SanPhamListVM.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Models\\ViewModels\\SanPhamListVM.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Models\\ViewModels\\SanPhamListVM.cs",
@@ -853,7 +855,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "20251106145311_RemoveInitialImageSeed.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Migrations\\20251106145311_RemoveInitialImageSeed.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Migrations\\20251106145311_RemoveInitialImageSeed.cs",
@@ -865,7 +867,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\Voucher\\Edit.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\Voucher\\Edit.cshtml",
@@ -877,7 +879,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 44,
               "Title": "OrderService.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Services\\OrderService.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Services\\OrderService.cs",
@@ -889,7 +891,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 45,
               "Title": "OrderPolicy.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Services\\OrderPolicy.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Services\\OrderPolicy.cs",
@@ -901,7 +903,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "Usage.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\Voucher\\Usage.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\Voucher\\Usage.cshtml",
@@ -913,7 +915,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "VoucherController.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Controllers\\VoucherController.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Controllers\\VoucherController.cs",
@@ -925,7 +927,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "VoucherUsageVM.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Models\\ViewModels\\VoucherUsageVM.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Models\\ViewModels\\VoucherUsageVM.cs",
@@ -937,7 +939,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 46,
               "Title": "DonHangController.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Controllers\\DonHangController.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Controllers\\DonHangController.cs",
@@ -949,7 +951,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 47,
               "Title": "Index.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\Home\\Index.cshtml",
@@ -961,7 +963,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 48,
               "Title": "Checkout.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Views\\DatHang\\Checkout.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Views\\DatHang\\Checkout.cshtml",
@@ -973,7 +975,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 50,
               "Title": "Create.cshtml",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Areas\\Admin\\Views\\Voucher\\Create.cshtml",
               "RelativeDocumentMoniker": "ShopMVC\\Areas\\Admin\\Views\\Voucher\\Create.cshtml",
@@ -985,7 +987,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 49,
               "Title": "Voucher.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Models\\Voucher.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Models\\Voucher.cs",
@@ -997,7 +999,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 51,
               "Title": "VoucherEditVM.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Models\\ViewModels\\VoucherEditVM.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Models\\ViewModels\\VoucherEditVM.cs",
@@ -1009,7 +1011,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 52,
               "Title": "VoucherDanhMuc.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Models\\VoucherDanhMuc.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Models\\VoucherDanhMuc.cs",
@@ -1021,7 +1023,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 53,
               "Title": "VoucherThuongHieu.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Models\\VoucherThuongHieu.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Models\\VoucherThuongHieu.cs",
@@ -1033,7 +1035,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 54,
               "Title": "DonHang.cs",
               "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Models\\DonHang.cs",
               "RelativeDocumentMoniker": "ShopMVC\\Models\\DonHang.cs",
@@ -1042,18 +1044,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-05T06:44:20.206Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 54,
-              "Title": "ChiTiet.cshtml",
-              "DocumentMoniker": "E:\\Web.net\\ShopMVC\\ShopMVC\\Views\\DonHang\\ChiTiet.cshtml",
-              "RelativeDocumentMoniker": "ShopMVC\\Views\\DonHang\\ChiTiet.cshtml",
-              "ToolTip": "E:\\Web.net\\ShopMVC\\ShopMVC\\Views\\DonHang\\ChiTiet.cshtml",
-              "RelativeToolTip": "ShopMVC\\Views\\DonHang\\ChiTiet.cshtml",
-              "ViewState": "AgIAABQAAAAAAAAAAAAAADAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-05T07:50:38.934Z"
             },
             {
               "$type": "Document",

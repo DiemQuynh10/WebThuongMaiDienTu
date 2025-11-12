@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WCON7PpjBoEI1DIFAesoiESTLpgeRtA8hCk32mLPqow=",
+  "Hash": "1H67pV/x3rE0+bcvD6qZdZF0immuiTV5GSJiEZR/5yI=",
   "Source": "ShopMVC",
   "BasePath": "_content/ShopMVC",
   "Mode": "Default",
@@ -4068,6 +4068,132 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\dien-thoai.webp",
+      "SourceId": "ShopMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\",
+      "BasePath": "_content/ShopMVC",
+      "RelativePath": "images/categories/dien-thoai#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "8d1unfhins",
+      "Integrity": "lPrVvxXaf7Pgjq5CnZvhGPxiqh6wSDzpWohw8Yaj36Q=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\categories\\dien-thoai.webp"
+    },
+    {
+      "Identity": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\giay-dep.webp",
+      "SourceId": "ShopMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\",
+      "BasePath": "_content/ShopMVC",
+      "RelativePath": "images/categories/giay-dep#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "sabh4hlapa",
+      "Integrity": "jHTMX9QRzumRkn7Xd8Q/1R8OUrk+C9LzgYbT1Rr3X1Q=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\categories\\giay-dep.webp"
+    },
+    {
+      "Identity": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\laptop.webp",
+      "SourceId": "ShopMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\",
+      "BasePath": "_content/ShopMVC",
+      "RelativePath": "images/categories/laptop#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "fmw4j7kstm",
+      "Integrity": "2dL5wj9aPX+tN+9f4nfN63dmnRW+N7pzsE6ewa1KrIg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\categories\\laptop.webp"
+    },
+    {
+      "Identity": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\my-pham.webp",
+      "SourceId": "ShopMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\",
+      "BasePath": "_content/ShopMVC",
+      "RelativePath": "images/categories/my-pham#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "51mpt67qi1",
+      "Integrity": "yUCbdttWZQ58ckgNnK11x9CB+6QSODHXw1Zh52IQFgc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\categories\\my-pham.webp"
+    },
+    {
+      "Identity": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\phu-kien.webp",
+      "SourceId": "ShopMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\",
+      "BasePath": "_content/ShopMVC",
+      "RelativePath": "images/categories/phu-kien#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "r0otbrkcqi",
+      "Integrity": "25X4R7SroBtfP9Xn2ZzkFtoAS1JaktyD5QgY97Hz4Jo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\categories\\phu-kien.webp"
+    },
+    {
+      "Identity": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\thoi-trang.webp",
+      "SourceId": "ShopMVC",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\",
+      "BasePath": "_content/ShopMVC",
+      "RelativePath": "images/categories/thoi-trang#[.{fingerprint}]?.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "h41yid0m3h",
+      "Integrity": "z58vyX0BUTenYyvi93zxxOeuoNhL1eVv756vknZBWXM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\categories\\thoi-trang.webp"
     },
     {
       "Identity": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\sp\\ao-khoac-windbreaker-xanh-m-1.jpg",
@@ -16009,6 +16135,498 @@
         {
           "Name": "integrity",
           "Value": "sha256-1HkjQSVuV0/ji/X/lGeDTHeagBS0BwopMrHDQuwqgtU="
+        }
+      ]
+    },
+    {
+      "Route": "images/categories/dien-thoai.8d1unfhins.webp",
+      "AssetFile": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\dien-thoai.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5900"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"lPrVvxXaf7Pgjq5CnZvhGPxiqh6wSDzpWohw8Yaj36Q=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Nov 2025 14:44:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8d1unfhins"
+        },
+        {
+          "Name": "label",
+          "Value": "images/categories/dien-thoai.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-lPrVvxXaf7Pgjq5CnZvhGPxiqh6wSDzpWohw8Yaj36Q="
+        }
+      ]
+    },
+    {
+      "Route": "images/categories/dien-thoai.webp",
+      "AssetFile": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\dien-thoai.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5900"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"lPrVvxXaf7Pgjq5CnZvhGPxiqh6wSDzpWohw8Yaj36Q=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Nov 2025 14:44:39 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-lPrVvxXaf7Pgjq5CnZvhGPxiqh6wSDzpWohw8Yaj36Q="
+        }
+      ]
+    },
+    {
+      "Route": "images/categories/giay-dep.sabh4hlapa.webp",
+      "AssetFile": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\giay-dep.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7388"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"jHTMX9QRzumRkn7Xd8Q/1R8OUrk+C9LzgYbT1Rr3X1Q=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Nov 2025 14:45:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "sabh4hlapa"
+        },
+        {
+          "Name": "label",
+          "Value": "images/categories/giay-dep.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-jHTMX9QRzumRkn7Xd8Q/1R8OUrk+C9LzgYbT1Rr3X1Q="
+        }
+      ]
+    },
+    {
+      "Route": "images/categories/giay-dep.webp",
+      "AssetFile": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\giay-dep.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7388"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"jHTMX9QRzumRkn7Xd8Q/1R8OUrk+C9LzgYbT1Rr3X1Q=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Nov 2025 14:45:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-jHTMX9QRzumRkn7Xd8Q/1R8OUrk+C9LzgYbT1Rr3X1Q="
+        }
+      ]
+    },
+    {
+      "Route": "images/categories/laptop.fmw4j7kstm.webp",
+      "AssetFile": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\laptop.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "8124"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2dL5wj9aPX+tN+9f4nfN63dmnRW+N7pzsE6ewa1KrIg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Nov 2025 14:45:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "fmw4j7kstm"
+        },
+        {
+          "Name": "label",
+          "Value": "images/categories/laptop.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-2dL5wj9aPX+tN+9f4nfN63dmnRW+N7pzsE6ewa1KrIg="
+        }
+      ]
+    },
+    {
+      "Route": "images/categories/laptop.webp",
+      "AssetFile": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\laptop.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "8124"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2dL5wj9aPX+tN+9f4nfN63dmnRW+N7pzsE6ewa1KrIg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Nov 2025 14:45:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-2dL5wj9aPX+tN+9f4nfN63dmnRW+N7pzsE6ewa1KrIg="
+        }
+      ]
+    },
+    {
+      "Route": "images/categories/my-pham.51mpt67qi1.webp",
+      "AssetFile": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\my-pham.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7046"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"yUCbdttWZQ58ckgNnK11x9CB+6QSODHXw1Zh52IQFgc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Nov 2025 14:45:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "51mpt67qi1"
+        },
+        {
+          "Name": "label",
+          "Value": "images/categories/my-pham.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-yUCbdttWZQ58ckgNnK11x9CB+6QSODHXw1Zh52IQFgc="
+        }
+      ]
+    },
+    {
+      "Route": "images/categories/my-pham.webp",
+      "AssetFile": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\my-pham.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7046"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"yUCbdttWZQ58ckgNnK11x9CB+6QSODHXw1Zh52IQFgc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Nov 2025 14:45:53 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-yUCbdttWZQ58ckgNnK11x9CB+6QSODHXw1Zh52IQFgc="
+        }
+      ]
+    },
+    {
+      "Route": "images/categories/phu-kien.r0otbrkcqi.webp",
+      "AssetFile": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\phu-kien.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "9470"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"25X4R7SroBtfP9Xn2ZzkFtoAS1JaktyD5QgY97Hz4Jo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Nov 2025 14:45:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "r0otbrkcqi"
+        },
+        {
+          "Name": "label",
+          "Value": "images/categories/phu-kien.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-25X4R7SroBtfP9Xn2ZzkFtoAS1JaktyD5QgY97Hz4Jo="
+        }
+      ]
+    },
+    {
+      "Route": "images/categories/phu-kien.webp",
+      "AssetFile": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\phu-kien.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "9470"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"25X4R7SroBtfP9Xn2ZzkFtoAS1JaktyD5QgY97Hz4Jo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Nov 2025 14:45:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-25X4R7SroBtfP9Xn2ZzkFtoAS1JaktyD5QgY97Hz4Jo="
+        }
+      ]
+    },
+    {
+      "Route": "images/categories/thoi-trang.h41yid0m3h.webp",
+      "AssetFile": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\thoi-trang.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4600"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"z58vyX0BUTenYyvi93zxxOeuoNhL1eVv756vknZBWXM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Nov 2025 14:45:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "h41yid0m3h"
+        },
+        {
+          "Name": "label",
+          "Value": "images/categories/thoi-trang.webp"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-z58vyX0BUTenYyvi93zxxOeuoNhL1eVv756vknZBWXM="
+        }
+      ]
+    },
+    {
+      "Route": "images/categories/thoi-trang.webp",
+      "AssetFile": "E:\\Web.net\\ShopMVC\\ShopMVC\\wwwroot\\images\\categories\\thoi-trang.webp",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4600"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/webp"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"z58vyX0BUTenYyvi93zxxOeuoNhL1eVv756vknZBWXM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 09 Nov 2025 14:45:29 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-z58vyX0BUTenYyvi93zxxOeuoNhL1eVv756vknZBWXM="
         }
       ]
     },

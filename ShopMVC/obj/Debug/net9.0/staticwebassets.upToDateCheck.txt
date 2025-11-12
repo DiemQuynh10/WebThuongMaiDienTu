@@ -62,6 +62,12 @@ E:\Web.net\ShopMVC\ShopMVC\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css
 E:\Web.net\ShopMVC\ShopMVC\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\images\categories\dien-thoai.webp
+wwwroot\images\categories\giay-dep.webp
+wwwroot\images\categories\laptop.webp
+wwwroot\images\categories\my-pham.webp
+wwwroot\images\categories\phu-kien.webp
+wwwroot\images\categories\thoi-trang.webp
 wwwroot\images\sp\ao-khoac-windbreaker-xanh-m-1.jpg
 wwwroot\images\sp\ao-khoac-windbreaker-xanh-m-2.jpg
 wwwroot\images\sp\ao-polo-pique-trang-m-1.jpg

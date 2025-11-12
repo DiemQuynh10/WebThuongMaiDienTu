@@ -301,3 +301,4 @@ E:\Web.net\ShopMVC\ShopMVC\obj\Debug\net9.0\ShopMVC.pdb
 E:\Web.net\ShopMVC\ShopMVC\obj\Debug\net9.0\ShopMVC.genruntimeconfig.cache
 E:\Web.net\ShopMVC\ShopMVC\obj\Debug\net9.0\ref\ShopMVC.dll
 E:\Web.net\ShopMVC\ShopMVC\obj\Debug\net9.0\compressed\77yhsbj2de-szftdw2jt1.gz
+E:\Web.net\ShopMVC\ShopMVC\obj\Debug\net9.0\ShopMVC.sourcelink.json

@@ -9,12 +9,12 @@
         ? (int)Math.Round((p.Gia - p.GiaKhuyenMai.Value) * 100m / p.Gia)
         : (int?)null;
 
-    // có biến thể khi tồn tại ít nhất 1 anh em khác mình
-    bool hasVariants = Model.Siblings != null && Model.Siblings.Any(s => s.Id != Model.Product.Id);
+    // có biến thể khi tồn tại ít nhất 1 anh em khác mình (mặc định Siblings đã gồm cả cha + con)
+    bool hasVariants = Model.Siblings != null && Model.Siblings.Any(s => s.Id != p.Id);
 
     // nếu các biến thể có trường Mau => coi như đang chọn màu
     bool hasColor = hasVariants && (
-        !string.IsNullOrWhiteSpace(Model.Product.Mau) ||
+        !string.IsNullOrWhiteSpace(p.Mau) ||
         Model.Siblings.Any(s => !string.IsNullOrWhiteSpace(s.Mau))
     );
     string variantTitle = hasColor ? "Chọn màu" : "Chọn biến thể";
@@ -55,21 +55,19 @@
                     <div class="vr"></div>
                     <div>Tồn kho: <strong id="stockVal">@p.TonKho</strong></div>
                     <div class="vr d-none d-md-block"></div>
-                    <div class="d-none d-md-inline">Mã SP: <span class="text-muted">@p.Id</span></div>
+                    <div class="d-none d-md-inline">Mã SP: <span class="text-muted" id="skuVal">@p.Id</span></div>
                 </div>
 
                 <!-- Price section -->
                 <div class="price-box rounded-3 px-3 py-3 mb-3">
                     <div class="d-flex align-items-baseline gap-3">
-                        <div class="h2 mb-0 text-danger fw-bold">@price.ToString("n0") đ</div>
-                        @if (p.GiaKhuyenMai.HasValue)
-                        {
-                            <del class="text-muted">@p.Gia.ToString("n0") đ</del>
-                            @if (percentOff.HasValue)
-                            {
-                                <span class="badge bg-danger text-white">-@percentOff%</span>
-                            }
-                        }
+                        <div class="h2 mb-0 text-danger fw-bold" id="priceNow">@price.ToString("n0") đ</div>
+                        <del class="text-muted @(p.GiaKhuyenMai.HasValue ? "" : "d-none")" id="priceOld">
+                            @p.Gia.ToString("n0") đ
+                        </del>
+                        <span class="badge bg-danger text-white @(percentOff.HasValue ? "" : "d-none")" id="priceOff">
+                            -@percentOff%
+                        </span>
                     </div>
                     <div class="small text-secondary mt-1">
                         Vận chuyển: Nhận từ <strong>@Model.ShippingEtaText</strong>, phí giao <strong>0đ</strong>
@@ -82,15 +80,18 @@
                     <div class="mb-3">
                         <div class="label">@variantTitle</div>
                         <div class="d-flex flex-wrap gap-2">
-                            @foreach (var s in Model.Siblings.Where(x => x.Id != Model.Product.Id))
+                            @foreach (var s in Model.Siblings)  @* HIỂN THỊ CẢ CHA + TẤT CẢ ANH EM *@
                             {
+                                var isActive = s.Id == p.Id;
                                 var label = !string.IsNullOrWhiteSpace(s.Mau) ? s.Mau!.Trim() : (s.Ten ?? "").Trim();
                                 if (!string.IsNullOrEmpty(Model.ThuocTinh2Label) && !string.IsNullOrEmpty(s.ThuocTinh2))
                                     label += $" - {s.ThuocTinh2}";
 
                                 <button type="button"
-                                        class="btn btn-variant"
-                                        data-url="@Url.Action("BienThe", "SanPham", new { id = s.Id })">
+                                        class="btn btn-variant @(isActive ? "active" : "")"
+                                        title="@s.Ten"
+                                        data-url="@Url.Action("BienThe", "SanPham", new { id = s.Id })"
+                                        data-href="@Url.Action("ChiTiet", "SanPham", new { id = s.Id })">
                                     @label
                                 </button>
                             }
@@ -100,6 +101,7 @@
 
                 <!-- FORM: Add to cart / Buy now -->
                 <form method="post"
+                      id="cartForm"
                       asp-controller="GioHang"
                       asp-action="Them"
                       asp-route-id="@p.Id"
@@ -112,16 +114,14 @@
                             <input id="qty" name="soLuong" type="text" value="1" inputmode="numeric" pattern="\d*">
                             <button type="button" class="btn-qty" data-delta="1">+</button>
                         </div>
-                        <div class="text-muted small mt-1">Tồn kho: @p.TonKho</div>
+                        <div class="text-muted small mt-1">Tồn kho: <span id="stockVal2">@p.TonKho</span></div>
                     </div>
 
                     <!-- CTA -->
                     <div class="d-flex flex-wrap gap-2">
-                        <!-- Nút mặc định: sẽ POST đến /GioHang/Them/{id} và controller redirect sang giỏ -->
                         <button type="submit" class="btn btn-lg btn-pink flex-grow-1">
                             <i class="bi bi-cart2 me-1"></i> Thêm vào giỏ
                         </button>
-                        <!-- "Mua ngay": cũng POST đến cùng action; vì controller của m luôn redirect sang giỏ nên coi như Buy Now -->
                         <button type="submit" class="btn btn-lg btn-danger text-white">
                             Mua ngay
                         </button>
@@ -138,11 +138,11 @@
         </div>
     </div>
 
-    <!-- Sticky bottom bar on mobile (đơn giản: chỉ hiển thị giá) -->
+    <!-- Sticky bottom bar on mobile -->
     <div class="d-lg-none sticky-cta shadow-lg">
         <div class="container d-flex align-items-center justify-content-between py-2">
-            <div class="h5 mb-0 text-danger fw-bold">@price.ToString("n0") đ</div>
-            <div class="small text-muted">Tồn kho: @p.TonKho</div>
+            <div class="h5 mb-0 text-danger fw-bold" id="stickyPrice">@price.ToString("n0") đ</div>
+            <div class="small text-muted">Tồn kho: <span id="stickyStock">@p.TonKho</span></div>
         </div>
     </div>
 </div>
@@ -217,7 +217,6 @@
             object-fit: contain
         }
 
-        /* qty */
         .qty-wrap {
             display: inline-flex;
             align-items: center;
@@ -263,13 +262,17 @@
           });
 
           // quantity with clamp 1..stock
-          const stock = parseInt(document.getElementById('stockVal')?.textContent ?? '0', 10) || 0;
+          const stockEl = document.getElementById('stockVal');
+          const stockEl2 = document.getElementById('stockVal2');
+          const stickyStock = document.getElementById('stickyStock');
           const qtyInput = document.getElementById('qty');
 
+          function getStock(){ return parseInt(stockEl?.textContent ?? '0', 10) || 0; }
           function normalizeQty(){
             let v = parseInt((qtyInput.value || '').replace(/\D/g,'')) || 1;
+            const max = getStock();
             if (v < 1) v = 1;
-            if (stock && v > stock) v = stock;
+            if (max && v > max) v = max;
             qtyInput.value = v;
             return v;
           }
@@ -278,15 +281,22 @@
             btn.addEventListener('click', ()=>{
               const delta = parseInt(btn.dataset.delta,10);
               let v = normalizeQty() + delta;
+              const max = getStock();
               if (v < 1) v = 1;
-              if (stock && v > stock) v = stock;
+              if (max && v > max) v = max;
               qtyInput.value = v;
             });
           });
 
-          // switch variant via AJAX (endpoint BienThe đã có)
+          // switch variant via AJAX
           document.querySelectorAll('.btn-variant[data-url]').forEach(btn=>{
-            btn.addEventListener('click', async ()=>{
+            btn.addEventListener('click', async (e)=>{
+              // giữ Ctrl/⌘ để mở trang ChiTiet (đổi URL)
+              if (e.ctrlKey || e.metaKey) {
+                window.open(btn.dataset.href, '_blank');
+                return;
+              }
+
               document.querySelectorAll('.btn-variant').forEach(x=>x.classList.remove('active'));
               btn.classList.add('active');
 
@@ -294,27 +304,64 @@
               if(!res.ok) return;
               const data = await res.json();
 
-              // update price + name + stock
-              document.querySelector('.product-detail .h4').textContent = data.ten;
-              document.querySelector('.price-box .h2').textContent = data.giaText;
-              const del = document.querySelector('.price-box del');
-              if (data.giaGocText){ del.textContent = data.giaGocText; del.classList.remove('d-none'); }
-              else { del?.classList.add('d-none'); }
-              document.getElementById('stockVal').textContent = data.tonKho;
+              // 1) update name
+              document.querySelector('.product-detail .h4').textContent = data.ten || '';
 
-              // update images
-              const urls = data.images?.length ? data.images : ['/images/no-image.png'];
+              // 2) update price / old / off
+              const priceNow = document.getElementById('priceNow');
+              const priceOld = document.getElementById('priceOld');
+              const priceOff = document.getElementById('priceOff');
+              priceNow.textContent = data.giaText || '';
+              if (data.giaGocText) {
+                priceOld.textContent = data.giaGocText;
+                priceOld.classList.remove('d-none');
+              } else {
+                priceOld.classList.add('d-none');
+              }
+              if (typeof data.percentOff === 'number' && data.percentOff > 0) {
+                priceOff.textContent = `-${data.percentOff}%`;
+                priceOff.classList.remove('d-none');
+              } else {
+                priceOff.classList.add('d-none');
+              }
+
+              // 3) update stock
+              stockEl.textContent = data.tonKho ?? 0;
+              stockEl2.textContent = data.tonKho ?? 0;
+              stickyStock.textContent = data.tonKho ?? 0;
+              normalizeQty();
+
+              // 4) update images
+              const urls = (data.images && data.images.length) ? data.images : ['/images/no-image.png'];
               const main = document.getElementById('mainImage'); main.src = urls[0];
               const wrap = document.querySelector('.thumbs'); wrap.innerHTML = '';
-              urls.forEach(u=>{
+              urls.forEach((u, i)=>{
                 const b = document.createElement('button');
-                b.type='button'; b.className='thumb btn p-1 border rounded-3 active';
+                b.type='button'; b.className='thumb btn p-1 border rounded-3 ' + (i===0?'active':'');
                 b.innerHTML = `<img src="${u}" class="thumb-img rounded-2">`;
-                b.onclick = ()=>{ main.src = u; document.querySelectorAll('.thumb').forEach(x=>x.classList.remove('active')); b.classList.add('active'); };
+                b.onclick = ()=>{
+                  document.querySelectorAll('.thumbs .thumb').forEach(x=>x.classList.remove('active'));
+                  b.classList.add('active');
+                  main.src = u;
+                };
                 wrap.appendChild(b);
               });
 
-              // reset quantity to 1 when switching variant (optional)
+              // 5) update SKU
+              const sku = document.getElementById('skuVal');
+              if (sku) sku.textContent = data.id;
+
+              // 6) update sticky price
+              const stickyPrice = document.getElementById('stickyPrice');
+              if (stickyPrice) stickyPrice.textContent = data.giaText || '';
+
+              // 7) update add-to-cart action sang biến thể mới
+              const cartForm = document.getElementById('cartForm');
+              if (cartForm) {
+                cartForm.action = `/GioHang/Them/${data.id}`;
+              }
+
+              // 8) reset qty
               qtyInput.value = 1;
             });
           });
