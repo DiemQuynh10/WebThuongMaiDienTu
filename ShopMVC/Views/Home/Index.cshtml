@@ -1,0 +1,593 @@
+﻿@using ShopMVC.Models
+@{
+    ViewData["Title"] = "Trang chủ";
+    var noiBat = ViewBag.NoiBat as IEnumerable<SanPham> ?? Enumerable.Empty<SanPham>();
+    var danhMucs = ViewBag.DanhMucs as IEnumerable<DanhMuc> ?? Enumerable.Empty<DanhMuc>();
+}
+
+@{
+    // 1. Lấy danh sách Banner từ Controller gửi sang
+    var banners = ViewBag.BannerSlider as List<ShopMVC.Models.Banner>;
+}
+
+<div class="container my-3">
+    <div class="row g-3">
+
+        <div class="col-lg-8 col-12">
+            <div id="mainBannerCarousel" class="carousel slide h-100 rounded overflow-hidden shadow-sm position-relative" data-bs-ride="carousel">
+
+                <div class="carousel-indicators">
+                    @if (banners != null && banners.Count > 0)
+                    {
+                        for (int i = 0; i < banners.Count; i++)
+                        {
+                            <button type="button" data-bs-target="#mainBannerCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")"></button>
+                        }
+                    }
+                </div>
+
+                <div class="carousel-inner h-100">
+                    @if (banners != null && banners.Count > 0)
+                    {
+                        for (int i = 0; i < banners.Count; i++)
+                        {
+                            <div class="carousel-item @(i == 0 ? "active" : "") h-100">
+                                <img src="@banners[i].HinhAnh"
+                                     onerror="this.src='https://via.placeholder.com/800x400?text=Anh+Loi'"
+                                     class="d-block w-100 h-100"
+                                     style="object-fit: cover;"
+                                     alt="@banners[i].TenBanner">
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="carousel-item active h-100">
+                            <img src="https://cf.shopee.vn/file/vn-50009109-c5edc053427181156687060596395563_xxhdpi" class="d-block w-100 h-100" style="object-fit: cover;" alt="Banner Default">
+                        </div>
+                    }
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#mainBannerCarousel" data-bs-slide="prev" style="width: 5%;">
+                    <span class="d-flex align-items-center justify-content-center bg-dark bg-opacity-25 rounded-circle" style="width: 40px; height: 40px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 0-.708z" /></svg>
+                    </span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#mainBannerCarousel" data-bs-slide="next" style="width: 5%;">
+                    <span class="d-flex align-items-center justify-content-center bg-dark bg-opacity-25 rounded-circle" style="width: 40px; height: 40px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z" /></svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-12">
+            <div class="h-100 d-flex flex-column justify-content-center align-items-center gap-3 p-4 rounded shadow-sm border"
+                 style="background: linear-gradient(135deg,#fff0f6,#fff);">
+
+                <h4 class="fw-bold text-danger mb-2">🔥 KHUYẾN MÃI 🔥</h4>
+
+                <a asp-controller="Voucher" asp-action="Index"
+                   class="btn btn-lg btn-pink shadow-sm px-4 py-2 rounded-pill w-100 fw-bold">
+                    Xem tất cả ưu đãi
+                </a>
+
+                <a asp-controller="FlashSale" asp-action="Index"
+                   class="btn btn-lg btn-danger shadow-sm px-4 py-2 rounded-pill fw-bold text-uppercase w-100">
+                    <i class="bi bi-lightning-fill me-1"></i> Săn Deal Giờ Vàng
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+    <!-- ==== KẾT THÚC CẬP NHẬT ==== -->
+
+
+    <div class="bg-white border rounded-4 p-3 mb-5 position-relative cat-wrap">
+        <h5 class="mb-3 fw-bold">Danh mục</h5>
+
+        <button id="cat-left" class="scroll-btn left" type="button" title="Trước">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <button id="cat-right" class="scroll-btn right" type="button" title="Sau">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+
+        <div id="cat-scroll" class="cat-scroll">
+            @foreach (var dm in danhMucs)
+            {
+                var slug = string.IsNullOrWhiteSpace(dm.Slug) ? "placeholder" : dm.Slug;
+                var icon = !string.IsNullOrWhiteSpace(dm.IconUrl) ? dm.IconUrl : $"/images/categories/{slug}.png";
+
+                <div class="cat-card">
+                    <a asp-controller="SanPham" asp-action="Index" asp-route-idDanhMuc="@dm.Id"
+                       class="d-flex flex-column align-items-center gap-2 text-decoration-none text-dark">
+                        <div class="cat-circle">
+                            <img src="@icon" alt="@(dm.Ten ?? "Danh mục")" loading="lazy" />
+                        </div>
+                        <div class="small text-center line-clamp-2">@(dm.Ten ?? "")</div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0 fw-bold text-pink">Sản phẩm nổi bật</h4>
+        <a asp-controller="SanPham" asp-action="Index" class="btn btn-sm btn-outline-pink rounded-pill">Xem tất cả</a>
+    </div>
+
+    <div class="row row-cols-2 row-cols-md-4 g-4">
+        @foreach (var p in noiBat)
+        {
+            var anh = p.Anhs?.OrderBy(a => a.LaAnhChinh ? 0 : 1)
+            .ThenBy(a => a.ThuTu)
+            .FirstOrDefault()?.Url ?? "/images/no-image.png";
+
+        var coGiam = p.GiaKhuyenMai.HasValue && p.GiaKhuyenMai.Value < p.Gia;
+        var giaShow = coGiam ? p.GiaKhuyenMai.Value : p.Gia;
+
+        // Tính % giảm, chỉ lấy phần nguyên và chỉ dùng nếu >= 1%
+        decimal? rawPercent = coGiam
+        ? (p.Gia - p.GiaKhuyenMai.Value) * 100m / p.Gia
+        : (decimal?)null;
+
+        int? percent = null;
+        if (rawPercent.HasValue && rawPercent.Value >= 1m)
+        {
+            percent = (int)Math.Floor(rawPercent.Value); // hoặc Math.Round cũng được
+        }
+
+        <div class="col d-flex">
+            <div class="card h-100 border-0 rounded-4 shadow-sm hover-lift product-card w-100">
+                <!-- Phần này click sẽ vào ChiTiet -->
+                <a asp-controller="SanPham"
+                   asp-action="ChiTiet"
+                   asp-route-id="@p.Id"
+                   class="text-decoration-none text-dark d-block">
+                    <div class="ratio ratio-4x3 bg-light rounded-top-4">
+                        <img src="@anh" alt="@p.Ten" class="img-fluid object-fit-contain p-3" loading="lazy" />
+                    </div>
+
+                    <div class="card-body d-flex flex-column">
+                        <div class="small text-muted">@p.ThuongHieu?.Ten</div>
+                        <h6 class="fw-semibold text-truncate-2 mb-2">@p.Ten</h6>
+                        <div class="mt-auto">
+                            @if (coGiam)
+                            {
+                                <div class="text-danger fw-bold">@giaShow.ToString("n0") đ</div>
+                                <div class="text-muted text-decoration-line-through small">@p.Gia.ToString("n0") đ</div>
+
+                                @* Chỉ hiện badge nếu percent có giá trị và >= 1 *@
+                                @if (percent.HasValue)
+                                {
+                                    <span class="badge bg-rose-100 text-rose-600">@percent% OFF</span>
+                                }
+                            }
+                            else
+                            {
+                                <div class="fw-bold">@giaShow.ToString("n0") đ</div>
+                            }
+
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Footer: chỉ thêm giỏ, KHÔNG đi tới ChiTiet -->
+                <div class="card-footer bg-white border-0 pb-3 pt-0 d-flex gap-2 justify-content-center">
+                    <button type="button"
+                            class="btn btn-sm btn-pink rounded-pill btn-add-to-cart"
+                            data-bs-toggle="modal"
+                            data-bs-target="#addToCartModal"
+                            data-id="@p.Id"
+                            data-ten="@p.Ten"
+                            data-tonkho="@p.TonKho"
+                            data-gia="@(p.GiaKhuyenMai ?? p.Gia)"
+                            data-anh="@(p.Anhs?.OrderBy(a => a.LaAnhChinh ? 0 : 1).FirstOrDefault()?.Url ?? "/images/no-image.png")">
+                        Thêm giỏ
+                    </button>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+
+@* ---- BỌC STYLE VÀO SECTION ---- *@
+@section Styles {
+    <style>
+        /* ... (Toàn bộ CSS cũ của bạn cho slider và card... Giữ nguyên) ... */
+
+        /* khung tổng */
+        .cat-wrap {
+            overflow: hidden;
+        }
+
+        /* thanh cuộn ngang */
+        .cat-scroll {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 0 56px 8px;
+            scroll-behavior: smooth;
+            scroll-snap-type: x proximity;
+        }
+
+            .cat-scroll.no-overflow {
+                justify-content: center;
+                padding: 0 12px 8px;
+            }
+
+        .scroll-btn.hidden {
+            visibility: hidden;
+        }
+
+        /* mỗi item cố định bề rộng */
+        .cat-card {
+            flex: 0 0 110px;
+            scroll-snap-align: center;
+            text-align: center;
+        }
+
+        .cat-circle {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: #f8f9fa;
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: transform .2s ease, box-shadow .2s ease;
+            margin: 0 auto;
+        }
+
+            .cat-circle img {
+                max-width: 64px;
+                max-height: 64px;
+                object-fit: contain;
+            }
+
+        .cat-card:hover .cat-circle {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,.08);
+        }
+
+        .scroll-btn {
+            position: absolute;
+            top: 64px;
+            background: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            box-shadow: 0 2px 6px rgba(0,0,0,.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: .9;
+            z-index: 2;
+        }
+
+            .scroll-btn.left {
+                left: 8px;
+            }
+
+            .scroll-btn.right {
+                right: 8px;
+            }
+
+            .scroll-btn:hover {
+                transform: scale(1.04);
+            }
+
+        /* ẩn thanh cuộn mặc định (giữ khả năng cuộn) */
+        .cat-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .cat-scroll::-webkit-scrollbar-thumb {
+            background: transparent;
+        }
+
+        /* Nút & card */
+        .btn-pink {
+            background: #ec4899;
+            color: #fff;
+            border: none;
+            transition: .25s ease;
+        }
+
+            .btn-pink:hover {
+                background: #db2777;
+                color: #fff;
+            }
+
+        .btn-outline-pink {
+            color: #db2777;
+            border-color: #db2777;
+        }
+
+            .btn-outline-pink:hover {
+                background: #db2777;
+                color: #fff;
+            }
+
+        .badge.bg-rose-100 {
+            background: #ffe4ec !important;
+            color: #db2777 !important;
+            font-weight: 500;
+        }
+
+        .hover-lift {
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+            .hover-lift:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 16px rgba(0,0,0,.08);
+            }
+
+        /* Clickable toàn card + hiệu ứng ảnh */
+        .product-card {
+            cursor: pointer;
+        }
+
+            .product-card img {
+                transition: transform .3s ease;
+            }
+
+            .product-card:hover img {
+                transform: scale(1.03);
+            }
+
+        /* cắt 2 dòng tên */
+        .text-truncate-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .text-pink {
+            color: #db2777;
+        }
+        /* Card chiếm full chiều cao, xếp theo cột */
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+            .product-card .card-body {
+                display: flex;
+                flex-direction: column;
+                flex: 1 1 auto; /* phần thân co giãn */
+            }
+
+            .product-card .card-footer {
+                margin-top: auto; /* dính đáy card */
+            }
+
+        /* Chặn lệch do phần giá/khuyến mãi */
+        .price-block {
+            min-height: 44px;
+        }
+        /* tuỳ giao diện: 40–52px */
+
+        /* Cột co giãn đều */
+        .row > .col.d-flex > a {
+            flex: 1 1 auto;
+        }
+    </style>
+}
+<div class="container py-5">
+    <h2 class="text-center mb-4 fw-bold text-pink">
+        Khách hàng nói gì
+    </h2>
+
+    @{
+        var reviews = ViewBag.DanhGias as List<ShopMVC.Models.DanhGia> ?? new List<ShopMVC.Models.DanhGia>();
+    }
+
+    @if (!reviews.Any())
+    {
+        <div class="text-center text-muted">
+            <p>Chưa có đánh giá nổi bật nào được hiển thị.</p>
+            <p class="small">Khi khách hàng gửi đánh giá và admin gắn <strong>“Nổi bật”</strong>, chúng sẽ xuất hiện tại đây.</p>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var dg in reviews)
+            {
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm border-0 hover-lift">
+                        <div class="card-body d-flex flex-column">
+
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <div class="text-warning">
+                                    @for (int i = 0; i < dg.SoSao; i++)
+                                    {
+                                        <i class="bi bi-star-fill"></i>
+                                    }
+                                </div>
+                                <span class="badge bg-rose-100 text-rose-600 small">
+                                    Đánh giá nổi bật
+                                </span>
+                            </div>
+
+                            <div class="small text-muted mb-2">
+                                Mua: <strong>@(dg.SanPham?.TenDayDu ?? "Sản phẩm")</strong>
+                            </div>
+
+                            <p class="card-text flex-grow-1" style="font-size: 0.95rem;">
+                                “@dg.NoiDung”
+                            </p>
+
+                            @if (!string.IsNullOrEmpty(dg.HinhAnh))
+                            {
+                                <img src="@dg.HinhAnh"
+                                     class="img-fluid rounded mt-2 mb-1"
+                                     style="max-height: 160px; object-fit: cover;" />
+                            }
+
+                            <div class="mt-2 small text-muted">
+                                @(dg.HienThiTen ? dg.UserId : "Khách hàng ẩn danh")
+                                · @dg.NgayTao.ToString("dd/MM/yyyy")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+
+@* ---- BỌC SCRIPT VÀO SECTION ---- *@
+@section Scripts {
+
+    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ToastsSimple" />
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const modalElement = document.getElementById('addToCartModal');
+            if (!modalElement) return; // Thoát nếu không có modal
+
+            const modal = new bootstrap.Modal(modalElement);
+
+            // Các thành phần trong Modal
+            const modalProductImage = document.getElementById('modalProductImage');
+            const modalProductName = document.getElementById('modalProductName');
+            const modalProductPrice = document.getElementById('modalProductPrice');
+            const modalProductStock = document.getElementById('modalProductStock');
+            const modalQtyInput = document.getElementById('modalQtyInput');
+            const modalQtyDecrease = document.getElementById('modalQtyDecrease');
+            const modalQtyIncrease = document.getElementById('modalQtyIncrease');
+            const modalProductId = document.getElementById('modalProductId');
+            const modalProductStockHidden = document.getElementById('modalProductStockHidden');
+            const modalConfirmBtn = document.getElementById('modalConfirmAddToCart');
+
+            let maxStock = 1;
+
+            // 1. KHI MODAL ĐƯỢC MỞ (Sự kiện 'show.bs.modal')
+            modalElement.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const id = button.dataset.id;
+                const ten = button.dataset.ten;
+                const gia = parseFloat(button.dataset.gia);
+                const tonkho = parseInt(button.dataset.tonkho);
+                const anh = button.dataset.anh;
+                maxStock = tonkho;
+                modalProductName.textContent = ten;
+                modalProductImage.src = anh || '/images/no-image.png';
+                modalProductPrice.textContent = gia.toLocaleString('vi-VN') + ' đ';
+                modalProductStock.textContent = 'Kho: ' + tonkho;
+                modalQtyInput.value = 1;
+                modalQtyInput.max = tonkho;
+                modalProductId.value = id;
+                modalProductStockHidden.value = tonkho;
+            });
+
+            // 2. XỬ LÝ NÚT TĂNG/GIẢM SỐ LƯỢNG
+            function updateQty(amount) {
+                let currentQty = parseInt(modalQtyInput.value);
+                let newQty = currentQty + amount;
+                if (newQty < 1) newQty = 1;
+                if (newQty > maxStock) newQty = maxStock;
+                modalQtyInput.value = newQty;
+            }
+            modalQtyIncrease.addEventListener('click', () => updateQty(1));
+            modalQtyDecrease.addEventListener('click', () => updateQty(-1));
+            modalQtyInput.addEventListener('change', () => updateQty(0));
+
+            // 3. XỬ LÝ NÚT "XÁC NHẬN" (GỬI AJAX)
+            modalConfirmBtn.addEventListener('click', function() {
+                const id = modalProductId.value;
+                const soLuong = modalQtyInput.value;
+
+                // Lấy AntiForgeryToken (Đã fix: tìm token bên trong modal)
+                const token = modalElement.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                modalConfirmBtn.disabled = true;
+                modalConfirmBtn.textContent = 'Đang thêm...';
+
+                fetch('/GioHang/Them/' + id, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'RequestVerificationToken': token
+                    },
+                    body: 'soLuong=' + soLuong
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        modal.hide();
+
+                        // Hiển thị thông báo (từ _ToastsSimple)
+                        if (typeof showToast === 'function') {
+                            showToast(data.message);
+                        } else {
+                            alert(data.message);
+                        }
+
+                        // Cập nhật số lượng trên CartBadge
+                        const cartBadge = document.getElementById('cart-badge-count');
+                        if (cartBadge) {
+                            cartBadge.textContent = data.totalItems;
+                            cartBadge.style.display = data.totalItems > 0 ? 'block' : 'none';
+                        }
+                    } else {
+                        alert('Lỗi: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi AJAX:', error);
+                    alert('Đã xảy ra lỗi. Vui lòng thử lại.');
+                })
+                .finally(() => {
+                    modalConfirmBtn.disabled = false;
+                    modalConfirmBtn.textContent = 'Xác nhận';
+                });
+            });
+
+        });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Slider danh mục
+            const box = document.getElementById('cat-scroll');
+            if (!box) return; // Thoát nếu không có
+
+            const btnL = document.getElementById('cat-left');
+            const btnR = document.getElementById('cat-right');
+            const STEP = 240;
+
+            btnL.onclick = () => box.scrollBy({ left: -STEP, behavior: 'smooth' });
+            btnR.onclick = () => box.scrollBy({ left: STEP, behavior: 'smooth' });
+
+            function refreshCatsUI(){
+                if (!box) return;
+                const over = box.scrollWidth > box.clientWidth + 1;
+                box.classList.toggle('no-overflow', !over);
+                btnL.classList.toggle('hidden', !over || box.scrollLeft <= 0);
+                const max = box.scrollWidth - box.clientWidth - 1;
+                btnR.classList.toggle('hidden', !over || box.scrollLeft >= max);
+            }
+
+            refreshCatsUI();
+            box.addEventListener('scroll', refreshCatsUI);
+            window.addEventListener('resize', refreshCatsUI);
+        });
+    </script>
+}

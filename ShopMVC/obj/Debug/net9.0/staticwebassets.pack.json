@@ -1,0 +1,749 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\ShopMVC.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ShopMVC.eedcc0oynj.bundle.scp.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\banner\\anh1.jpg",
+      "PackagePath": "staticwebassets\\images\\banner\\anh1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\banner\\anh2.jpg",
+      "PackagePath": "staticwebassets\\images\\banner\\anh2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\banner\\anh3.jpg",
+      "PackagePath": "staticwebassets\\images\\banner\\anh3.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\banners\\302183ed-66d8-47c7-b8f7-ba1adb5d177e.jpg",
+      "PackagePath": "staticwebassets\\images\\banners\\302183ed-66d8-47c7-b8f7-ba1adb5d177e.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\banners\\4ee144fd-fd89-42dd-8067-a4150021eede.jpg",
+      "PackagePath": "staticwebassets\\images\\banners\\4ee144fd-fd89-42dd-8067-a4150021eede.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\banners\\7b82cac9-85bb-4a3d-a9ce-ea48b981183e.jpg",
+      "PackagePath": "staticwebassets\\images\\banners\\7b82cac9-85bb-4a3d-a9ce-ea48b981183e.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\banners\\93ca112b-5447-40ad-b21f-c1425b677ed9.jpg",
+      "PackagePath": "staticwebassets\\images\\banners\\93ca112b-5447-40ad-b21f-c1425b677ed9.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\banners\\cbc4d9ae-c40a-4f25-a9ea-f3321d42160b.jpg",
+      "PackagePath": "staticwebassets\\images\\banners\\cbc4d9ae-c40a-4f25-a9ea-f3321d42160b.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\banners\\d4ea3f49-1759-4a04-98e3-f58bdc7ee4e0.jpg",
+      "PackagePath": "staticwebassets\\images\\banners\\d4ea3f49-1759-4a04-98e3-f58bdc7ee4e0.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\categories\\abc.webp",
+      "PackagePath": "staticwebassets\\images\\categories\\abc.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\categories\\dien-thoai.webp",
+      "PackagePath": "staticwebassets\\images\\categories\\dien-thoai.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\categories\\giay-dep.webp",
+      "PackagePath": "staticwebassets\\images\\categories\\giay-dep.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\categories\\laptop.webp",
+      "PackagePath": "staticwebassets\\images\\categories\\laptop.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\categories\\my-pham.webp",
+      "PackagePath": "staticwebassets\\images\\categories\\my-pham.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\categories\\phu-kien.webp",
+      "PackagePath": "staticwebassets\\images\\categories\\phu-kien.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\categories\\thoi-trang.webp",
+      "PackagePath": "staticwebassets\\images\\categories\\thoi-trang.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\ao-khoac-windbreaker-xanh-m-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-khoac-windbreaker-xanh-m-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\ao-khoac-windbreaker-xanh-m-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-khoac-windbreaker-xanh-m-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\ao-polo-pique-trang-m-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-polo-pique-trang-m-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\ao-polo-pique-trang-m-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-polo-pique-trang-m-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\ao-so-mi-oxford-slim-trang-m-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-so-mi-oxford-slim-trang-m-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\ao-so-mi-oxford-slim-trang-m-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-so-mi-oxford-slim-trang-m-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\ao-thun-basic-cotton-220g-den-m-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-thun-basic-cotton-220g-den-m-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\ao-thun-basic-cotton-220g-den-m-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-thun-basic-cotton-220g-den-m-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\ao-thun-basic-cotton-220g-trang-m-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-thun-basic-cotton-220g-trang-m-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\ao-thun-basic-cotton-220g-trang-m-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ao-thun-basic-cotton-220g-trang-m-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\asus-rog-zephyrus-g14-den-16gb-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\asus-rog-zephyrus-g14-den-16gb-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\asus-rog-zephyrus-g14-den-16gb-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\asus-rog-zephyrus-g14-den-16gb-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\asus-vivobook-15-bac-8gb-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\asus-vivobook-15-bac-8gb-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\asus-vivobook-15-bac-8gb-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\asus-vivobook-15-bac-8gb-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\asus-vivobook-15-xam-16gb-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\asus-vivobook-15-xam-16gb-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\asus-vivobook-15-xam-16gb-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\asus-vivobook-15-xam-16gb-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\ban-phim-co-87-phim-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ban-phim-co-87-phim-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\ban-phim-co-87-phim-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\ban-phim-co-87-phim-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\chuot-khong-day-silent-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\chuot-khong-day-silent-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\chuot-khong-day-silent-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\chuot-khong-day-silent-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\giay-luoi-canvas-den-40-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\giay-luoi-canvas-den-40-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\giay-luoi-canvas-nau-41-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\giay-luoi-canvas-nau-41-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\giay-luoi-canvas-nau-41-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\giay-luoi-canvas-nau-41-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-den-128gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-den-128gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-den-128gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-den-128gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-den-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-den-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-den-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-den-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-hong-128gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-hong-128gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-hong-128gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-hong-128gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-plus-xanh-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-plus-xanh-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-plus-xanh-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-plus-xanh-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-plus-xanhlam-128gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-plus-xanhlam-128gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-plus-xanhlam-128gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-plus-xanhlam-128gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-pro-den-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-pro-den-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-pro-den-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-pro-den-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-pro-titan-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-pro-titan-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\iphone-15-pro-titan-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\iphone-15-pro-titan-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\kem-chong-nang-spf50+-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\kem-chong-nang-spf50+-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\kem-chong-nang-spf50+-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\kem-chong-nang-spf50+-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\lenovo-thinkpad-x1-carbon-gen-11-den-16gb-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\lenovo-thinkpad-x1-carbon-gen-11-den-16gb-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\lenovo-thinkpad-x1-carbon-gen-11-den-16gb-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\lenovo-thinkpad-x1-carbon-gen-11-den-16gb-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\macbook-air-m2-13-bac-8gb-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\macbook-air-m2-13-bac-8gb-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\macbook-air-m2-13-bac-8gb-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\macbook-air-m2-13-bac-8gb-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\macbook-air-m2-13-xam-16gb-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\macbook-air-m2-13-xam-16gb-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\macbook-air-m2-13-xam-16gb-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\macbook-air-m2-13-xam-16gb-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\macbook-pro-m3-14-bac-16gb-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\macbook-pro-m3-14-bac-16gb-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\macbook-pro-m3-14-bac-16gb-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\macbook-pro-m3-14-bac-16gb-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\quan-jean-straight-xanh-dam-29-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\quan-jean-straight-xanh-dam-29-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\quan-jean-straight-xanh-dam-29-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\quan-jean-straight-xanh-dam-29-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\sac-nhanh-35w-usb-c-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\sac-nhanh-35w-usb-c-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\sac-nhanh-35w-usb-c-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\sac-nhanh-35w-usb-c-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\samsung-galaxy-s24-den-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\samsung-galaxy-s24-den-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\samsung-galaxy-s24-den-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\samsung-galaxy-s24-den-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\samsung-galaxy-s24-kem-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\samsung-galaxy-s24-kem-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\samsung-galaxy-s24-kem-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\samsung-galaxy-s24-kem-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\samsung-galaxy-s24-tim-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\samsung-galaxy-s24-tim-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\samsung-galaxy-s24-tim-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\samsung-galaxy-s24-tim-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\sneaker-daily-run-den-40-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\sneaker-daily-run-den-40-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\sneaker-daily-run-den-40-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\sneaker-daily-run-den-40-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\sneaker-daily-run-trang-39-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\sneaker-daily-run-trang-39-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\sneaker-daily-run-trang-39-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\sneaker-daily-run-trang-39-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\tai-nghe-sony-wh-ch520-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\tai-nghe-sony-wh-ch520-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\tai-nghe-sony-wh-ch520-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\tai-nghe-sony-wh-ch520-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-14t-pro-den-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-14t-pro-den-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-14t-pro-den-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-14t-pro-den-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-14t-pro-xanh-512gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-14t-pro-xanh-512gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-14t-pro-xanh-512gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-14t-pro-xanh-512gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-redmi-note-13-pro-den-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-redmi-note-13-pro-den-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-redmi-note-13-pro-den-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-redmi-note-13-pro-den-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-redmi-note-13-pro-xanh-256gb-1.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-redmi-note-13-pro-xanh-256gb-1.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\images\\sp\\xiaomi-redmi-note-13-pro-xanh-256gb-2.jpg",
+      "PackagePath": "staticwebassets\\images\\sp\\xiaomi-redmi-note-13-pro-xanh-256gb-2.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\js\\chat.js",
+      "PackagePath": "staticwebassets\\js\\chat.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\dist\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery\\dist\\jquery.slim.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\jquery\\dist\\jquery.slim.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.map"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\signalr\\signalr.js",
+      "PackagePath": "staticwebassets\\lib\\signalr\\signalr.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\lib\\signalr\\signalr.min.js",
+      "PackagePath": "staticwebassets\\lib\\signalr\\signalr.min.js"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\31593c22866d48b1a9a83edc0f7c25b8.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\31593c22866d48b1a9a83edc0f7c25b8.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\3858c2c518064f05957471cb11a4f106.png",
+      "PackagePath": "staticwebassets\\uploads\\products\\3858c2c518064f05957471cb11a4f106.png"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\49757fa7b098402aa00a80ad846d3237.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\49757fa7b098402aa00a80ad846d3237.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\5a62c7f7351246eca3732d833db96654.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\5a62c7f7351246eca3732d833db96654.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\5a774b325fea44ffa9ec3d5614bbf00f.png",
+      "PackagePath": "staticwebassets\\uploads\\products\\5a774b325fea44ffa9ec3d5614bbf00f.png"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\69ed4ade9ecf4f3f9b53b1cc6a792b25.png",
+      "PackagePath": "staticwebassets\\uploads\\products\\69ed4ade9ecf4f3f9b53b1cc6a792b25.png"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\728ccf5743fb40d2993e980d333b32b4.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\728ccf5743fb40d2993e980d333b32b4.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\74053494ae2c4dbb912f6408c247cb0f.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\74053494ae2c4dbb912f6408c247cb0f.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\7e671ae2446243b4bdfe9d6789834fdf.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\7e671ae2446243b4bdfe9d6789834fdf.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\903fdb5bf0224345baeae1c70fce7c7d.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\903fdb5bf0224345baeae1c70fce7c7d.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\976a14b8779445fb875630129a604083.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\976a14b8779445fb875630129a604083.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\9c4e5228cfb040af89e3c975d47c08f3.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\9c4e5228cfb040af89e3c975d47c08f3.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\a1e1df9c17e24f9a9c64c7e1d154b0f1.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\a1e1df9c17e24f9a9c64c7e1d154b0f1.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\b0d4704be25e41c8bb67f9ec5ec971f4.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\b0d4704be25e41c8bb67f9ec5ec971f4.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\be4af854656c4706a0156731bdafe0c6.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\be4af854656c4706a0156731bdafe0c6.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\e8dee411e1f843b5bde2b0cfc71e3208.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\e8dee411e1f843b5bde2b0cfc71e3208.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\f3b35e79de4f425fa4aa15e04b3f2d8c.webp",
+      "PackagePath": "staticwebassets\\uploads\\products\\f3b35e79de4f425fa4aa15e04b3f2d8c.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\products\\fb51a0abfc99426aa455a1f32ac00600.jpg",
+      "PackagePath": "staticwebassets\\uploads\\products\\fb51a0abfc99426aa455a1f32ac00600.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\reviews\\10059e89-44c7-4157-97b1-d25dfb51ed6d_vietnam.png",
+      "PackagePath": "staticwebassets\\uploads\\reviews\\10059e89-44c7-4157-97b1-d25dfb51ed6d_vietnam.png"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\reviews\\32a314c1-3a15-4760-8ce5-512c9a837e50_thailan.jpg",
+      "PackagePath": "staticwebassets\\uploads\\reviews\\32a314c1-3a15-4760-8ce5-512c9a837e50_thailan.jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\reviews\\76eeecc2-0484-49d4-b9ba-d4331fcb42d3_Gemini_Generated_Image_93mcpp93mcpp93mc.png",
+      "PackagePath": "staticwebassets\\uploads\\reviews\\76eeecc2-0484-49d4-b9ba-d4331fcb42d3_Gemini_Generated_Image_93mcpp93mcpp93mc.png"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\reviews\\8591431f-7122-496b-bd90-c2310a0d8808_ef1f336ecc6f97b790d5aae9916dcb72@resize_w640_nl.webp",
+      "PackagePath": "staticwebassets\\uploads\\reviews\\8591431f-7122-496b-bd90-c2310a0d8808_ef1f336ecc6f97b790d5aae9916dcb72@resize_w640_nl.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\reviews\\894c7be9-44a2-4601-b516-39d93ef9be7f_31234a27876fb89cd522d7e3db1ba5ca@resize_w640_nl.webp",
+      "PackagePath": "staticwebassets\\uploads\\reviews\\894c7be9-44a2-4601-b516-39d93ef9be7f_31234a27876fb89cd522d7e3db1ba5ca@resize_w640_nl.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\reviews\\953e7863-6d3e-437a-bfe7-f0f4ba6011b0_polo-pique-basic-cotton-100-xam-castlerock-1.avif",
+      "PackagePath": "staticwebassets\\uploads\\reviews\\953e7863-6d3e-437a-bfe7-f0f4ba6011b0_polo-pique-basic-cotton-100-xam-castlerock-1.avif"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\reviews\\a42ba88c-2158-413f-bf66-b564a7628c48_tải xuống (1).jpg",
+      "PackagePath": "staticwebassets\\uploads\\reviews\\a42ba88c-2158-413f-bf66-b564a7628c48_tải xuống (1).jpg"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\reviews\\b22cdca2-7a48-4b01-b383-4c640a4d80a0_c3f3edfaa9f6dafc4825b77d8449999d@resize_w640_nl.webp",
+      "PackagePath": "staticwebassets\\uploads\\reviews\\b22cdca2-7a48-4b01-b383-4c640a4d80a0_c3f3edfaa9f6dafc4825b77d8449999d@resize_w640_nl.webp"
+    },
+    {
+      "Id": "E:\\WebThuongMaiDienTu-main\\WebThuongMaiDienTu-main\\ShopMVC\\wwwroot\\uploads\\reviews\\f3c21b08-7f35-4ce6-8856-92c3841bbf28_31234a27876fb89cd522d7e3db1ba5ca@resize_w640_nl.webp",
+      "PackagePath": "staticwebassets\\uploads\\reviews\\f3c21b08-7f35-4ce6-8856-92c3841bbf28_31234a27876fb89cd522d7e3db1ba5ca@resize_w640_nl.webp"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.ShopMVC.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.ShopMVC.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.build.ShopMVC.props",
+      "PackagePath": "build\\ShopMVC.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildMultiTargeting.ShopMVC.props",
+      "PackagePath": "buildMultiTargeting\\ShopMVC.props"
+    },
+    {
+      "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.buildTransitive.ShopMVC.props",
+      "PackagePath": "buildTransitive\\ShopMVC.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

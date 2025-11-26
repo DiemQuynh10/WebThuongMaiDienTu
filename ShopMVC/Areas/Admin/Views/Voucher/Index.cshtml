@@ -1,0 +1,280 @@
+﻿@using ShopMVC.Models
+@model IEnumerable<Voucher>
+
+@{
+    ViewData["Title"] = "Danh sách Voucher";
+
+    string DiscountText(Voucher v) =>
+        (v.PhanTramGiam is > 0)
+            ? $"{v.PhanTramGiam:0.#}%{(v.GiamToiDa is > 0 ? $" (max {v.GiamToiDa:n0}đ)" : "")}"
+            : $"{(v.GiamTrucTiep ?? 0):n0}đ";
+
+    string ValidText(Voucher v) => $"{v.NgayBatDau:dd/MM/yyyy} - {v.NgayHetHan:dd/MM/yyyy}";
+
+    int page = ViewBag.Page ?? 1;
+    int pageSize = ViewBag.PageSize ?? 20;
+    int total = ViewBag.Total ?? 0;
+    int totalPages = (int)Math.Ceiling(total / (double)pageSize);
+
+    bool? activeFilter = ViewBag.Active as bool?;
+    string timeFilter = ViewBag.Time as string ?? "";
+    string qFilter = ViewBag.Q as string ?? "";
+}
+
+<style>
+    .pagination .page-item.active .page-link {
+        background-color: #f06292;
+        border-color: #f06292;
+        color: #fff;
+    }
+
+    .pagination .page-link {
+        color: #f06292;
+    }
+
+    .form-check {
+        padding-left: 2.25em;
+    }
+</style>
+
+<!-- HEADER -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0">Danh sách voucher</h3>
+    <div class="d-flex gap-2">
+        <a asp-action="CreateFlashSale" class="btn btn-danger">
+            <i class="bi bi-lightning-fill"></i> Tạo Flash Sale
+        </a>
+        <a asp-action="Create" class="btn btn-primary">Tạo voucher thường</a>
+    </div>
+</div>
+
+<!-- FORM LỌC -->
+<form method="get" class="row g-2 mb-3">
+    <div class="col-md-3">
+        <input name="q" value="@qFilter" class="form-control" placeholder="Tìm mã hoặc tên..." />
+    </div>
+
+    <div class="col-md-3">
+        <select class="form-select" name="active">
+            <option value="">-- Trạng thái --</option>
+            <option value="true" selected="@(activeFilter == true  ? "selected" : null)">Đang bật</option>
+            <option value="false" selected="@(activeFilter == false ? "selected" : null)">Đang tắt</option>
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <select class="form-select" name="time">
+            <option value="">-- Hiệu lực --</option>
+            <option value="valid" selected="@(timeFilter == "valid"   ? "selected" : null)">Đang hiệu lực</option>
+            <option value="expired" selected="@(timeFilter == "expired" ? "selected" : null)">Hết hạn</option>
+            <option value="soon" selected="@(timeFilter == "soon"    ? "selected" : null)">Sắp hết hạn</option>
+        </select>
+    </div>
+
+    <div class="col-md-3 d-flex gap-2">
+        <button class="btn btn-primary">Lọc</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Xóa lọc</a>
+    </div>
+</form>
+
+<div class="table-responsive">
+
+    <!-- FORM BULK TOGGLE -->
+    <form id="bulkForm" asp-action="BulkToggle" method="post" class="mb-2">
+        @Html.AntiForgeryToken()
+
+        <div class="d-flex gap-2">
+            <select name="enable" class="form-select form-select-sm" style="width:120px;">
+                <option value="true">Bật</option>
+                <option value="false">Tắt</option>
+            </select>
+            <button class="btn btn-sm btn-outline-primary">Áp dụng</button>
+        </div>
+    </form>
+
+    <table class="table align-middle table-hover">
+        <thead>
+            <tr>
+                <th style="width:36px;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="chkAll" />
+                    </div>
+                </th>
+                <th>Mã</th>
+                <th>Tên</th>
+                <th>Giảm</th>
+                <th>Hiệu lực</th>
+                <th>Phạm vi áp dụng</th>
+                <th>Dùng/giới hạn</th>
+                <th>Trạng thái</th>
+                <th class="text-end" style="width:150px;">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in Model)
+            {
+                bool hasBrand = v.VoucherThuongHieus?.Any() == true;
+                bool hasCate = v.VoucherDanhMucs?.Any() == true;
+
+                var brandNames = v.VoucherThuongHieus?
+                .Select(x => x.ThuongHieu?.Ten)
+                .Where(t => !string.IsNullOrWhiteSpace(t))
+                ?? Enumerable.Empty<string>();
+
+                var cateNames = v.VoucherDanhMucs?
+                .Select(x => x.DanhMuc?.Ten)
+                .Where(t => !string.IsNullOrWhiteSpace(t))
+                ?? Enumerable.Empty<string>();
+
+                <tr>
+                    <td>
+                        <div class="form-check">
+                            <input type="checkbox" name="ids" value="@v.Id"
+                                   class="form-check-input chkRow" form="bulkForm" />
+                        </div>
+                    </td>
+
+                    <td class="fw-semibold">
+                        @v.Code
+                        @if (v.IsFlashSale)
+                        {
+                            <span class="badge bg-danger ms-1">Flash Sale</span>
+                        }
+                    </td>
+
+                    <td>@v.Ten</td>
+
+                    <td>@DiscountText(v)</td>
+
+                    <td>@ValidText(v)</td>
+
+                    <td>
+                        @if (v.IsFlashSale)
+                        {
+                            <span class="text-danger fw-bold">
+                                Theo sản phẩm
+                            </span>
+                        }
+                        else if (hasBrand || hasCate)
+                        {
+                            <div class="d-flex flex-column">
+                                @if (hasBrand)
+                                {
+                                    <span class="small text-primary">
+                                        Thương hiệu: @string.Join(", ", brandNames)
+                                    </span>
+                                }
+                                @if (hasCate)
+                                {
+                                    <span class="small text-success">
+                                        Danh mục: @string.Join(", ", cateNames)
+                                    </span>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <span class="text-muted">Toàn shop</span>
+                        }
+                    </td>
+
+                    <td>
+                        @v.SoLanDaSuDung / @(v.SoLanSuDungToiDa == 0 ? "∞" : v.SoLanSuDungToiDa)
+                    </td>
+
+                    <td>
+                        @if (v.IsActive)
+                        {
+                            <span class="badge bg-success">Bật</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Tắt</span>
+                        }
+                    </td>
+
+                    <td class="text-end">
+                        <div class="btn-group">
+                            @if (v.IsFlashSale)
+                            {
+                                <a asp-action="AddProducts" asp-route-id="@v.Id"
+                                   class="btn btn-sm btn-warning text-dark"
+                                   title="Quản lý sản phẩm">
+                                    <i class="bi bi-box-seam"></i>
+                                </a>
+                            }
+
+                            <a asp-action="Edit" asp-route-id="@v.Id"
+                               class="btn btn-sm btn-outline-primary"
+                               title="Sửa">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+
+                            <a asp-action="Usage" asp-route-id="@v.Id"
+                               class="btn btn-sm btn-outline-secondary"
+                               title="Báo cáo">
+                                <i class="bi bi-bar-chart-fill"></i>
+                            </a>
+
+                            <form asp-action="Toggle" asp-route-id="@v.Id" method="post"
+                                  class="d-inline" onsubmit="return confirm('Bạn chắc chắn?');">
+                                @Html.AntiForgeryToken()
+                                <button class="btn btn-sm btn-outline-warning" title="Bật/Tắt">
+                                    <i class="bi bi-power"></i>
+                                </button>
+                            </form>
+
+                            <form asp-action="Delete" asp-route-id="@v.Id" method="post"
+                                  class="d-inline" onsubmit="return confirm('Xóa voucher này?');">
+                                @Html.AntiForgeryToken()
+                                <button class="btn btn-sm btn-outline-danger" title="Xóa">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- PHÂN TRANG -->
+    @if (totalPages > 1)
+    {
+        <nav class="mt-3">
+            <ul class="pagination justify-content-center">
+                <li class="page-item @(page <= 1 ? "disabled" : "")">
+                    <a class="page-link"
+                       href="@Url.Action("Index", new { page = page - 1, pageSize, q = qFilter, active = activeFilter, time = timeFilter })">
+                        «
+                    </a>
+                </li>
+
+                @for (int p = 1; p <= totalPages; p++)
+                {
+                    <li class="page-item @(p == page ? "active" : "")">
+                        <a class="page-link"
+                           href="@Url.Action("Index", new { page = p, pageSize, q = qFilter, active = activeFilter, time = timeFilter })">
+                            @p
+                        </a>
+                    </li>
+                }
+
+                <li class="page-item @(page >= totalPages ? "disabled" : "")">
+                    <a class="page-link"
+                       href="@Url.Action("Index", new { page = page + 1, pageSize, q = qFilter, active = activeFilter, time = timeFilter })">
+                        »
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('chkAll')?.addEventListener('change', function () {
+            document.querySelectorAll('.chkRow').forEach(c => c.checked = this.checked);
+        });
+    </script>
+}

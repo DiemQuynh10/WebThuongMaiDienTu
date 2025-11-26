@@ -1,0 +1,199 @@
+﻿@model ShopMVC.Areas.Admin.ViewModels.VoucherCreateViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    var actionName = (ViewBag.Action as string ?? "Create").ToString();
+    ViewData["Title"] = actionName == "Edit" ? "Cập nhật voucher" : "Tạo voucher";
+}
+
+<div class="container-fluid py-3">
+    <h2 class="mb-3 fw-bold">@ViewData["Title"]</h2>
+
+    <form asp-area="Admin"
+          asp-controller="Voucher"
+          asp-action="@(actionName == "Edit" ? "Edit" : "Create")"
+          method="post"
+          class="row g-3 bg-white p-4 rounded shadow-sm">
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="All" class="text-danger small mb-2"></div>
+
+        @* Nếu là Edit thì cần Id + RowVersion *@
+        @if (actionName == "Edit")
+        {
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="RowVersion" />
+        }
+
+        <div class="col-md-4">
+            <label class="form-label fw-bold" asp-for="Code">Mã voucher</label>
+            <input asp-for="Code" class="form-control" placeholder="VD: SALE50" />
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-8">
+            <label class="form-label fw-bold" asp-for="Ten">Tên / ghi chú</label>
+            <input asp-for="Ten" class="form-control" placeholder="VD: Khuyến mãi mùa hè" />
+            <span asp-validation-for="Ten" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label fw-bold" asp-for="PhanTramGiam">% giảm</label>
+            <input asp-for="PhanTramGiam"
+                   type="number"
+                   step="0.01"
+                   min="0"
+                   max="100"
+                   class="form-control"
+                   placeholder="VD: 10, 20..." />
+            <span asp-validation-for="PhanTramGiam" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label fw-bold" asp-for="GiamTrucTiep">Giảm tiền (đ)</label>
+            <input asp-for="GiamTrucTiep"
+                   type="number"
+                   step="1000"
+                   min="0"
+                   class="form-control"
+                   placeholder="VD: 50000" />
+            <span asp-validation-for="GiamTrucTiep" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label fw-bold" asp-for="GiamToiDa">Giảm tối đa (đ)</label>
+            <input asp-for="GiamToiDa"
+                   type="number"
+                   step="1000"
+                   min="0"
+                   class="form-control"
+                   placeholder="VD: 100000" />
+            <span asp-validation-for="GiamToiDa" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label fw-bold" asp-for="NgayBatDau">Bắt đầu</label>
+            <input asp-for="NgayBatDau"
+                   type="datetime-local"
+                   class="form-control" />
+            <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label fw-bold" asp-for="NgayHetHan">Kết thúc</label>
+            <input asp-for="NgayHetHan"
+                   type="datetime-local"
+                   class="form-control" />
+            <span asp-validation-for="NgayHetHan" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label fw-bold" asp-for="SoLanSuDungToiDa">Lượt dùng tối đa</label>
+            <input asp-for="SoLanSuDungToiDa"
+                   type="number"
+                   min="0"
+                   class="form-control"
+                   placeholder="0 = không giới hạn" />
+            <span asp-validation-for="SoLanSuDungToiDa" class="text-danger"></span>
+        </div>
+
+        <div class="col-12 d-flex align-items-center gap-4 mt-3 bg-light p-3 rounded">
+            <div class="form-check form-switch">
+                <input class="form-check-input" asp-for="IsActive" />
+                <label class="form-check-label fw-bold" asp-for="IsActive">Kích hoạt</label>
+            </div>
+
+            @* Trường hợp hiếm: nếu model là Flash Sale nhưng lỡ dùng view này *@
+            @if (Model.IsFlashSale)
+            {
+                <div class="ms-4 text-danger fw-bold">
+                    <i class="bi bi-lightning-fill"></i> Voucher này là Flash Sale
+                </div>
+                <input type="hidden" asp-for="IsFlashSale" />
+            }
+        </div>
+
+        <hr class="my-3" />
+
+        @* Chỉ hiển thị Brand + Category cho voucher thường *@
+        @if (!Model.IsFlashSale)
+        {
+            <!-- Phần Thương hiệu -->
+            <div class="col-12">
+                <label class="form-label fw-bold">Thương hiệu áp dụng</label>
+                <div class="row row-cols-2 row-cols-md-4 g-2">
+                    @if (Model.AvailableBrands != null)
+                    {
+                        var selectedBrands = Model.SelectedBrandIds ?? new List<int>();
+                        foreach (var th in Model.AvailableBrands)
+                        {
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           name="SelectedBrandIds"
+                                           value="@th.Id"
+                                           id="brand_@th.Id"
+                                    @(selectedBrands.Contains(th.Id) ? "checked" : "") />
+                                    <label class="form-check-label text-secondary" for="brand_@th.Id">
+                                        @th.Ten
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="col">
+                            <span class="text-muted small">Chưa có thương hiệu nào.</span>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Phần Danh mục -->
+            <div class="col-12 mt-3">
+                <label class="form-label fw-bold">Danh mục áp dụng</label>
+                <div class="row row-cols-2 row-cols-md-4 g-2">
+                    @if (Model.AvailableCategories != null)
+                    {
+                        var selectedCates = Model.SelectedCategoryIds ?? new List<int>();
+                        foreach (var dm in Model.AvailableCategories)
+                        {
+                            <div class="col">
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           name="SelectedCategoryIds"
+                                           value="@dm.Id"
+                                           id="cate_@dm.Id"
+                                    @(selectedCates.Contains(dm.Id) ? "checked" : "") />
+                                    <label class="form-check-label text-secondary" for="cate_@dm.Id">
+                                        @dm.Ten
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="col">
+                            <span class="text-muted small">Chưa có danh mục nào.</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="col-12 mt-4 border-top pt-3">
+            <button type="submit" class="btn btn-primary px-4">
+                @(actionName == "Edit" ? "Cập nhật" : "Lưu voucher")
+            </button>
+            <a asp-action="Index" class="btn btn-outline-secondary px-4 ms-2">Hủy</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

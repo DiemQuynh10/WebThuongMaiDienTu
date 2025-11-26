@@ -1,0 +1,270 @@
+﻿@model IEnumerable<ShopMVC.Models.SanPham>
+
+@{
+    ViewData["Title"] = "Sản phẩm";
+    bool includeVariants = (ViewBag.IncludeVariants as bool?) == true;
+    int page = (int)(ViewBag.Page ?? 1);
+    int pageSize = (int)(ViewBag.PageSize ?? 15);
+    int total = (int)(ViewBag.Total ?? 0);
+    int totalPages = (int)(ViewBag.TotalPages ?? 1);
+    string Price(ShopMVC.Models.SanPham p)
+        => (p.GiaKhuyenMai ?? p.Gia).ToString("n0") + " đ";
+
+    string Thumb(ShopMVC.Models.SanPham p)
+    {
+        // 1. Thử ảnh của chính sản phẩm
+        var a = p.Anhs?
+            .OrderBy(x => x.LaAnhChinh ? 0 : 1)
+            .ThenBy(x => x.ThuTu)
+            .FirstOrDefault();
+
+        // 2. Nếu không có, thử ảnh của sản phẩm cha (nếu là biến thể)
+        if (a == null && p.Parent != null && p.Parent.Anhs != null)
+        {
+            a = p.Parent.Anhs
+                .OrderBy(x => x.LaAnhChinh ? 0 : 1)
+                .ThenBy(x => x.ThuTu)
+                .FirstOrDefault();
+        }
+
+        var url = a?.Url ?? "/images/no-image.png";
+        // Cho an toàn nếu lỡ url trong DB có "~"
+        return url.StartsWith("~") ? url : "~" + url.TrimStart('~');
+    }
+
+}
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Sản phẩm</h3>
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-secondary"
+               asp-action="Index"
+               asp-route-includeVariants="@(includeVariants ? "false" : "true")"
+               asp-route-page="1"
+               asp-route-pageSize="@pageSize">
+                @(includeVariants ? "Ẩn biến thể" : "Hiện cả biến thể")
+            </a>
+
+            <a class="btn btn-primary" asp-action="Create">Thêm</a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th style="width:72px">Ảnh</th>
+                    <th>Tên</th>
+                    <th style="width:140px">Giá</th>
+                    <th style="width:140px">DM</th>
+                    <th style="width:140px">TH</th>
+                    <th style="width:90px">Tồn</th>
+                    @if (!includeVariants)
+                    {
+                        <th style="width:110px">Biến thể</th>
+                    }
+                    else
+                    {
+                        <th style="width:200px">Thuộc nhóm</th>
+                    }
+                    <th style="width:90px">Nổi bật</th>
+                    <th style="width:160px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    var img = Thumb(p);
+                    <tr>
+                        <td>
+                            <img src="@Url.Content(img)" alt="thumb"
+                                 style="width:60px;height:60px;object-fit:cover;border-radius:8px;border:1px solid #eee" />
+                        </td>
+                        <td class="fw-semibold">
+                            @p.Ten
+                            @* Nếu là biến thể, hiển thị hậu tố để dễ phân biệt *@
+                            @if (p.ParentId != null && !string.IsNullOrWhiteSpace(p.DisplaySuffix))
+                            {
+                                <span class="text-muted"> (@p.DisplaySuffix)</span>
+                            }
+                        </td>
+                        <td>@Price(p)</td>
+                        <td>@p.DanhMuc?.Ten</td>
+                        <td>@p.ThuongHieu?.Ten</td>
+                        <td>@p.TonKho</td>
+
+                        @if (!includeVariants)
+                        {
+                            // Đang nhìn danh sách CHA → hiện đếm số biến thể
+                            <td>
+                                <span class="badge bg-light text-dark border">
+                                    @(p.Children?.Count() ?? 0)
+                                </span>
+                            </td>
+                        }
+                        else
+                        {
+                            // Đang nhìn cả biến thể → hiện tên CHA (nếu có)
+                            <td>
+                                @if (p.Parent != null)
+                                {
+                                    <span class="badge bg-secondary-subtle text-body">@p.Parent.Ten</span>
+                                }
+                            </td>
+                        }
+
+                        <td>@(p.LaNoiBat ? "✓" : "✗")</td>
+
+                        <td class="text-end">
+                            <a class="btn btn-sm btn-outline-primary" asp-action="Edit" asp-route-id="@p.Id">Sửa</a>
+
+                            <!-- Nút mở modal xác nhận -->
+                            <button type="button"
+                                    class="btn btn-sm btn-link text-danger"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#confirmDeleteModal"
+                                    data-id="@p.Id"
+                                    data-name="@p.Ten">
+                                Xoá
+                            </button>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @if (total > 0)
+        {
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div class="small text-muted">
+                    Hiển thị @(((page - 1) * pageSize) + 1)–@(Math.Min(page * pageSize, total)) / @total
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    <form method="get" class="d-flex align-items-center gap-2">
+                        <input type="hidden" name="includeVariants" value="@(includeVariants ? "true" : "false")" />
+                        <label class="small text-muted">Mỗi trang</label>
+                        <select name="pageSize" class="form-select form-select-sm" onchange="this.form.submit()">
+                            @{
+                                int[] options = new[] { 10, 15, 25, 50, 100 };
+                                foreach (var opt in options)
+                                {
+                                    <option value="@opt" selected="@(opt == pageSize)">@opt</option>
+                                }
+                            }
+                        </select>
+                        <input type="hidden" name="page" value="1" />
+                    </form>
+
+                    <nav>
+                        <ul class="pagination pagination-sm mb-0">
+                            <li class="page-item @(page == 1 ? "disabled" : "")">
+                                <a class="page-link" asp-action="Index"
+                                   asp-route-page="@(page-1)"
+                                   asp-route-pageSize="@pageSize"
+                                   asp-route-includeVariants="@(includeVariants ? "true" : "false")">Trước</a>
+                            </li>
+
+                            @{
+                                int start = Math.Max(1, page - 2);
+                                int end = Math.Min(totalPages, page + 2);
+                                for (int i = start; i <= end; i++)
+                                {
+                                    <li class="page-item @(i == page ? "active" : "")">
+                                        <a class="page-link" asp-action="Index"
+                                           asp-route-page="@i"
+                                           asp-route-pageSize="@pageSize"
+                                           asp-route-includeVariants="@(includeVariants ? "true" : "false")">@i</a>
+                                    </li>
+                                }
+                            }
+
+                            <li class="page-item @(page == totalPages ? "disabled" : "")">
+                                <a class="page-link" asp-action="Index"
+                                   asp-route-page="@(page+1)"
+                                   asp-route-pageSize="@pageSize"
+                                   asp-route-includeVariants="@(includeVariants ? "true" : "false")">Sau</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        }
+
+    </div>
+    <!-- Modal xác nhận xoá -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận xoá sản phẩm</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc muốn xoá: <strong id="delName">...</strong>?
+                    <div class="small text-muted mt-2">Nếu là sản phẩm CHA và còn biến thể, thao tác sẽ bị chặn.</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <form method="post" asp-action="Xoa" id="delForm" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" id="delId" />
+                        <button class="btn btn-danger">Xoá</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@{
+    var ok = TempData["Ok"] as string;
+    var err = TempData["Err"] as string;
+}
+
+<div class="toast-container position-fixed top-0 end-0 p-3" style="z-index:1080;">
+    @if (!string.IsNullOrWhiteSpace(ok))
+    {
+        <div class="toast align-items-center text-bg-success border-0" role="alert"
+             aria-live="assertive" aria-atomic="true" data-bs-delay="3500">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @ok
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    }
+    @if (!string.IsNullOrWhiteSpace(err))
+    {
+        <div class="toast align-items-center text-bg-danger border-0" role="alert"
+             aria-live="assertive" aria-atomic="true" data-bs-delay="4500">
+            <div class="d-flex">
+                <div class="toast-body">
+                    @err
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    }
+</div>
+@section Scripts {
+    <script>
+        // Đổ dữ liệu vào modal khi bấm Xoá
+        const delModal = document.getElementById('confirmDeleteModal');
+        delModal?.addEventListener('show.bs.modal', event => {
+            const btn = event.relatedTarget;
+            const id = btn?.getAttribute('data-id');
+            const name = btn?.getAttribute('data-name');
+            document.getElementById('delId').value = id;
+            document.getElementById('delName').textContent = name || '';
+        });
+
+        // Tự hiển thị các toast nếu có
+        document.querySelectorAll('.toast').forEach(el => {
+            const t = new bootstrap.Toast(el);
+            t.show();
+        });
+    </script>
+}

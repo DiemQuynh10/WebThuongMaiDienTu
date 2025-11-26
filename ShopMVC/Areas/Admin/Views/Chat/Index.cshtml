@@ -1,0 +1,67 @@
+﻿@model List<ShopMVC.Models.ChatSession>
+@{
+    ViewData["Title"] = "Quản lý Chat";
+}
+
+<h2>Danh sách Chat đang hoạt động</h2>
+
+<table class="table" id="sessionTable">
+    <thead>
+        <tr>
+            <th>Session ID</th>
+            <th>User</th>
+            <th>Thời gian</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var session in Model)
+        {
+            <tr data-session-id="@session.Id">
+                <td>@session.Id</td>
+                <td>@session.User</td>
+                <td>@session.ThoiGianTao</td>
+                <td>
+                    <a asp-action="ChiTiet" asp-route-id="@session.Id" class="btn btn-primary">
+                        Vào chat
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="~/lib/signalr/signalr.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Kết nối với tư cách admin
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("/chatHub?isAdmin=true")
+                .build();
+
+            // Khi có user mới kết nối
+            connection.on("NewUserConnected", (sessionId, connectionId) => {
+                alert(`Có kết nối mới! Session ID: ${sessionId}`);
+
+                // Tự động thêm dòng mới vào table (nâng cao)
+                const tableBody = document.querySelector("#sessionTable tbody");
+                const newRow = `
+                    <tr data-session-id="${sessionId}">
+                        <td>${sessionId}</td>
+                        <td>(Chưa đăng nhập)</td>
+                        <td>Vừa xong</td>
+                        <td>
+                            <a href="/Admin/Chat/ChiTiet/${sessionId}" class="btn btn-primary">
+                                Vào chat
+                            </a>
+                        </td>
+                    </tr>
+                `;
+                tableBody.insertAdjacentHTML('afterbegin', newRow);
+            });
+
+            connection.start().catch(err => console.error(err.toString()));
+        });
+    </script>
+}

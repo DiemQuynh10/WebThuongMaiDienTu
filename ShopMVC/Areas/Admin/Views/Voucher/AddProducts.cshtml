@@ -1,0 +1,260 @@
+﻿@model List<ShopMVC.Models.VoucherSanPham>
+
+@{
+    ViewData["Title"] = "Thiết lập sản phẩm Flash Sale";
+    var voucher = ViewBag.Voucher as ShopMVC.Models.Voucher;
+    var products = ViewBag.Products as IEnumerable<dynamic>;
+}
+
+<div class="container-fluid p-4 bg-white rounded shadow-sm">
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold text-danger mb-1">
+                <i class="bi bi-lightning-fill"></i>
+                @if (voucher != null)
+                {
+                    @:Flash Sale: @voucher.Code
+                }
+                else
+                {
+                    @:Flash Sale
+                }
+            </h2>
+            @if (voucher != null)
+            {
+                <p class="text-muted mb-0">
+                    @voucher.Ten
+                    (@voucher.NgayBatDau.ToString("dd/MM") - @voucher.NgayHetHan.ToString("dd/MM"))
+                </p>
+            }
+        </div>
+        <div>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                Hoàn tất
+            </a>
+        </div>
+    </div>
+
+    <!-- FORM THÊM SẢN PHẨM -->
+    <div class="card bg-light border-0 mb-4">
+        <div class="card-body">
+            <h5 class="card-title fw-bold text-secondary mb-2">
+                Thêm sản phẩm vào chương trình
+            </h5>
+            <p class="small text-muted mb-3">
+                Chọn sản phẩm, số lượng phân bổ và (tuỳ chọn) giá Flash Sale riêng.
+            </p>
+
+            <form id="addProductForm" class="row g-3 align-items-end mt-1">
+                <input type="hidden" name="voucherId" value="@voucher?.Id" />
+
+                <div class="col-md-5">
+                    <label class="form-label small fw-bold">Chọn sản phẩm</label>
+                    <select class="form-select" name="productId" id="productId">
+                        <option value="">-- Chọn sản phẩm --</option>
+                        @if (products != null)
+                        {
+                            foreach (var p in products)
+                            {
+                                <option value="@p.Id"
+                                        data-stock="@p.TonKho">
+                                    @p.Ten - Giá gốc: @(((decimal)p.Gia).ToString("#,##0")) đ
+                                    (Tồn: @p.TonKho)
+                                </option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label small fw-bold">Số lượng bán</label>
+                    <input type="number"
+                           class="form-control"
+                           name="quantity"
+                           id="quantityInput"
+                           value="10"
+                           min="1" />
+                    <div class="form-text" id="stockInfo" style="font-size: 0.75rem;">
+                        Tồn kho hiện tại: <span id="stockValue">-</span>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label small fw-bold">Giá Flash Sale (VNĐ)</label>
+                    <input type="number"
+                           class="form-control"
+                           name="salePrice"
+                           min="0"
+                           placeholder="Để trống nếu dùng %" />
+                    <div class="form-text" style="font-size: 0.75rem;">
+                        Để trống = áp dụng mức giảm mặc định của voucher.
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <button type="button"
+                            onclick="addProduct()"
+                            class="btn btn-primary w-100 fw-bold">
+                        <i class="bi bi-plus-lg"></i> Thêm
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- DANH SÁCH SẢN PHẨM ĐANG CHẠY -->
+    <h5 class="mb-3 fw-bold">
+        Danh sách sản phẩm đang chạy
+        <span class="text-muted">(@(Model?.Count ?? 0))</span>
+    </h5>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle border">
+            <thead class="table-light">
+                <tr>
+                    <th>Sản phẩm</th>
+                    <th>Giá gốc</th>
+                    <th>Giá Flash Sale</th>
+                    <th>Số lượng (Tổng / Đã bán)</th>
+                    <th class="text-end">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        var soLuongPhanBo = item.SoLuongPhanBo;
+                        var soLuongDaBan = item.SoLuongDaBan;
+                        var pct = soLuongPhanBo > 0
+                        ? (int)(soLuongDaBan * 100 / soLuongPhanBo)
+                        : 0;
+
+                        <tr>
+                            <td class="fw-bold">
+                                @item.SanPham?.Ten
+                            </td>
+                            <td>
+                                @if (item.SanPham != null)
+                                {
+                                    @item.SanPham.Gia.ToString("#,##0") @:đ
+                                }
+                            </td>
+                            <td class="text-danger fw-bold">
+                                @if (item.GiaGiam.HasValue)
+                                {
+                                    @item.GiaGiam.Value.ToString("#,##0") <span>đ</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-info text-dark">Theo voucher</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="d-flex flex-column">
+                                    <div class="d-flex align-items-center mb-1">
+                                        <span class="me-2 fw-semibold">@soLuongPhanBo</span>
+                                        <span class="text-muted small">
+                                            (@soLuongDaBan đã bán)
+                                        </span>
+                                    </div>
+                                    <div class="progress" style="height: 4px; width: 120px;">
+                                        <div class="progress-bar bg-danger" style="width: @pct%;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-danger"
+                                        onclick="removeProduct(@item.VoucherId, @item.SanPhamId)">
+                                    <i class="bi bi-trash"></i> Xóa
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center py-4 text-muted">
+                            Chưa có sản phẩm nào trong chương trình này.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Cập nhật tồn kho khi đổi sản phẩm
+        function updateStockInfo() {
+            var select = document.getElementById('productId');
+            var option = select.options[select.selectedIndex];
+            var stock = option ? option.getAttribute('data-stock') : null;
+
+            document.getElementById('stockValue').textContent = stock ? stock : '-';
+        }
+
+        document.getElementById('productId')?.addEventListener('change', updateStockInfo);
+        // Gọi 1 lần khi load để sync nếu có sp mặc định
+        updateStockInfo();
+
+        function addProduct() {
+            var pid = document.getElementById('productId').value;
+            if (!pid) {
+                alert('Vui lòng chọn sản phẩm!');
+                return;
+            }
+
+            var form = document.getElementById('addProductForm');
+            var data = new FormData(form);
+
+            fetch('/Admin/Voucher/AddProductToVoucher', {
+                method: 'POST',
+                body: data
+            })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success) {
+                        location.reload();
+                    } else {
+                        alert(res.message || 'Thêm sản phẩm thất bại.');
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Lỗi kết nối server.');
+                });
+        }
+
+        function removeProduct(vid, pid) {
+            if (!confirm('Bạn có chắc muốn xóa sản phẩm này khỏi Flash Sale không?')) {
+                return;
+            }
+
+            var data = new FormData();
+            data.append('voucherId', vid);
+            data.append('productId', pid);
+
+            fetch('/Admin/Voucher/RemoveProductFromFlashSale', {
+                method: 'POST',
+                body: data
+            })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success) {
+                        location.reload();
+                    } else {
+                        alert(res.message || 'Xóa sản phẩm thất bại.');
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Lỗi kết nối server khi xóa.');
+                });
+        }
+    </script>
+}

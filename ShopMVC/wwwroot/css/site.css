@@ -1,0 +1,357 @@
+﻿/* =========================================
+   1. IMPORTS & VARIABLES
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+    /* Color Palette */
+    --pink: #f472b6; /* Old Primary */
+    --pink-600: #db2777; /* Old Hover */
+    --primary-pink: #ff69b4; /* New Primary (Hot Pink) */
+    --hover-pink: #d63384; /* New Hover */
+
+    --rose: #f43f5e; /* Accent */
+    --muted: #6b7280; /* Text Muted */
+    /* Layout Variables */
+    --rounded: 1rem; /* Card radius 16px */
+    --bs-secondary-color: #6c757d; /* Bootstrap default fallback */
+}
+
+/* =========================================
+   2. BASE STYLES (HTML, BODY)
+   ========================================= */
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    margin-bottom: 60px; /* Footer Sticky Space */
+    padding-top: 80px; /* Header Fixed Space */
+}
+
+/* =========================================
+   3. TYPOGRAPHY & LINKS
+   ========================================= */
+.text-muted {
+    color: var(--muted) !important;
+}
+
+.text-pink {
+    color: var(--primary-pink) !important;
+}
+
+.bg-pink {
+    background-color: var(--primary-pink) !important;
+}
+
+.price {
+    font-weight: 700;
+}
+
+.price-old {
+    text-decoration: line-through;
+    color: #9ca3af;
+    margin-left: .35rem;
+}
+
+.nav-link {
+    color: #555;
+    transition: color 0.2s;
+    font-size: 0.95rem;
+}
+
+    .nav-link:hover {
+        color: var(--primary-pink);
+    }
+
+/* =========================================
+   4. BUTTONS & FORMS
+   ========================================= */
+/* Global Focus State */
+.btn:focus, .btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+/* Form Controls */
+.form-control, .form-select {
+    border-radius: .75rem;
+}
+
+input::placeholder {
+    color: #9ca3af;
+}
+
+/* Form Floating Placeholders */
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+    color: var(--bs-secondary-color);
+    text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder,
+.form-floating > .form-control:focus::placeholder {
+    text-align: start;
+}
+
+/* Buttons */
+.btn-primary {
+    background: var(--pink);
+    border-color: var(--pink);
+    font-weight: 600;
+}
+
+    .btn-primary:hover {
+        background: var(--pink-600);
+        border-color: var(--pink-600);
+    }
+
+.btn-outline-primary {
+    color: var(--pink-600);
+    border-color: #f9c;
+}
+
+    .btn-outline-primary:hover {
+        background: var(--pink);
+        border-color: var(--pink);
+        color: #fff;
+    }
+
+/* Button Pink Custom */
+.btn-pink {
+    background-color: var(--primary-pink);
+    border-color: var(--primary-pink);
+    transition: all 0.3s ease;
+}
+
+    .btn-pink:hover {
+        background-color: var(--hover-pink);
+        border-color: var(--hover-pink);
+        transform: translateY(-1px);
+    }
+
+#registerSubmit {
+    color: black !important;
+}
+
+/* =========================================
+   5. LAYOUT & CARDS
+   ========================================= */
+.card {
+    border-radius: var(--rounded);
+    border: 1px solid #f1f1f1;
+}
+
+    .card:hover {
+        box-shadow: 0 10px 24px rgba(0,0,0,.08);
+        transition: .2s;
+    }
+
+.rounded-xl {
+    border-radius: var(--rounded) !important;
+}
+
+.pagination .page-link {
+    border-radius: .6rem;
+}
+
+/* =========================================
+   6. HEADER & NAVBAR components
+   ========================================= */
+.site-header {
+    background-color: #fff !important;
+    z-index: 5000 !important;
+}
+
+.navbar {
+    box-shadow: 0 6px 18px rgba(0,0,0,.05);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: .3px;
+}
+
+/* Search Group */
+.search-group input {
+    border: 2px solid var(--primary-pink);
+    border-radius: 25px 0 0 25px;
+    background-color: #f8f9fa;
+}
+
+    .search-group input:focus {
+        background-color: #fff;
+        box-shadow: 0 0 0 0.2rem rgba(255, 105, 180, 0.25);
+    }
+
+.search-group button {
+    border-radius: 0 25px 25px 0;
+    font-weight: bold;
+}
+
+/* =========================================
+   7. BADGES & STATUS
+   ========================================= */
+/* Cart Badge Override */
+.badge {
+    font-size: 0.7rem;
+    top: -5px !important;
+    right: -10px !important;
+}
+
+/* Custom Soft Badge */
+.badge-soft {
+    background: #fee2e2;
+    color: #b91c1c;
+    border-radius: 999px;
+    padding: .25rem .6rem;
+    font-weight: 600;
+}
+
+/* Order Status Badges */
+.badge-state {
+    border-radius: 999px;
+    padding: .25rem .6rem;
+    font-weight: 600;
+}
+
+.badge-cho {
+    background: #fff7ed;
+    color: #b45309;
+    border: 1px solid #f59e0b;
+}
+
+.badge-chuanbi {
+    background: #ecfeff;
+    color: #0e7490;
+    border: 1px solid #06b6d4;
+}
+
+.badge-danggiao {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #60a5fa;
+}
+
+.badge-hoantat {
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #34d399;
+}
+
+.badge-dahuy {
+    background: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #cbd5e1;
+}
+
+/* =========================================
+   8. SPECIFIC COMPONENTS
+   ========================================= */
+
+/* --- Order Steps (Progress Bar) --- */
+.order-steps {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.order-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.order-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    border: 2px solid #d1d5db;
+}
+
+.order-step.active .order-dot {
+    background: #10b981;
+    border-color: #34d399;
+}
+
+.order-line {
+    flex: 1;
+    height: 2px;
+    background: #e5e7eb;
+}
+
+    .order-line.active {
+        background: #34d399;
+    }
+
+/* --- Shopee Style Cart Button --- */
+.shopee-cart-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin-right: 10px;
+    transition: transform 0.2s;
+}
+
+    .shopee-cart-btn:hover {
+        color: #ff69b4 !important;
+        transform: scale(1.1);
+    }
+
+.shopee-badge {
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    background-color: #ee4d2d;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    line-height: 1;
+    padding: 2px 5px;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 10px;
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- Banner Responsive Logic --- */
+/* PC */
+@media (min-width: 992px) {
+    #mainBannerCarousel, .col-lg-4 .d-flex {
+        height: 320px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 991px) {
+    #mainBannerCarousel {
+        height: 200px;
+        margin-bottom: 10px;
+    }
+
+    .col-lg-4 .d-flex {
+        height: 200px;
+    }
+}
+.existing-image-card {
+    width: 110px; /* cố định chiều rộng card */
+    display: inline-block; /* tránh bị stretch theo chiều cao container */
+    height: auto !important;
+}

@@ -1,0 +1,73 @@
+﻿@model ShopMVC.Models.SanPham
+@{
+    ViewData["Title"] = "Ảnh sản phẩm";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0 fw-bold">Ảnh · @Model.Ten</h3>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary btn-sm">← Quay lại sản phẩm</a>
+</div>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <form asp-action="UploadImages" method="post" enctype="multipart/form-data" class="d-flex align-items-center gap-2">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input type="file" name="files" multiple accept=".jpg,.jpeg,.png,.webp" class="form-control" style="max-width:420px" />
+            <button class="btn btn-primary">Tải lên</button>
+            <small class="text-muted">Hỗ trợ: jpg, png, webp (≤ 5MB/ảnh)</small>
+        </form>
+    </div>
+</div>
+
+@if (Model.Anhs != null && Model.Anhs.Any())
+{
+    <div class="row g-3">
+        @foreach (var a in Model.Anhs.OrderBy(x => x.ThuTu))
+        {
+            <div class="col-md-3">
+                <div class="card h-100">
+                    <img src="@a.Url" class="card-img-top" style="aspect-ratio: 4/3; object-fit: cover;" />
+                    <div class="card-body d-flex flex-column">
+                        <div class="mb-2">
+                            @if (a.LaAnhChinh)
+                            {
+                                <span class="badge bg-success">Ảnh chính</span>
+                            }
+                            else
+                            {
+                                <form asp-action="SetMainImage" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@Model.Id" />
+                                    <input type="hidden" name="imageId" value="@a.Id" />
+                                    <button class="btn btn-sm btn-outline-success">Đặt làm chính</button>
+                                </form>
+                            }
+                        </div>
+
+                        <div class="mt-auto d-flex justify-content-between">
+                            <form asp-action="MoveImage" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@Model.Id" />
+                                <input type="hidden" name="imageId" value="@a.Id" />
+                                <button name="dir" value="up" class="btn btn-sm btn-outline-secondary">↑</button>
+                                <button name="dir" value="down" class="btn btn-sm btn-outline-secondary">↓</button>
+                            </form>
+
+                            <form asp-action="DeleteImage" method="post" class="d-inline" onsubmit="return confirm('Xóa ảnh này?');">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@Model.Id" />
+                                <input type="hidden" name="imageId" value="@a.Id" />
+                                <button class="btn btn-sm btn-outline-danger">Xóa</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-muted">Chưa có ảnh nào.</div>
+}

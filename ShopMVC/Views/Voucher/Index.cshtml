@@ -1,0 +1,221 @@
+﻿@model IEnumerable<ShopMVC.Models.Voucher>
+@{
+    ViewData["Title"] = "Ưu đãi & Mã giảm giá";
+
+    // Hàm helper để render mô tả giảm giá
+    string GetDiscountDescription(Voucher v)
+    {
+        if (v.PhanTramGiam.HasValue && v.PhanTramGiam > 0)
+        {
+            string desc = $"Giảm {v.PhanTramGiam.Value}%";
+            if (v.GiamToiDa.HasValue && v.GiamToiDa > 0)
+            {
+                desc += $", tối đa {v.GiamToiDa.Value.ToString("N0")}đ";
+            }
+            return desc;
+        }
+        if (v.GiamTrucTiep.HasValue && v.GiamTrucTiep > 0)
+        {
+            return $"Giảm trực tiếp {v.GiamTrucTiep.Value.ToString("N0")}đ";
+        }
+        return "Ưu đãi đặc biệt";
+    }
+}
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold text-pink">Ưu đãi & Mã giảm giá</h1>
+        <p class="fs-5 text-muted">Sử dụng mã giảm giá bên dưới để tiết kiệm hơn khi mua sắm!</p>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center">
+            <p>Hiện tại chưa có mã giảm giá nào. Vui lòng quay lại sau!</p>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var v in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="voucher-card h-100 shadow-sm">
+                        <div class="voucher-left">
+                            <h5 class="voucher-title">@GetDiscountDescription(v)</h5>
+                            <p class="voucher-subtitle">@v.Ten</p>
+                            <p class="voucher-expiry mb-0">HSD: @v.NgayHetHan.ToString("dd/MM/yyyy")</p>
+                        </div>
+                        <div class="voucher-right">
+                            <span class="voucher-code">@v.Code</span>
+                            <button class="btn btn-copy-code" data-code="@v.Code">Sao chép</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<!-- Thêm một toast (thông báo) đơn giản để báo đã copy -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="copyToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                Đã sao chép mã!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
+
+@section Styles {
+    <style>
+        /* CSS cho thẻ voucher */
+        .voucher-card {
+            display: flex;
+            background: #fff;
+            border: 1px dashed #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+            .voucher-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 16px rgba(0,0,0,.08) !important;
+            }
+
+        .voucher-left {
+            flex: 1;
+            padding: 20px;
+            background: linear-gradient(135deg, #fff1f2, #ffe4ec); /* Màu hồng nhạt */
+            position: relative;
+        }
+
+        .voucher-right {
+            flex-shrink: 0;
+            width: 140px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-left: 2px dashed #f8bbd0; /* Viền hồng */
+            position: relative;
+        }
+
+            /* Hai nửa vòng tròn trang trí */
+            .voucher-right::before,
+            .voucher-right::after {
+                content: '';
+                position: absolute;
+                left: -11px; /* Dịch qua trái */
+                width: 20px;
+                height: 20px;
+                background: #f8f9fa; /* Màu nền của trang (hoặc #fff nếu nền trắng) */
+                border-radius: 50%;
+                border: 1px solid #e0e0e0;
+                border-left-color: transparent;
+                z-index: 1;
+            }
+
+            .voucher-right::before {
+                top: -10px;
+            }
+
+            .voucher-right::after {
+                bottom: -10px;
+            }
+
+
+        .voucher-title {
+            color: #db2777; /* Màu hồng đậm */
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .voucher-subtitle {
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        .voucher-expiry {
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .voucher-code {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+            background-color: #f1f1f1;
+            padding: 4px 12px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        .btn-copy-code {
+            background: #ec4899; /* Màu hồng */
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: background .2s ease;
+        }
+
+            .btn-copy-code:hover {
+                background: #db2777;
+                color: #fff;
+            }
+
+        .text-pink {
+            color: #db2777;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Lấy toast element
+            const toastElement = document.getElementById('copyToast');
+            const toast = new bootstrap.Toast(toastElement, { delay: 2000 });
+
+            // 2. Lấy tất cả các nút copy
+            const copyButtons = document.querySelectorAll('.btn-copy-code');
+
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const codeToCopy = this.getAttribute('data-code');
+
+                    // Sử dụng textarea tạm để copy
+                    const tempTextArea = document.createElement('textarea');
+                    tempTextArea.value = codeToCopy;
+                    document.body.appendChild(tempTextArea);
+                    tempTextArea.select();
+
+                    try {
+                        // Dùng document.execCommand vì navigator.clipboard có thể bị chặn
+                        var successful = document.execCommand('copy');
+                        if(successful) {
+                            // 3. Hiển thị toast
+                            toast.show();
+                        } else {
+                            alert('Không thể sao chép mã.');
+                        }
+                    } catch (err) {
+                        console.error('Lỗi sao chép: ', err);
+                        alert('Không thể sao chép mã.');
+                    }
+
+                    document.body.removeChild(tempTextArea);
+                });
+            });
+        });
+    </script>
+}

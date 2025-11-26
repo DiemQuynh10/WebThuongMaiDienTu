@@ -1,0 +1,269 @@
+﻿@model IEnumerable<ShopMVC.Models.ThuongHieu>
+
+@{
+    ViewData["Title"] = "Thương hiệu";
+    int page = (int)(ViewBag.Page ?? 1);
+    int pageSize = (int)(ViewBag.PageSize ?? 12);
+    int total = (int)(ViewBag.Total ?? 0);
+    int totalPages = (int)(ViewBag.TotalPages ?? 1);
+    string q = ViewBag.Q as string ?? "";
+    string sort = ViewBag.Sort as string ?? "name_asc";
+}
+
+<style>
+    /* Chỉ riêng trang này, làm nhẹ nhàng */
+    .toolbar {
+        gap: .5rem;
+    }
+
+    .sticky-head thead th {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: #fff;
+    }
+
+    .table-hover tbody tr:hover {
+        background: #fafbff;
+    }
+
+    .pill-on {
+        background: #eaf7ef;
+        color: #2e7d32;
+    }
+
+    .pill-off {
+        background: #eceff3;
+        color: #6b7280;
+    }
+
+    .btn-icon {
+        width: 30px;
+        height: 30px;
+        display: inline-grid;
+        place-items: center;
+        padding: 0;
+    }
+
+    .btn-status {
+        border: none;
+        font-size: 0.8rem;
+        font-weight: 600;
+        padding: 0.35rem 0.8rem;
+        border-radius: 50rem; 
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px; 
+    }
+
+    .btn-status-on {
+        background-color: #d1e7dd;
+        color: #146c43;
+    }
+
+        .btn-status-on:hover {
+            background-color: #badbcc; 
+            color: #0f5132;
+            transform: translateY(-1px); 
+        }
+
+    .btn-status-off {
+        background-color: #e9ecef;
+        color: #6c757d;
+    }
+
+        .btn-status-off:hover {
+            background-color: #dee2e6;
+            color: #495057;
+            transform: translateY(-1px);
+        }
+</style>
+
+<div class="container py-4">
+    <!-- Toolbar -->
+    <div class="d-flex flex-wrap align-items-center justify-content-between mb-3">
+        <h3 class="mb-2 mb-md-0">Thương hiệu</h3>
+
+        <div class="d-flex align-items-center toolbar">
+            <!-- Sắp xếp -->
+            <form method="get" class="d-flex align-items-center toolbar">
+                <input type="hidden" name="q" value="@q" />
+                <input type="hidden" name="page" value="1" />
+                <input type="hidden" name="pageSize" value="@pageSize" />
+                <select name="sort" class="form-select form-select-sm" onchange="this.form.submit()">
+                    <option value="name_asc" selected="@(sort=="name_asc")">Tên A–Z</option>
+                    <option value="name_desc" selected="@(sort=="name_desc")">Tên Z–A</option>
+                    <option value="id_asc" selected="@(sort=="id_asc")">Mã ↑</option>
+                    <option value="id_desc" selected="@(sort=="id_desc")">Mã ↓</option>
+                </select>
+            </form>
+
+            <!-- Tìm kiếm -->
+            <form method="get" class="d-flex align-items-center toolbar">
+                <input type="hidden" name="sort" value="@sort" />
+                <input type="hidden" name="page" value="1" />
+                <input type="hidden" name="pageSize" value="@pageSize" />
+                <div class="input-group input-group-sm" style="min-width:260px">
+                    <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                    <input class="form-control" name="q" value="@q" placeholder="Tìm theo tên…" />
+                    @if (!string.IsNullOrWhiteSpace(q))
+                    {
+                        <a class="btn btn-outline-secondary" asp-action="Index" asp-route-sort="@sort" asp-route-pageSize="@pageSize">Xoá</a>
+                    }
+                    <button class="btn btn-secondary">Lọc</button>
+                </div>
+            </form>
+
+            <a asp-action="Create" class="btn btn-sm btn-primary">
+                <i class="bi bi-plus-lg me-1"></i> Thêm thương hiệu
+            </a>
+        </div>
+    </div>
+
+    <!-- Bảng -->
+    <div class="card border-0 shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-sm align-middle table-hover sticky-head mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width:90px">Mã</th>
+                        <th>Tên</th>
+                        <th style="width:120px" class="text-center">Hiển thị</th>
+                        <th style="width:140px" class="text-end">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var b in Model)
+                    {
+                        <tr>
+                            <td class="text-muted">@b.Id</td>
+                            <td class="fw-semibold">@b.Ten</td>
+                            <td class="text-center">
+                                <form asp-action="Toggle" asp-route-id="@b.Id" method="post" class="d-inline">
+                                    @Html.AntiForgeryToken()
+
+                                    <button type="submit"
+                                            class="btn-status @(b.HienThi ? "btn-status-on" : "btn-status-off")"
+                                            title="Nhấn để @(b.HienThi ? "tắt" : "bật")"
+                                            data-bs-toggle="tooltip">
+
+                                        <i class="bi @(b.HienThi ? "bi-check-circle-fill" : "bi-dash-circle")"></i>
+
+                                        <span>@(b.HienThi ? "Hiển thị" : "Đã ẩn")</span>
+                                    </button>
+                                </form>
+                            </td>
+                            <td class="text-end">
+                                <a class="btn btn-outline-primary btn-icon" asp-action="Edit" asp-route-id="@b.Id" title="Sửa" data-bs-toggle="tooltip">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <button type="button" class="btn btn-link text-danger btn-icon"
+                                        title="Xoá" data-bs-toggle="tooltip"
+                                        data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                                        data-id="@b.Id" data-name="@b.Ten">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Footer: phân trang -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center px-3 py-2">
+            <div class="small text-muted mb-2 mb-md-0">
+                Hiển thị @(((page - 1) * pageSize) + 1)–@(Math.Min(page * pageSize, total)) / @total
+            </div>
+
+            <div class="d-flex align-items-center gap-3">
+                <form method="get" class="d-flex align-items-center gap-2">
+                    <input type="hidden" name="q" value="@q" />
+                    <input type="hidden" name="sort" value="@sort" />
+                    <label class="small text-muted">Mỗi trang</label>
+                    <select name="pageSize" class="form-select form-select-sm" onchange="this.form.submit()">
+                        @{
+                            int[] options = new[] { 10, 12, 15, 25, 50 };
+                            foreach (var opt in options)
+                            {
+                                <option value="@opt" selected="@(opt == pageSize)">@opt</option>
+                            }
+                        }
+                    </select>
+                    <input type="hidden" name="page" value="1" />
+                </form>
+
+                <nav>
+                    <ul class="pagination pagination-sm mb-0">
+                        <li class="page-item @(page == 1 ? "disabled" : "")">
+                            <a class="page-link" asp-action="Index"
+                               asp-route-page="@(page-1)"
+                               asp-route-pageSize="@pageSize"
+                               asp-route-q="@q"
+                               asp-route-sort="@sort">«</a>
+                        </li>
+                        @{
+                            int start = Math.Max(1, page - 2);
+                            int end = Math.Min(totalPages, page + 2);
+                            for (int i = start; i <= end; i++)
+                            {
+                                <li class="page-item @(i == page ? "active" : "")">
+                                    <a class="page-link" asp-action="Index"
+                                       asp-route-page="@i"
+                                       asp-route-pageSize="@pageSize"
+                                       asp-route-q="@q"
+                                       asp-route-sort="@sort">@i</a>
+                                </li>
+                            }
+                        }
+                        <li class="page-item @(page == totalPages ? "disabled" : "")">
+                            <a class="page-link" asp-action="Index"
+                               asp-route-page="@(page+1)"
+                               asp-route-pageSize="@pageSize"
+                               asp-route-q="@q"
+                               asp-route-sort="@sort">»</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal xác nhận xoá -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận xoá thương hiệu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc muốn xoá: <strong id="delName">...</strong>?
+                    <div class="small text-muted mt-2">Nếu còn sản phẩm thuộc thương hiệu này, thao tác sẽ bị chặn.</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <form method="post" asp-action="Delete" id="delForm" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" id="delId" />
+                        <button class="btn btn-danger">Xoá</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Bơm dữ liệu vào modal xoá + bật tooltip
+        const delModal = document.getElementById('confirmDeleteModal');
+        delModal?.addEventListener('show.bs.modal', e => {
+          const btn = e.relatedTarget;
+          document.getElementById('delId').value = btn.getAttribute('data-id');
+          document.getElementById('delName').textContent = btn.getAttribute('data-name') || '';
+        });
+        document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+    </script>
+}

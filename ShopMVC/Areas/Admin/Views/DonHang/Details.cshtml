@@ -1,0 +1,376 @@
+﻿@model ShopMVC.Models.DonHang
+@using ShopMVC.Models
+
+@{
+    ViewData["Title"] = "Đơn #" + Model.MaDon;
+
+    // Logic trạng thái giữ nguyên
+    bool Done(TrangThaiDonHang s) => Model.TrangThai >= s && Model.TrangThai != TrangThaiDonHang.DaHuy;
+
+    // Flow chuẩn (không lùi)
+    bool CanToChuanBi = Model.TrangThai == TrangThaiDonHang.ChoXacNhan;
+    bool CanToDangGiao = Model.TrangThai == TrangThaiDonHang.ChuanBi;
+    bool CanToHoanTat = Model.TrangThai == TrangThaiDonHang.DangGiao;
+
+    // Huỷ: chỉ khi chưa tới Đang giao
+    bool CanCancel = Model.TrangThai == TrangThaiDonHang.ChoXacNhan
+                     || Model.TrangThai == TrangThaiDonHang.ChuanBi;
+
+    // Mở lại ≤ 10 phút sau Hoàn tất (UX); server vẫn kiểm tra kỹ trong service
+    bool AllowReopen = Model.TrangThai == TrangThaiDonHang.HoanTat
+                       && (DateTime.UtcNow - Model.NgayCapNhat.ToUniversalTime()) <= TimeSpan.FromMinutes(10);
+
+    var notes = ViewBag.Notes as IEnumerable<ShopMVC.Models.DonHangNote> ?? Enumerable.Empty<ShopMVC.Models.DonHangNote>();
+    var logs = ViewBag.Logs as IEnumerable<ShopMVC.Models.DonHangLog> ?? Enumerable.Empty<ShopMVC.Models.DonHangLog>();
+}
+
+<style>
+    /* CSS Progress mini giữ nguyên */
+    .order-steps {
+        display: flex;
+        align-items: center;
+        gap: .5rem
+    }
+
+    .order-step {
+        display: flex;
+        align-items: center;
+        gap: .4rem;
+        color: #94a3b8;
+        font-weight: 600
+    }
+
+        .order-step .order-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #e2e8f0
+        }
+
+        .order-step.active {
+            color: #16a34a
+        }
+
+            .order-step.active .order-dot {
+                background: #16a34a
+            }
+
+    .order-line {
+        height: 2px;
+        width: 48px;
+        background: #e2e8f0;
+        border-radius: 2px
+    }
+
+        .order-line.active {
+            background: #16a34a
+        }
+    /* Badge state styles */
+    .badge-state {
+        padding: .3em .6em;
+        font-weight: 700;
+        color: #fff;
+        border-radius: .25rem;
+    }
+
+    .badge-cho_xac_nhan {
+        background-color: #ffc107;
+        color: #000;
+    }
+
+    .badge-chuan_bi {
+        background-color: #0d6efd;
+    }
+
+    .badge-dang_giao {
+        background-color: #17a2b8;
+    }
+
+    .badge-hoan_tat {
+        background-color: #28a745;
+    }
+
+    .badge-da_huy {
+        background-color: #dc3545;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Đơn #@Model.MaDon</h3>
+
+        <div class="d-flex align-items-center gap-2">
+            <a asp-action="Invoice" asp-route-id="@Model.Id" target="_blank" class="btn btn-outline-secondary btn-sm">
+                In hóa đơn
+            </a>
+        </div>
+    </div>
+
+    <div class="order-steps mb-4">
+        <div class="order-step @(Done(TrangThaiDonHang.ChoXacNhan) ? "active" : "")">
+            <div class="order-dot"></div><div>Chờ xác nhận</div>
+        </div>
+        <div class="order-line @(Done(TrangThaiDonHang.ChuanBi) ? "active" : "")"></div>
+        <div class="order-step @(Done(TrangThaiDonHang.ChuanBi) ? "active" : "")">
+            <div class="order-dot"></div><div>Chuẩn bị</div>
+        </div>
+        <div class="order-line @(Done(TrangThaiDonHang.DangGiao) ? "active" : "")"></div>
+        <div class="order-step @(Done(TrangThaiDonHang.DangGiao) ? "active" : "")">
+            <div class="order-dot"></div><div>Đang giao</div>
+        </div>
+        <div class="order-line @(Done(TrangThaiDonHang.HoanTat) ? "active" : "")"></div>
+        <div class="order-step @(Done(TrangThaiDonHang.HoanTat) ? "active" : "")">
+            <div class="order-dot"></div><div>Hoàn tất</div>
+        </div>
+        @if (Model.TrangThai == TrangThaiDonHang.DaHuy)
+        {
+            <div class="order-line" style="background: #dc3545;"></div>
+            <div class="order-step" style="color: #dc3545;">
+                <div class="order-dot" style="background: #dc3545;"></div><div>Đã huỷ</div>
+            </div>
+        }
+    </div>
+
+    <div class="row g-3">
+        <div class="col-lg-7">
+
+            <div class="card rounded-3">
+                <div class="card-header bg-light">Sản phẩm trong đơn</div>
+                <div class="card-body">
+                    <table class="table mb-0 align-middle small">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th class="text-end">SL</th>
+                                <th class="text-end">Đơn giá</th>
+                                <th class="text-end">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ct in Model.ChiTiets)
+                            {
+                                <tr>
+                                    <td>@ct.SanPham?.Ten</td>
+                                    <td class="text-end">@ct.SoLuong</td>
+                                    <td class="text-end">@ct.DonGia.ToString("n0") đ</td>
+                                    <td class="text-end fw-bold">@ct.ThanhTien.ToString("n0") đ</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card rounded-3 mt-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="mb-0">Ghi chú nội bộ</h5>
+                        <small class="text-muted">Không hiển thị cho khách</small>
+                    </div>
+
+                    <form asp-action="AddNote" asp-route-id="@Model.Id" method="post" class="d-flex gap-2 mb-3">
+                        @Html.AntiForgeryToken()
+                        <input name="noiDung" class="form-control" placeholder="Thêm ghi chú…" required />
+                        <button class="btn btn-primary btn-sm">Lưu</button>
+                    </form>
+
+                    @if (notes.Any())
+                    {
+                        <ul class="list-group list-group-flush small">
+                            @foreach (var n in notes)
+                            {
+                                <li class="list-group-item d-flex justify-content-between px-0">
+                                    <div>@n.NoiDung</div>
+                                    <div class="text-muted small">@n.CreatedBy · @n.CreatedAt.ToLocalTime()</div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <div class="text-muted small">Chưa có ghi chú nào.</div>
+                    }
+                </div>
+            </div>
+
+            <div class="card rounded-3 mt-3">
+                <div class="card-body">
+                    <h5 class="mb-2">Nhật ký trạng thái</h5>
+                    @if (logs.Any())
+                    {
+                        <table class="table table-sm mb-0">
+                            <thead><tr><th>Thời gian</th><th>Từ</th><th>Đến</th><th>Bởi</th></tr></thead>
+                            <tbody>
+                                @foreach (var l in logs)
+                                {
+                                    <tr>
+                                        <td>@l.At.ToLocalTime()</td>
+                                        <td>@l.From</td>
+                                        <td>@l.To</td>
+                                        <td>@l.ByUser</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <div class="text-muted small">Chưa có log.</div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+
+            <div class="card rounded-3 mb-3">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3">Thông tin nhận hàng</h6>
+                    <div class="small">
+                        <div><b>Người nhận:</b> @Model.HoTenNhan</div>
+                        <div><b>Điện thoại:</b> @Model.DienThoaiNhan</div>
+                        <div><b>Địa chỉ:</b> @Model.DiaChiNhan</div>
+                    </div>
+
+                    <hr />
+
+                    <h6 class="fw-bold mb-3">Tóm tắt thanh toán</h6>
+                    <div class="d-flex justify-content-between small"><span>Tạm tính</span><span>@Model.TongTruocGiam.ToString("n0") đ</span></div>
+                    <div class="d-flex justify-content-between small"><span>Phí ship</span><span>@Model.PhiVanChuyen.ToString("n0") đ</span></div>
+                    <div class="d-flex justify-content-between small"><span>Giảm</span><span class="text-danger">-@Model.TienGiam.ToString("n0") đ</span></div>
+
+                    <hr class="my-2" />
+
+                    <div class="d-flex justify-content-between fw-bold fs-5 text-danger">
+                        <span>Tổng</span>
+                        <span>@Model.TongThanhToan.ToString("n0") đ</span>
+                    </div>
+
+                    <div class="mt-3">
+                        <b>Trạng thái hiện tại:</b>
+                        <span class="badge-state badge-@Model.TrangThai.ToString().ToLower()">@Model.TrangThai</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card rounded-3">
+                <div class="card-body">
+                    <h6 class="fw-bold mb-3">Chuyển trạng thái</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        @* Logic chuyển trạng thái giữ nguyên *@
+                        @if (Model.TrangThai is not (TrangThaiDonHang.HoanTat or TrangThaiDonHang.DaHuy))
+                        {
+                            if (CanToChuanBi)
+                            {
+                                <form method="post" asp-action="ChuyenTrangThai" asp-route-id="@Model.Id" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="trangThai" value="@TrangThaiDonHang.ChuanBi" />
+                                    <button class="btn btn-outline-secondary btn-sm">→ Chuẩn bị</button>
+                                </form>
+                            }
+                            if (CanToDangGiao)
+                            {
+                                <form method="post" asp-action="ChuyenTrangThai" asp-route-id="@Model.Id" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="trangThai" value="@TrangThaiDonHang.DangGiao" />
+                                    <button class="btn btn-outline-secondary btn-sm">→ Đang giao</button>
+                                </form>
+                            }
+                            if (CanToHoanTat)
+                            {
+                                <form method="post" asp-action="ChuyenTrangThai" asp-route-id="@Model.Id" class="d-inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="trangThai" value="@TrangThaiDonHang.HoanTat" />
+                                    <button class="btn btn-success btn-sm">✔ Hoàn tất</button>
+                                </form>
+                            }
+                            if (CanCancel)
+                            {
+                                <button class="btn btn-link text-danger btn-sm" data-bs-toggle="modal" data-bs-target="#cancelModal">Huỷ đơn</button>
+                            }
+                        }
+
+                        @if (User.IsInRole("Admin") && AllowReopen)
+                        {
+                            <button class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#reopenModal">
+                                Mở lại (≤10’)
+                            </button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modals giữ nguyên *@
+<div class="modal fade" id="cancelModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="post" asp-action="Huy" asp-route-id="@Model.Id" class="modal-content">
+            @Html.AntiForgeryToken()
+            <div class="modal-header">
+                <h5 class="modal-title">Huỷ đơn @Model.MaDon</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Lý do</label>
+                    <select name="reasonCode" class="form-select" required>
+                        <option value="">-- Chọn lý do --</option>
+                        <option value="CUSTOMER_REQUEST">Khách yêu cầu huỷ</option>
+                        <option value="OUT_OF_STOCK">Hết hàng/thiếu tồn</option>
+                        <option value="PAYMENT_FAILED">Thanh toán thất bại</option>
+                        <option value="ADDRESS_ISSUE">Địa chỉ/không liên hệ được</option>
+                        <option value="OTHER">Khác...</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ghi chú</label>
+                    <textarea name="note" class="form-control" rows="3" placeholder="Mô tả chi tiết (nếu có)"></textarea>
+                </div>
+                <div class="alert alert-warning small mb-0">
+                    Huỷ đơn sẽ hoàn kho số lượng tương ứng. Thao tác không thể hoàn tác.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Đóng</button>
+                <button class="btn btn-danger" type="submit">Xác nhận huỷ</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade" id="reopenModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="post" asp-action="Reopen" asp-route-id="@Model.Id" class="modal-content">
+            @Html.AntiForgeryToken()
+            <div class="modal-header">
+                <h5 class="modal-title">Mở lại đơn @Model.MaDon (≤10 phút)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Lý do</label>
+                    <select name="reasonCode" class="form-select" required>
+                        <option value="">-- Chọn lý do --</option>
+                        <option value="SYSTEM_ADJUST">Điều chỉnh hệ thống</option>
+                        <option value="CUSTOMER_REQUEST">Khách yêu cầu</option>
+                        <option value="ADDRESS_ISSUE">Vấn đề địa chỉ</option>
+                        <option value="OTHER">Khác...</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ghi chú</label>
+                    <textarea name="note" class="form-control" rows="3" placeholder="Mô tả chi tiết (nếu có)"></textarea>
+                </div>
+                <div class="alert alert-warning small mb-0">
+                    Hệ thống sẽ đưa đơn về trạng thái ngay trước “Hoàn tất” và ghi lịch sử override.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Đóng</button>
+                <button class="btn btn-warning" type="submit">Xác nhận mở lại</button>
+            </div>
+        </form>
+    </div>
+</div>

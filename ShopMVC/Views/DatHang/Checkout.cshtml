@@ -1,0 +1,328 @@
+﻿@model ShopMVC.Models.ViewModels.CheckoutVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Đặt hàng";
+    var gio = Model.Gio ?? new List<ShopMVC.Models.ViewModels.GioHangItem>();
+    var tamTinh = gio.Sum(x => x.ThanhTien);
+
+    // ======= THÊM MẶC ĐỊNH PHÍ SHIP 30K  =======
+    decimal defaultShip = 30000m;
+    var phiShip = Model.PhiVanChuyen > 0 ? Model.PhiVanChuyen : defaultShip;
+
+    var giam = Model.TienGiam;
+    var tongThanhToan = Math.Max(0, tamTinh + phiShip - giam);
+}
+
+
+<div class="container py-4">
+    <h2 class="mb-3 fw-bold">Đặt hàng</h2>
+
+    @if (!gio.Any())
+    {
+        <div class="alert alert-info">
+            Giỏ hàng rỗng. <a asp-controller="GioHang" asp-action="Index">Quay lại giỏ hàng</a>.
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            <!-- THÔNG TIN NHẬN HÀNG -->
+            <div class="col-lg-7">
+                <div class="card mb-3">
+                    <div class="card-header fw-bold">
+                        Thông tin nhận hàng
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="Checkout" asp-controller="DatHang" method="post" id="checkoutForm">
+                            @Html.AntiForgeryToken()
+
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+                            <div class="mb-3">
+                                <label asp-for="HoTenNhan" class="form-label">Họ tên người nhận</label>
+                                <input asp-for="HoTenNhan" class="form-control" />
+                                <span asp-validation-for="HoTenNhan" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="DienThoaiNhan" class="form-label">Điện thoại</label>
+                                <input asp-for="DienThoaiNhan" class="form-control" />
+                                <span asp-validation-for="DienThoaiNhan" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="DiaChiNhan" class="form-label">Địa chỉ nhận hàng</label>
+                                <textarea asp-for="DiaChiNhan" class="form-control" rows="3"></textarea>
+                                <span asp-validation-for="DiaChiNhan" class="text-danger"></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Phí vận chuyển</label>
+                                    <!-- chỉ hiển thị, user không sửa được -->
+                                    <input type="text"
+                                           class="form-control"
+                                           value="@phiShip.ToString("n0") đ"
+                                           readonly />
+
+                                    <!-- hidden dùng để post giá trị thật về server -->
+                                    <input type="hidden" asp-for="PhiVanChuyen" value="@phiShip" />
+                                    <span asp-validation-for="PhiVanChuyen" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <!-- HIDDEN dùng để giữ lại giảm giá trên server (server vẫn tính lại) -->
+                            <input type="hidden" asp-for="VoucherCode" id="VoucherCodeHidden" />
+                            <input type="hidden" asp-for="TienGiam" id="TienGiamHidden" />
+
+                            <button type="submit" class="btn btn-primary mt-2">
+                                Xác nhận đặt hàng
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ĐƠN HÀNG & VOUCHER -->
+            <div class="col-lg-5">
+                <!-- DANH SÁCH SẢN PHẨM -->
+                <div class="card mb-3">
+                    <div class="card-header fw-bold">
+                        Sản phẩm
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Sản phẩm</th>
+                                    <th class="text-center">SL</th>
+                                    <th class="text-end">Thành tiền</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in gio)
+                                {
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex">
+                                                <img src="@item.Anh"
+                                                     alt="@item.Ten"
+                                                     style="width:48px;height:48px;object-fit:cover;"
+                                                     class="me-2 rounded" />
+                                                <div>
+                                                    <div class="fw-semibold">@item.Ten</div>
+                                                    <div class="text-muted small">
+                                                        Đơn giá: @item.DonGia.ToString("n0") đ
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">@item.SoLuong</td>
+                                        <td class="text-end">@item.ThanhTien.ToString("n0") đ</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- VOUCHER -->
+                <div class="card mb-3">
+                    <div class="card-header fw-bold d-flex justify-content-between align-items-center">
+                        <span>Voucher</span>
+                        <button type="button"
+                                class="btn btn-sm btn-outline-secondary"
+                                id="btnShowVouchers">
+                            Danh sách mã
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group mb-2">
+                            <input type="text"
+                                   class="form-control"
+                                   id="VoucherCodeInput"
+                                   placeholder="Nhập mã giảm giá" />
+                            <button type="button"
+                                    id="btnApplyVoucher"
+                                    class="btn btn-outline-primary">
+                                Áp dụng
+                            </button>
+                        </div>
+                        <div id="VoucherMessage" class="small text-muted"></div>
+                        <div id="VoucherList" class="mt-2"></div>
+                    </div>
+                </div>
+
+                <!-- TỔNG KẾT TIỀN -->
+                <div class="card">
+                    <div class="card-header fw-bold">
+                        Tóm tắt thanh toán
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Tạm tính</span>
+                            <span id="TamTinh">@tamTinh.ToString("n0") đ</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Phí vận chuyển</span>
+                            <span id="PhiShip">@phiShip.ToString("n0") đ</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-1">
+                            <span>Giảm giá</span>
+                            <span id="TienGiamText">-@giam.ToString("n0") đ</span>
+                        </div>
+                        <hr />
+                        <div class="d-flex justify-content-between fw-bold fs-5">
+                            <span>Cần thanh toán</span>
+                            <span id="TongThanhToan">@tongThanhToan.ToString("n0") đ</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        const TAM_TINH = @tamTinh;
+        const SHIP = @phiShip;
+
+        // ÁP DỤNG VOUCHER (AJAX)
+        document.getElementById('btnApplyVoucher')?.addEventListener('click', function () {
+            const code = document.getElementById('VoucherCodeInput').value.trim();
+            const msg = document.getElementById('VoucherMessage');
+
+            if (!code) {
+                msg.className = 'small text-danger';
+                msg.innerText = 'Vui lòng nhập mã.';
+                return;
+            }
+
+            // Lấy token chống CSRF
+            const token = document.querySelector('#checkoutForm input[name="__RequestVerificationToken"]').value;
+
+            const formData = new FormData();
+            formData.append('__RequestVerificationToken', token);
+            formData.append('code', code);
+
+            fetch('/DatHang/ApplyVoucher', {
+                method: 'POST',
+                body: formData
+            })
+                .then(r => r.json())
+                .then(res => {
+                    if (!res.ok) {
+                        msg.className = 'small text-danger';
+                        msg.innerText = res.message || 'Áp dụng mã thất bại.';
+
+                        // Reset giảm & mã nếu lỗi
+                        document.getElementById('VoucherCodeHidden').value = '';
+                        document.getElementById('TienGiamHidden').value = '0';
+                        document.getElementById('TienGiamText').innerText = '-0 đ';
+
+                        const final = Math.max(0, TAM_TINH + SHIP);
+                        document.getElementById('TongThanhToan').innerText =
+                            final.toLocaleString('vi-VN') + ' đ';
+
+                        // Thu gọn danh sách mã về như cũ
+                        document.getElementById('VoucherList').innerHTML = '';
+                        return;
+                    }
+
+                    // Thành công
+                    msg.className = 'small text-success';
+                    msg.innerText = `Đã áp dụng mã ${res.code}. Giảm ${res.discount.toLocaleString('vi-VN')} đ cho ${res.eligibleCount} sản phẩm.`;
+
+                    // Cập nhật hidden để post lên (server vẫn tính lại, chỗ này chủ yếu để hiển thị)
+                    document.getElementById('VoucherCodeHidden').value = res.code;
+                    document.getElementById('TienGiamHidden').value = res.discount;
+
+                    document.getElementById('TienGiamText').innerText =
+                        '-' + res.discount.toLocaleString('vi-VN') + ' đ';
+
+                    const final = Math.max(0, TAM_TINH + SHIP - res.discount);
+                    document.getElementById('TongThanhToan').innerText =
+                        final.toLocaleString('vi-VN') + ' đ';
+
+                    // Thu gọn danh sách mã sau khi áp dụng xong
+                    document.getElementById('VoucherList').innerHTML = '';
+                })
+                .catch(err => {
+                    console.error(err);
+                    msg.className = 'small text-danger';
+                    msg.innerText = 'Không thể kết nối máy chủ.';
+                });
+        });
+
+        function formatMoney(v) {
+            return v.toLocaleString('vi-VN') + ' đ';
+        }
+
+        function renderVoucherList(items) {
+            const container = document.getElementById('VoucherList');
+            container.innerHTML = '';
+
+            if (!items || items.length === 0) {
+                container.innerHTML =
+                    '<div class="text-muted small">Không có mã nào phù hợp với giỏ hàng hiện tại.</div>';
+                return;
+            }
+
+            items.forEach(i => {
+                const div = document.createElement('div');
+                div.className = 'border rounded p-2 mb-1 d-flex justify-content-between align-items-center';
+
+                div.innerHTML = `
+                    <div class="me-2">
+                        <div class="fw-semibold">${i.code}</div>
+                        <div class="small text-muted">${i.ten || ''}</div>
+                        <div class="small text-muted">
+                            Giảm khoảng <b>${formatMoney(i.discount)}</b>
+                            cho ${i.eligibleCount} sản phẩm. (${i.hieuLuc})
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button"
+                                class="btn btn-sm btn-outline-primary"
+                                onclick="applyVoucherFromList('${i.code}')">
+                            Áp dụng
+                        </button>
+                    </div>`;
+                container.appendChild(div);
+            });
+        }
+
+        function applyVoucherFromList(code) {
+            const input = document.getElementById('VoucherCodeInput');
+            input.value = code;
+            document.getElementById('btnApplyVoucher').click(); // dùng lại logic ApplyVoucher
+        }
+
+        document.getElementById('btnShowVouchers')?.addEventListener('click', function () {
+            const container = document.getElementById('VoucherList');
+            container.innerHTML =
+                '<div class="small text-muted">Đang tải danh sách mã...</div>';
+
+            fetch('/DatHang/ListApplicableVouchers')
+                .then(r => r.json())
+                .then(res => {
+                    if (!res.ok) {
+                        container.innerHTML =
+                            `<div class="small text-danger">${res.message || 'Không lấy được danh sách mã.'}</div>`;
+                        return;
+                    }
+                    renderVoucherList(res.items || []);
+                })
+                .catch(err => {
+                    console.error(err);
+                    container.innerHTML =
+                        '<div class="small text-danger">Lỗi kết nối server khi tải danh sách mã.</div>';
+                });
+        });
+    </script>
+}

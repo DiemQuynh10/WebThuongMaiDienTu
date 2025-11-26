@@ -1,0 +1,706 @@
+﻿@using ShopMVC.Areas.Admin.ViewModels
+@using ShopMVC.Models
+@{
+    ViewData["Title"] = "Tổng quan";
+    int currentYear = DateTime.Now.Year;
+    int currentMonth = DateTime.Now.Month;
+}
+
+@section Styles {
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --card-bg: #ffffff;
+            --body-bg: #f3f4f6; /* Xám rất nhạt sang trọng */
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --radius-xl: 24px;
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.05);
+            --shadow-hover: 0 20px 40px -10px rgba(0,0,0,0.1);
+            /* Màu thương hiệu sống động */
+            --primary-grad: linear-gradient(135deg, #4f46e5 0%, #8b5cf6 100%); /* Indigo -> Purple */
+            --success-grad: linear-gradient(135deg, #10b981 0%, #34d399 100%); /* Emerald */
+            --warning-grad: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%); /* Amber */
+            --danger-grad: linear-gradient(135deg, #ef4444 0%, #f87171 100%); /* Red */
+            --info-grad: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%); /* Sky */
+        }
+
+        .dashboard-wrapper {
+            font-family: 'Plus Jakarta Sans', sans-serif; /* Font hiện đại */
+            background-color: var(--body-bg);
+            min-height: 100vh;
+            color: var(--text-main);
+        }
+
+        /* --- CARDS & CONTAINERS --- */
+        .card-modern {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .card-modern:hover {
+                transform: translateY(-5px);
+                box-shadow: var(--shadow-hover);
+            }
+
+        .card-header-modern {
+            padding: 1.5rem 1.75rem;
+            background: transparent;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title-modern {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-body-modern {
+            padding: 1.75rem;
+        }
+
+        /* --- VIVID STATS CARDS (Thẻ thống kê sống động) --- */
+        .stat-card-body {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+        /* Icon Box 3D */
+        .icon-3d-wrapper {
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: white;
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2); /* Đổ bóng màu */
+            transform: rotate(-5deg);
+            transition: 0.3s;
+        }
+
+        .card-modern:hover .icon-3d-wrapper {
+            transform: rotate(0deg) scale(1.1);
+        }
+
+        .grad-blue-box {
+            background: var(--info-grad);
+            box-shadow: 0 10px 20px -5px rgba(14, 165, 233, 0.4);
+        }
+
+        .grad-purple-box {
+            background: var(--primary-grad);
+            box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4);
+        }
+
+        .grad-orange-box {
+            background: var(--warning-grad);
+            box-shadow: 0 10px 20px -5px rgba(245, 158, 11, 0.4);
+        }
+
+        .stat-content h3 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+            color: #111827;
+            letter-spacing: -0.5px;
+        }
+
+        .stat-content p {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        /* --- PRODUCT LIST (Clean & Elegant) --- */
+        .pro-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px dashed #e5e7eb;
+            transition: 0.2s;
+        }
+
+            .pro-item:last-child {
+                border-bottom: none;
+            }
+
+            .pro-item:hover {
+                background-color: #f9fafb;
+                border-radius: 12px;
+                padding-left: 10px;
+                padding-right: 10px;
+                margin: 0 -10px;
+            }
+
+        /* Huy chương xếp hạng đẹp */
+        .medal-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+            color: #fff;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .medal-gold {
+            background: linear-gradient(135deg, #F59E0B, #FCD34D);
+        }
+
+        .medal-silver {
+            background: linear-gradient(135deg, #94A3B8, #CBD5E1);
+        }
+
+        .medal-bronze {
+            background: linear-gradient(135deg, #B45309, #D97706);
+        }
+
+        .medal-normal {
+            background: #F3F4F6;
+            color: #6B7280;
+            box-shadow: none;
+        }
+
+        /* Ảnh sản phẩm bo tròn mềm */
+        .pro-img-box {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            padding: 4px;
+            background: #fff;
+            border: 1px solid #f3f4f6;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            flex-shrink: 0;
+            margin-right: 15px;
+        }
+
+            .pro-img-box img {
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+                object-fit: cover;
+            }
+
+        .pro-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .pro-title {
+            font-weight: 700;
+            color: #374151;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 2px;
+        }
+
+        .pro-sub {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        /* Progress bar gradient */
+        .progress-modern {
+            height: 6px;
+            border-radius: 100px;
+            background: #f3f4f6;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .bar-grad {
+            background: var(--primary-grad);
+            border-radius: 100px;
+        }
+
+        /* --- TABLE RECENT ORDERS --- */
+        .table-pro th {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #9ca3af;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .table-pro td {
+            padding: 16px;
+            vertical-align: middle;
+            color: #4b5563;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-bottom: 1px solid #f9fafb;
+        }
+
+        .status-pill {
+            padding: 6px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+            .status-pill::before {
+                content: '';
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                display: block;
+            }
+
+        /* Status Colors */
+        .pill-pending {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+            .pill-pending::before {
+                background: #c2410c;
+            }
+
+        .pill-shipping {
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+
+            .pill-shipping::before {
+                background: #1d4ed8;
+            }
+
+        .pill-success {
+            background: #ecfdf5;
+            color: #047857;
+        }
+
+            .pill-success::before {
+                background: #047857;
+            }
+
+        .pill-danger {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+
+            .pill-danger::before {
+                background: #b91c1c;
+            }
+
+        /* Button Pro */
+        .btn-pro {
+            background: #111827;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 24px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+            .btn-pro:hover {
+                background: #000;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+                color: #fff;
+            }
+
+        /* Select custom */
+        .select-modern {
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 6px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #374151;
+            background-color: #f9fafb;
+            cursor: pointer;
+            outline: none;
+        }
+
+            .select-modern:focus {
+                border-color: #6366f1;
+            }
+    </style>
+}
+
+<div class="dashboard-wrapper py-5 px-4">
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-end mb-5">
+        <div>
+            <h2 class="fw-bolder text-dark mb-1">Dashboard</h2>
+            <p class="text-muted mb-0 fw-medium">Chào mừng trở lại! Đây là tổng quan hôm nay.</p>
+        </div>
+        <a href="@Url.Action("ExportToExcel", "Home", new { area = "Admin" })" class="btn-pro">
+            <i class="bi bi-cloud-download"></i> Xuất Báo Cáo
+        </a>
+    </div>
+
+    <!-- 1. HÀNG CHỈ SỐ (STATS) -->
+    <div class="row g-4 mb-5">
+        <!-- Sản phẩm -->
+        <div class="col-md-4">
+            <div class="card-modern">
+                <div class="card-body-modern stat-card-body">
+                    <div class="stat-content">
+                        <p>Tổng Sản phẩm</p>
+                        <h3>@ViewBag.SoSP</h3>
+                    </div>
+                    <div class="icon-3d-wrapper grad-blue-box">
+                        <i class="bi bi-box-seam"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Đơn hàng -->
+        <div class="col-md-4">
+            <div class="card-modern">
+                <div class="card-body-modern stat-card-body">
+                    <div class="stat-content">
+                        <p>Tổng Đơn hàng</p>
+                        <h3>@ViewBag.SoDH</h3>
+                    </div>
+                    <div class="icon-3d-wrapper grad-purple-box">
+                        <i class="bi bi-bag-check"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Doanh thu -->
+        <div class="col-md-4">
+            <div class="card-modern">
+                <div class="card-body-modern stat-card-body">
+                    <div class="stat-content">
+                        <p>Tổng Doanh thu</p>
+                        <h3 class="text-primary" style="color: #4f46e5;">@(((decimal)ViewBag.DoanhThu).ToString("C0", new System.Globalization.CultureInfo("vi-VN")))</h3>
+                    </div>
+                    <div class="icon-3d-wrapper grad-orange-box">
+                        <i class="bi bi-wallet2"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. BIỂU ĐỒ DOANH THU & ĐƠN MỚI -->
+    <div class="row g-4 mb-5">
+        <!-- Biểu đồ Doanh thu (Lớn) -->
+        <div class="col-lg-8">
+            <div class="card-modern">
+                <div class="card-header-modern">
+                    <h5 class="card-title-modern"><i class="bi bi-bar-chart-line-fill text-primary me-2"></i> Phân tích Doanh thu</h5>
+                    <select id="chartYearFilter" class="select-modern">
+                        @for (int y = currentYear; y >= currentYear - 4; y--)
+                        {
+                            <option value="@y">Năm @y</option>
+                        }
+                    </select>
+                </div>
+                <div class="card-body-modern">
+                    <div style="height: 350px; width: 100%;"><canvas id="revenueChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Đơn hàng mới nhất -->
+        <div class="col-lg-4">
+            <div class="card-modern h-100">
+                <div class="card-header-modern">
+                    <h5 class="card-title-modern"><i class="bi bi-clock-history text-info me-2"></i> Đơn mới nhất</h5>
+                    <a asp-controller="DonHang" asp-action="Index" class="text-decoration-none fw-bold small text-primary">Xem tất cả</a>
+                </div>
+                <div class="card-body-modern p-0">
+                    <div class="table-responsive">
+                        <table class="table table-pro mb-0 w-100">
+                            <thead><tr><th>Mã</th><th>Khách</th><th class="text-end">Tiền</th></tr></thead>
+                            <tbody>
+                                @{
+                                    var recentOrders = ViewBag.RecentOrders as List<DonHang>;
+                                    if (recentOrders != null && recentOrders.Any())
+                                    {
+                                        foreach (var order in recentOrders)
+                                        {
+                                            string pillClass = order.TrangThai switch
+                                            {
+                                                TrangThaiDonHang.ChoXacNhan => "pill-pending",
+                                                TrangThaiDonHang.DangGiao => "pill-shipping",
+                                                TrangThaiDonHang.HoanTat => "pill-success",
+                                                _ => "pill-danger"
+                                            };
+                                            <tr>
+                                                <td>
+                                                    <a asp-controller="DonHang" asp-action="Details" asp-route-id="@order.Id" class="fw-bold text-dark text-decoration-none">#@order.MaDon</a>
+                                                    <div class="mt-1"><span class="status-pill @pillClass">@order.TrangThai</span></div>
+                                                </td>
+                                                <td>
+                                                    <div class="fw-bold text-dark text-truncate" style="max-width: 100px;">@order.HoTenNhan</div>
+                                                    <small class="text-muted">@order.NgayDat.ToString("HH:mm dd/MM")</small>
+                                                </td>
+                                                <td class="text-end fw-bold text-primary">@order.TongThanhToan.ToString("#,##0")</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td colspan="3" class="text-center py-5 text-muted">Chưa có đơn hàng</td></tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. TOP SẢN PHẨM & TRẠNG THÁI -->
+    <div class="row g-4">
+        <!-- Top Bán Chạy -->
+        <div class="col-lg-8">
+            <div class="card-modern h-100">
+                <div class="card-header-modern">
+                    <h5 class="card-title-modern"><i class="bi bi-trophy-fill text-warning me-2"></i> Top Bán Chạy</h5>
+                    <div class="d-flex align-items-center gap-2">
+                        <select id="filterMonth" class="select-modern">
+                            <option value="0">Cả năm</option>
+                            @for (int m = 1; m <= 12; m++)
+                            {
+                               
+                                <option value="@m" selected="@(m == currentMonth)">Tháng @m</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="card-body-modern p-0 px-4 pb-4">
+                    <div id="topProductsContainer" class="d-flex flex-column gap-1" style="max-height: 350px; overflow-y: auto;">
+                        @{
+                            var topList = ViewBag.TopProducts as List<ProductSalesViewModel>;
+                            if (topList != null && topList.Any())
+                            {
+                                double maxVal = topList.Max(x => x.SoLuongBan); if (maxVal == 0) maxVal = 1;
+                                int r = 1;
+                                foreach (var item in topList)
+                                {
+                                    string mClass = r switch { 1 => "medal-gold", 2 => "medal-silver", 3 => "medal-bronze", _ => "medal-normal" };
+                                    string img = !string.IsNullOrEmpty(item.HinhAnh) ? item.HinhAnh : "/images/no-image.png";
+                                    double pct = ((double)item.SoLuongBan / maxVal) * 100;
+
+                                    <div class="pro-item">
+                                        <div class="medal-badge @mClass">@r</div>
+                                        <div class="pro-img-box"><img src="@img" loading="lazy" /></div>
+                                        <div class="pro-info">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <div class="pro-title">@item.TenSanPham</div>
+                                                <div class="pro-sub text-dark fw-bold">@item.SoLuongBan.ToString("N0") đã bán</div>
+                                            </div>
+                                            <div class="progress-modern">
+                                                <div class="bar-grad" style="width: @(pct)%; height: 100%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    r++;
+                                }
+                            }
+                            else
+                            {
+
+                                <div class="text-center py-5 text-muted">Chưa có dữ liệu</div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trạng thái đơn (Biểu đồ tròn) -->
+        <div class="col-lg-4">
+            <div class="card-modern h-100">
+                <div class="card-header-modern">
+                    <h5 class="card-title-modern"><i class="bi bi-pie-chart-fill text-success me-2"></i> Tỉ lệ Đơn hàng</h5>
+                </div>
+                <div class="card-body-modern d-flex justify-content-center align-items-center" style="min-height: 300px;">
+                    <div style="width: 100%; height: 250px;">
+                        <canvas id="orderStatusChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS Template -->
+<template id="productItemTemplate">
+    <div class="pro-item">
+        <div class="medal-badge"></div>
+        <div class="pro-img-box"><img src="" loading="lazy" /></div>
+        <div class="pro-info">
+            <div class="d-flex justify-content-between mb-1">
+                <div class="pro-title"></div>
+                <div class="pro-sub text-dark fw-bold"></div>
+            </div>
+            <div class="progress-modern"><div class="bar-grad" style="height: 100%;"></div></div>
+        </div>
+    </div>
+</template>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. CHART DOANH THU (Gradient tím hiện đại)
+            const ctxRevenue = document.getElementById('revenueChart').getContext('2d');
+            const chartYearFilter = document.getElementById('chartYearFilter');
+            let revenueChart;
+
+            async function loadRevenueChart(year) {
+                try {
+                    const response = await fetch(`/Admin/Home/GetYearlyRevenue?year=${year}`);
+                    const chartData = await response.json();
+                    if (revenueChart) revenueChart.destroy();
+
+                    // Gradient tím mượt
+                    let gradient = ctxRevenue.createLinearGradient(0, 0, 0, 400);
+                    gradient.addColorStop(0, 'rgba(79, 70, 229, 0.6)'); // Purple strong
+                    gradient.addColorStop(1, 'rgba(79, 70, 229, 0.05)'); // Purple fade
+
+                    revenueChart = new Chart(ctxRevenue, {
+                        type: 'line',
+                        data: {
+                            labels: chartData.labels,
+                            datasets: [{
+                                label: 'Doanh thu',
+                                data: chartData.data,
+                                backgroundColor: gradient,
+                                borderColor: '#4f46e5',
+                                borderWidth: 3,
+                                pointBackgroundColor: '#ffffff',
+                                pointBorderColor: '#4f46e5',
+                                pointBorderWidth: 2,
+                                pointRadius: 4,
+                                pointHoverRadius: 6,
+                                fill: true,
+                                tension: 0.4 // Đường cong mềm mại
+                            }]
+                        },
+                        options: {
+                            responsive: true, maintainAspectRatio: false,
+                            plugins: { legend: { display: false } },
+                            scales: {
+                                x: { grid: { display: false, drawBorder: false }, ticks: { font: { family: "'Plus Jakarta Sans', sans-serif" } } },
+                                y: { border: { display: false }, grid: { borderDash: [5, 5], color: '#f1f5f9' }, ticks: { callback: v => v >= 1000000 ? (v/1000000) + ' tr' : v, font: { family: "'Plus Jakarta Sans', sans-serif" } } }
+                            }
+                        }
+                    });
+                } catch (e) {}
+            }
+            loadRevenueChart(@currentYear);
+            chartYearFilter.addEventListener('change', function() { loadRevenueChart(this.value); });
+
+            // 2. CHART TRẠNG THÁI (Màu sắc tươi sáng)
+            const ctxStatus = document.getElementById('orderStatusChart').getContext('2d');
+            async function loadStatusChart() {
+                try {
+                    const response = await fetch('/Admin/Home/GetOrderStatusChart');
+                    const chartData = await response.json();
+                    new Chart(ctxStatus, {
+                        type: 'doughnut',
+                        data: {
+                            labels: chartData.labels,
+                            datasets: [{
+                                data: chartData.data,
+                                // Amber, Indigo, Emerald, Red, Slate
+                                backgroundColor: ['#f59e0b', '#4f46e5', '#10b981', '#ef4444', '#64748b'],
+                                borderWidth: 0,
+                                hoverOffset: 10
+                            }]
+                        },
+                        options: {
+                            responsive: true, maintainAspectRatio: false, cutout: '75%',
+                            plugins: {
+                                legend: { position: 'bottom', labels: { usePointStyle: true, padding: 20, font: { family: "'Plus Jakarta Sans', sans-serif", size: 12 } } }
+                            }
+                        }
+                    });
+                } catch(e) {}
+            }
+            loadStatusChart();
+
+            // 3. LỌC TOP SẢN PHẨM
+            const filterMonth = document.getElementById('filterMonth');
+            const container = document.getElementById('topProductsContainer');
+            const template = document.getElementById('productItemTemplate');
+
+            filterMonth.addEventListener('change', async function() {
+                const month = this.value;
+                const year = @currentYear;
+                container.style.opacity = '0.5';
+                try {
+                    const res = await fetch(`/Admin/Home/GetTopProductsFilter?month=${month}&year=${year}`);
+                    if(!res.ok) throw new Error();
+                    const data = await res.json();
+                    renderTopProducts(data);
+                } catch(err) { container.innerHTML = '<div class="text-center py-3 text-danger">Lỗi</div>'; }
+                finally { container.style.opacity = '1'; }
+            });
+
+            function renderTopProducts(products) {
+                container.innerHTML = '';
+                if (!products || products.length === 0) { container.innerHTML = '<div class="text-center py-5 text-muted">Chưa có dữ liệu</div>'; return; }
+                const maxSales = Math.max(...products.map(p => p.soLuongBan)) || 1;
+                products.forEach((item, index) => {
+                    const rank = index + 1;
+                    const clone = template.content.cloneNode(true);
+                    const rankEl = clone.querySelector('.medal-badge');
+                    rankEl.textContent = rank;
+                    if (rank === 1) rankEl.classList.add('medal-gold'); else if (rank === 2) rankEl.classList.add('medal-silver'); else if (rank === 3) rankEl.classList.add('medal-bronze'); else rankEl.classList.add('medal-normal');
+
+                    clone.querySelector('img').src = item.hinhAnh || '/images/no-image.png';
+                    clone.querySelector('.pro-title').textContent = item.tenSanPham;
+                    clone.querySelector('.pro-sub').textContent = new Intl.NumberFormat('vi-VN').format(item.soLuongBan) + ' đã bán';
+
+                    const percent = (item.soLuongBan / maxSales) * 100;
+                    clone.querySelector('.bar-grad').style.width = percent + '%';
+                    container.appendChild(clone);
+                });
+            }
+        });
+    </script>
+}

@@ -1,0 +1,409 @@
+﻿@model ShopMVC.Models.ViewModels.SanPhamListVM
+@{
+    ViewData["Title"] = "Sản phẩm";
+    // Lấy map Flash Sale từ Controller
+    var fsMap = ViewBag.FlashSaleMap as Dictionary<int, ShopMVC.Models.VoucherSanPham>;
+
+    string qs(string key, object? val)
+    {
+        var dict = new Dictionary<string, string?>
+        {
+            ["idDanhMuc"] = Model.IdDanhMuc?.ToString(),
+            ["idThuongHieu"] = Model.IdThuongHieu?.ToString(),
+            ["giaMin"] = Model.GiaMin?.ToString(),
+            ["giaMax"] = Model.GiaMax?.ToString(),
+            ["tuKhoa"] = Model.TuKhoa,
+            ["sapXep"] = Model.SapXep,
+            ["page"] = Model.Page.ToString(),
+            ["pageSize"] = Model.PageSize.ToString()
+        };
+        dict[key] = val?.ToString();
+        return string.Join("&", dict.Where(kv => !string.IsNullOrWhiteSpace(kv.Value))
+                                    .Select(kv => $"{kv.Key}={kv.Value}"));
+    }
+}
+
+<div class="container py-4">
+    <h1 class="mb-3">Danh sách sản phẩm</h1>
+
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <input name="tuKhoa" class="form-control" value="@Model.TuKhoa" placeholder="Tìm kiếm..." />
+        </div>
+        <div class="col-md-2">
+            <select name="idDanhMuc" class="form-select">
+                <option value="">-- Danh mục --</option>
+                @foreach (var d in Model.DanhMucs)
+                {
+                    <option value="@d.Id" selected="@(Model.IdDanhMuc == d.Id)">@d.Ten</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select name="idThuongHieu" class="form-select">
+                <option value="">-- Thương hiệu --</option>
+                @foreach (var th in Model.ThuongHieus)
+                {
+                    <option value="@th.Id" selected="@(Model.IdThuongHieu == th.Id)">@th.Ten</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <input name="giaMin" type="number" class="form-control" value="@(Model.GiaMin?.ToString() ?? "")" placeholder="Giá từ" />
+        </div>
+        <div class="col-md-2">
+            <input name="giaMax" type="number" class="form-control" value="@(Model.GiaMax?.ToString() ?? "")" placeholder="Giá đến" />
+        </div>
+        <div class="col-md-1 d-grid">
+            <button class="btn btn-primary">Lọc</button>
+        </div>
+    </form>
+
+    <div class="d-flex justify-content-end mb-3">
+        <div>
+            Sắp xếp:
+            <a class="btn btn-link p-0" href="?@qs("sapXep", "moi")">Mới</a> ·
+            <a class="btn btn-link p-0" href="?@qs("sapXep", "gia-asc")">Giá ↑</a> ·
+            <a class="btn btn-link p-0" href="?@qs("sapXep", "gia-desc")">Giá ↓</a>
+        </div>
+    </div>
+
+    <div class="row row-cols-2 row-cols-md-4 g-3">
+        @foreach (var p in Model.Items)
+        {
+            var anh = p.Anhs?.OrderBy(a => a.LaAnhChinh ? 0 : 1).ThenBy(a => a.ThuTu).FirstOrDefault()?.Url ?? "/images/no-image.png";
+
+            // 1. KIỂM TRA FLASH SALE
+            ShopMVC.Models.VoucherSanPham? fsItem = null;
+            if (fsMap != null && fsMap.ContainsKey(p.Id))
+            {
+                fsItem = fsMap[p.Id];
+            }
+            bool isFlashSale = fsItem != null;
+
+            // 2. TÍNH GIÁ HIỂN THỊ
+            decimal giaHienThi = p.Gia;
+            decimal? giaGocHienThi = null;
+
+            if (isFlashSale && fsItem!.GiaGiam.HasValue)
+            {
+                // Nếu là Flash Sale -> Lấy giá Flash Sale
+                giaHienThi = fsItem.GiaGiam.Value;
+                giaGocHienThi = p.Gia;
+            }
+            else if (p.GiaKhuyenMai.HasValue)
+            {
+                // Nếu không Flash Sale nhưng có KM thường
+                giaHienThi = p.GiaKhuyenMai.Value;
+                giaGocHienThi = p.Gia;
+            }
+
+            // 3. TÍNH % GIẢM
+            int phanTramGiam = 0;
+            if (giaGocHienThi.HasValue && giaGocHienThi > 0)
+            {
+                phanTramGiam = (int)((giaGocHienThi - giaHienThi) * 100 / giaGocHienThi);
+            }
+
+            <div class="col">
+                @if (isFlashSale)
+                {
+                    // ==================================================================
+                    // GIAO DIỆN FLASH SALE (STYLE SHOPEE)
+                    // ==================================================================
+                    <div class="card h-100 position-relative overflow-hidden shadow-sm border border-danger">
+
+                        <div class="position-absolute top-0 start-0 bg-warning text-dark fw-bold px-2 py-1 small z-2" style="border-bottom-right-radius: 10px; font-size: 0.7rem;">
+                            <i class="bi bi-lightning-fill text-danger"></i> FLASH SALE
+                        </div>
+
+                        @if (phanTramGiam > 0)
+                        {
+                            <div class="position-absolute top-0 end-0 bg-danger text-white fw-bold px-2 py-1 small z-2" style="border-bottom-left-radius: 10px;">
+                                -@phanTramGiam%
+                            </div>
+                        }
+
+                        <a asp-controller="SanPham" asp-action="ChiTiet" asp-route-id="@p.Id">
+                            <img class="card-img-top p-2" src="@anh" alt="@p.Ten" style="height: 200px; object-fit: contain;" />
+                        </a>
+
+                        <div class="card-body pt-0 d-flex flex-column">
+                            <h6 class="card-title text-truncate"><a asp-controller="SanPham" asp-action="ChiTiet" asp-route-id="@p.Id" class="text-decoration-none text-dark">@p.Ten</a></h6>
+
+                            <div class="mb-2">
+                                <span class="fw-bold text-danger fs-5">@giaHienThi.ToString("n0")<small>₫</small></span>
+                                <span class="text-muted text-decoration-line-through small ms-1">@giaGocHienThi?.ToString("n0")<small>₫</small></span>
+                            </div>
+
+                            @{
+                                var daBan = fsItem!.SoLuongDaBan;
+                                var tong = fsItem.SoLuongPhanBo;
+                                var phanTramBan = tong > 0 ? (daBan * 100 / tong) : 0;
+                            }
+                            <div class="mt-auto">
+                                <div class="position-relative rounded-pill overflow-hidden" style="background-color: #ffbda6; height: 16px;">
+                                    <div class="bg-danger h-100" style="width: @phanTramBan%"></div>
+                                    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center text-white fw-bold" style="font-size: 10px; text-shadow: 0 0 2px #000;">
+                                        @if (daBan >= tong)
+                                        {
+                                            <span>CHÁY HÀNG</span>
+                                        }
+                                        else
+                                        {
+
+                                            <span>ĐÃ BÁN @daBan</span>
+                                        }
+                                    </div>
+                                    <div class="position-absolute top-0 start-0 h-100 d-flex align-items-center ps-1">
+                                        <i class="bi bi-fire text-white" style="font-size: 12px;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer bg-white d-flex gap-2 border-top-0 pt-0 pb-3">
+                            <button type="button"
+                                    class="btn btn-danger w-100 fw-bold rounded-pill btn-sm shadow-sm"
+                                    onclick="openFlashSaleModal('@p.Id', '@p.Ten', '@giaHienThi.ToString("#,##0") đ', '@anh')">
+                                MUA NGAY
+                            </button>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    // ==================================================================
+                    // GIAO DIỆN SẢN PHẨM THƯỜNG (CODE CŨ)
+                    // ==================================================================
+                    <div class="card h-100 shadow-sm border-0">
+                        @if (phanTramGiam > 0)
+                        {
+                            <div class="position-absolute top-0 end-0 bg-danger text-white fw-bold px-2 py-1 small z-2" style="border-bottom-left-radius: 10px;">
+                                -@phanTramGiam%
+                            </div>
+                        }
+                        <img class="card-img-top" src="@anh" alt="@p.Ten" style="height: 200px; object-fit: contain;" />
+                        <div class="card-body">
+                            <h6 class="card-title text-truncate">@p.Ten</h6>
+                            <div>
+                                <span class="fw-bold text-primary fs-5">@giaHienThi.ToString("n0") đ</span>
+                                @if (giaGocHienThi.HasValue)
+                                {
+                                    <span class="text-muted text-decoration-line-through small ms-1">@giaGocHienThi.Value.ToString("n0") đ</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white d-flex gap-2 border-top-0 pt-0 pb-3">
+                            <a asp-controller="SanPham" asp-action="ChiTiet" asp-route-id="@p.Id" class="btn btn-sm btn-outline-primary flex-grow-1">Xem</a>
+                            <button type="button"
+                                    class="btn btn-sm btn-primary btn-add-to-cart flex-grow-1"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#addToCartModal"
+                                    data-id="@p.Id"
+                                    data-ten="@p.Ten"
+                                    data-tonkho="@p.TonKho"
+                                    data-gia="@giaHienThi"
+                                    data-anh="@anh">
+                                <i class="bi bi-cart-plus"></i> Thêm
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    @{
+        int totalPages = (int)Math.Ceiling(Model.TotalItems / (double)Model.PageSize);
+    }
+    @if (totalPages > 1)
+    {
+        <nav aria-label="Product navigation">
+            <ul class="pagination justify-content-center mt-5">
+                <li class="page-item @(Model.Page == 1 ? "disabled" : "")"><a class="page-link" href="?@qs("page", Model.Page - 1)">&laquo;</a></li>
+                @for (int p = 1; p <= totalPages; p++)
+                {
+                    <li class="page-item @(p == Model.Page ? "active" : "")"><a class="page-link" href="?@qs("page", p)">@p</a></li>
+                }
+                <li class="page-item @(Model.Page == totalPages ? "disabled" : "")"><a class="page-link" href="?@qs("page", Model.Page + 1)">&raquo;</a></li>
+            </ul>
+        </nav>
+    }
+</div>
+
+<div class="modal fade" id="buyNowModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0">
+            <div class="modal-header border-bottom-0">
+                <h5 class="modal-title fw-bold text-danger">Xác nhận mua Flash Sale</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex gap-3">
+                    <img id="fs-modal-img" src="" class="rounded border" style="width: 80px; height: 80px; object-fit: cover;">
+                    <div>
+                        <h6 id="fs-modal-name" class="fw-bold mb-1">Tên sản phẩm</h6>
+                        <p class="text-danger fw-bold mb-0 fs-5" id="fs-modal-price">0 đ</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <label class="form-label fw-semibold">Số lượng:</label>
+                    <div class="input-group" style="width: 140px;">
+                        <button class="btn btn-outline-secondary" type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()">-</button>
+                        <input type="number" class="form-control text-center" id="fs-modal-quantity" value="1" min="1" max="5">
+                        <button class="btn btn-outline-secondary" type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()">+</button>
+                    </div>
+                </div>
+                <input type="hidden" id="fs-modal-product-id" />
+            </div>
+            <div class="modal-footer border-top-0">
+                <button type="button" class="btn btn-light rounded-pill" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger px-4" onclick="confirmBuyNowFS()">
+                    Đến trang thanh toán <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .pagination .page-item.active .page-link {
+            background-color: #f06292;
+            border-color: #f06292;
+            color: #fff;
+        }
+
+        .pagination .page-link {
+            color: #f06292;
+        }
+
+        .page-link:focus {
+            box-shadow: none;
+        }
+
+        .pagination .page-link:hover {
+            background-color: #fce4ec;
+            border-color: #f06292;
+        }
+
+        .pagination .page-item.disabled .page-link {
+            color: #6c757d;
+        }
+    </style>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <partial name="_ToastsSimple" />
+    <script>
+        // --- SCRIPT 1: XỬ LÝ MODAL FLASH SALE (MỚI) ---
+        var flashSaleModal;
+
+        function openFlashSaleModal(productId, productName, price, image) {
+            document.getElementById('fs-modal-product-id').value = productId;
+            document.getElementById('fs-modal-img').src = image;
+            document.getElementById('fs-modal-name').innerText = productName;
+            document.getElementById('fs-modal-price').innerText = price;
+            document.getElementById('fs-modal-quantity').value = 1;
+
+            var el = document.getElementById('buyNowModal');
+            flashSaleModal = new bootstrap.Modal(el);
+            flashSaleModal.show();
+        }
+
+        function confirmBuyNowFS() {
+            var pid = document.getElementById('fs-modal-product-id').value;
+            var qty = document.getElementById('fs-modal-quantity').value;
+            if (!pid) { alert("Lỗi sản phẩm!"); return; }
+
+            // Chuyển hướng sang Mua Ngay (Logic tách giỏ hàng)
+            window.location.href = `/GioHang/MuaNgay?id=${pid}&quantity=${qty}`;
+        }
+
+        // --- SCRIPT 2: XỬ LÝ MODAL GIỎ HÀNG THƯỜNG (GIỮ NGUYÊN CỦA BẠN) ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const modalElement = document.getElementById('addToCartModal');
+            if (!modalElement) return;
+
+            const modal = new bootstrap.Modal(modalElement);
+            const modalProductImage = document.getElementById('modalProductImage');
+            const modalProductName = document.getElementById('modalProductName');
+            const modalProductPrice = document.getElementById('modalProductPrice');
+            const modalProductStock = document.getElementById('modalProductStock');
+            const modalQtyInput = document.getElementById('modalQtyInput');
+            const modalQtyDecrease = document.getElementById('modalQtyDecrease');
+            const modalQtyIncrease = document.getElementById('modalQtyIncrease');
+            const modalProductId = document.getElementById('modalProductId');
+            const modalProductStockHidden = document.getElementById('modalProductStockHidden');
+            const modalConfirmBtn = document.getElementById('modalConfirmAddToCart');
+            let maxStock = 1;
+
+            modalElement.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const id = button.dataset.id;
+                const ten = button.dataset.ten;
+                const gia = parseFloat(button.dataset.gia);
+                const tonkho = parseInt(button.dataset.tonkho);
+                const anh = button.dataset.anh;
+                maxStock = tonkho;
+                modalProductName.textContent = ten;
+                modalProductImage.src = anh || '/images/no-image.png';
+                modalProductPrice.textContent = gia.toLocaleString('vi-VN') + ' đ';
+                modalProductStock.textContent = 'Kho: ' + tonkho;
+                modalQtyInput.value = 1;
+                modalQtyInput.max = tonkho;
+                modalProductId.value = id;
+                modalProductStockHidden.value = tonkho;
+            });
+
+            function updateQty(amount) {
+                let currentQty = parseInt(modalQtyInput.value);
+                let newQty = currentQty + amount;
+                if (newQty < 1) newQty = 1;
+                if (newQty > maxStock) newQty = maxStock;
+                modalQtyInput.value = newQty;
+            }
+            modalQtyIncrease.addEventListener('click', () => updateQty(1));
+            modalQtyDecrease.addEventListener('click', () => updateQty(-1));
+            modalQtyInput.addEventListener('change', () => updateQty(0));
+
+            modalConfirmBtn.addEventListener('click', function() {
+                const id = modalProductId.value;
+                const soLuong = modalQtyInput.value;
+                const token = modalElement.querySelector('input[name="__RequestVerificationToken"]').value;
+
+                modalConfirmBtn.disabled = true;
+                modalConfirmBtn.textContent = 'Đang thêm...';
+
+                fetch('/GioHang/Them/' + id, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'RequestVerificationToken': token
+                    },
+                    body: 'soLuong=' + soLuong
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        modal.hide();
+                        location.reload();
+                    } else {
+                        alert('Lỗi: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi AJAX:', error);
+                    alert('Đã xảy ra lỗi. Vui lòng thử lại.');
+                })
+                .finally(() => {
+                    modalConfirmBtn.disabled = false;
+                    modalConfirmBtn.textContent = 'Xác nhận';
+                });
+            });
+        });
+    </script>
+}

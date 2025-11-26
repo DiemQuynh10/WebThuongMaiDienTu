@@ -1,0 +1,64 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using ShopMVC.Models
+@inject SignInManager<NguoiDung> SignInManager
+@inject UserManager<NguoiDung> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    // --- BƯỚC 1: LẤY THÔNG TIN ĐẦY ĐỦ CỦA USER ---
+    // Dùng UserManager để lấy object NguoiDung đầy đủ từ CSDL
+    var currentUser = await UserManager.GetUserAsync(User);
+
+    // Kiểm tra xem HoTen có tồn tại không, nếu không thì dùng email
+    var displayName = currentUser?.HoTen; // Lấy Họ Tên
+
+    if (string.IsNullOrEmpty(displayName))
+    {
+        // Nếu không có Họ Tên, dùng tạm email (hoặc chữ viết tắt)
+        displayName = User.Identity?.Name ?? "User";
+    }
+
+    <div class="nav-item dropdown">
+
+        <a class="nav-link dropdown-toggle text-dark text-decoration-none d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle fs-4 me-1"></i>
+
+            <span>@displayName</span>
+        </a>
+
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+
+            <li>
+                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">
+                    <i class="bi bi-person-fill me-2"></i> Hồ sơ cá nhân
+                </a>
+            </li>
+
+            @if (User.IsInRole("QuanTri"))
+            {
+                <li>
+                    <a class="dropdown-item" asp-area="Admin" asp-controller="Home" asp-action="Index">
+                        <i class="bi bi-shield-lock-fill me-2"></i> Trang Admin
+                    </a>
+                </li>
+            }
+
+            <li><hr class="dropdown-divider"></li>
+
+            <li>
+                <form method="post" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="~/">
+                    <button type="submit" class="dropdown-item">
+                        <i class="bi bi-box-arrow-right me-2"></i> Đăng xuất
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+}
+else
+{
+    <div class="d-flex flex-row align-items-center">
+        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Đăng ký</a>
+        <a class="nav-link text-dark ms-2" asp-area="Identity" asp-page="/Account/Login">Đăng nhập</a>
+    </div>
+}

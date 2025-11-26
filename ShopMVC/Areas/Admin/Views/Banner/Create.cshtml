@@ -1,0 +1,30 @@
+﻿@model ShopMVC.Models.Banner
+
+<div class="container mt-4">
+    <h3>Thêm Banner Mới</h3>
+
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label>Tên Banner</label>
+            <input asp-for="TenBanner" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Chọn Ảnh</label>
+            <input type="file" name="fileAnh" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label>Thứ Tự Hiển Thị</label>
+            <input asp-for="ThuTu" class="form-control" value="1" type="number" />
+        </div>
+
+        <div class="form-check mb-3">
+            <input asp-for="HienThi" class="form-check-input" checked />
+            <label class="form-check-label">Hiển thị ngay</label>
+        </div>
+
+        <button type="submit" class="btn btn-success">Lưu Lại</button>
+        <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>

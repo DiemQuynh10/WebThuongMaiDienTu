@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Admin ShopMVC</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @await RenderSectionAsync("Styles", required: false)
+
+    <style>
+        /* CSS riêng cho Admin Layout */
+        body {
+            font-size: .875rem;
+            padding-top: 48px; /* Thêm padding để tránh nội dung bị Header (fixed-top) che khuất */
+        }
+
+        .feather {
+            width: 16px;
+            height: 16px;
+            vertical-align: text-bottom;
+        }
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0; /* 48px khớp với chiều cao Header */
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+        }
+
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: .5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #cfd8dc;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .nav-link:hover {
+                color: #fff;
+                background-color: rgba(255,255,255,0.1);
+            }
+
+            .nav-link.active {
+                color: #fff;
+                background-color: rgba(255,255,255,0.2);
+                border-right: 4px solid #ec4899;
+            }
+
+            .nav-link i {
+                font-size: 1.1rem;
+            }
+
+        /* Navbar trên cùng */
+        .navbar-brand {
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+            font-size: 1rem;
+            background-color: rgba(0, 0, 0, .25);
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+        }
+
+        .navbar .form-control {
+            padding: .75rem 1rem;
+            border-width: 0;
+            border-radius: 0;
+        }
+
+        .form-control-dark {
+            color: #fff;
+            background-color: rgba(255, 255, 255, .1);
+            border-color: rgba(255, 255, 255, .1);
+        }
+
+            .form-control-dark:focus {
+                border-color: transparent;
+                box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+            }
+    </style>
+</head>
+<body>
+
+    <!-- Header Admin: Đổi từ sticky-top sang fixed-top -->
+    <header class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-nav">
+            <div class="nav-item text-nowrap">
+                <a class="nav-link px-3" href="/">← Về trang bán hàng</a>
+            </div>
+        </div>
+    </header>
+
+    <div aria-live="polite" aria-atomic="true"
+         class="position-fixed top-0 end-0 p-3"
+         style="z-index: 2000;">
+
+        @if (TempData["Ok"] is string ok)
+        {
+            <div class="toast text-bg-success border-0" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">@ok</div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        }
+
+        @if (TempData["Err"] is string err)
+        {
+            <div class="toast text-bg-danger border-0" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">@err</div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        }
+
+        @if (TempData["toast"] is string msg)
+        {
+            <div class="toast text-bg-primary border-0" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">@msg</div>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar Menu -->
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3 text-white">
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+                        <span>Quản lý</span>
+                    </h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" ? "active" : "")"
+                               asp-area="Admin" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-speedometer2"></i>
+                                Tổng quan
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "DanhMuc" ? "active" : "")"
+                               asp-area="Admin" asp-controller="DanhMuc" asp-action="Index">
+                                <i class="bi bi-list-ul"></i>
+                                Danh mục
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "ThuongHieu" ? "active" : "")"
+                               asp-area="Admin" asp-controller="ThuongHieu" asp-action="Index">
+                                <i class="bi bi-tags"></i>
+                                Thương hiệu
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "SanPham" ? "active" : "")"
+                               asp-area="Admin" asp-controller="SanPham" asp-action="Index">
+                                <i class="bi bi-box-seam"></i>
+                                Sản phẩm
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "DonHang" ? "active" : "")"
+                               asp-area="Admin" asp-controller="DonHang" asp-action="Index">
+                                <i class="bi bi-bag-check"></i>
+                                Đơn hàng
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Voucher" ? "active" : "")"
+                               asp-area="Admin" asp-controller="Voucher" asp-action="Index">
+                                <i class="bi bi-ticket-perforated"></i>
+                                Voucher / Mã giảm giá
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Review" ? "active" : "")"
+                               asp-area="Admin" asp-controller="DanhGia" asp-action="Index">
+
+                                <i class="bi bi-star-half"></i>
+
+                                Quản lý Đánh giá
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Chat" ? "active" : "")"
+                               asp-area="Admin" asp-controller="Chat" asp-action="Index">
+                                <i class="bi bi-chat-dots"></i>
+                                Quản lý Chat
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Banner" ? "active" : "")"
+                               asp-area="Admin" asp-controller="Banner" asp-action="Index">
+
+                                <i class="bi bi-images"></i>
+
+                                Quản lý Banner
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-4">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

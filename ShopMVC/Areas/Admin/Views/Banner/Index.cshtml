@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ShopMVC.Models.Banner>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h3>Quản lý Banner Slider</h3>
+        <a asp-action="Create" class="btn btn-primary">+ Thêm Banner</a>
+    </div>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Hình Ảnh</th>
+                <th>Tên Banner</th>
+                <th>Thứ Tự</th>
+                <th>Trạng Thái</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="width: 150px;">
+                        <img src="@item.HinhAnh" style="width: 100%; border-radius: 5px;" />
+                    </td>
+                    <td>@item.TenBanner</td>
+                    <td>@item.ThuTu</td>
+                    <td>
+                        @if (item.HienThi)
+                        {
+                            <span class="badge bg-success">Hiển thị</span>
+                        }
+                        else
+                        {
+
+                            <span class="badge bg-danger">Ẩn</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Sửa</a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger" onclick="return confirm('Xóa nhé?');">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

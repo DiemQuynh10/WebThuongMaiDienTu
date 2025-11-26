@@ -1,0 +1,393 @@
+﻿@model IEnumerable<ShopMVC.Models.DonHang>
+@using ShopMVC.Models
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+@{
+    ViewData["Title"] = "Đơn hàng";
+
+    string Badge(TrangThaiDonHang s) => s switch
+    {
+        TrangThaiDonHang.ChoXacNhan => "badge-state badge-cho",
+        TrangThaiDonHang.ChuanBi => "badge-state badge-chuanbi",
+        TrangThaiDonHang.DangGiao => "badge-state badge-danggiao",
+        TrangThaiDonHang.HoanTat => "badge-state badge-hoantat",
+        TrangThaiDonHang.DaHuy => "badge-state badge-dahuy",
+        _ => "badge-state"
+    };
+
+    bool Ended(TrangThaiDonHang s)
+        => s == TrangThaiDonHang.HoanTat || s == TrangThaiDonHang.DaHuy;
+    var active = ViewBag.TrangThai as TrangThaiDonHang?;
+}
+
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="mb-0 fw-bold text-dark">Đơn hàng</h3>
+
+        <div class="d-flex align-items-center flex-wrap gap-2">
+            <span class="fw-semibold text-secondary">Lọc:</span>
+
+            <a asp-action="Index"
+               class="btn btn-sm @(active == null ? "btn-primary" : "btn-outline-secondary") rounded-pill px-3">
+                Tất cả
+            </a>
+
+            <a asp-action="Index" asp-route-trangThai="@TrangThaiDonHang.ChoXacNhan"
+               class="btn btn-sm @(active == TrangThaiDonHang.ChoXacNhan ? "btn-warning text-dark" : "btn-outline-secondary") rounded-pill px-3">
+                Chờ xác nhận
+            </a>
+
+            <a asp-action="Index" asp-route-trangThai="@TrangThaiDonHang.ChuanBi"
+               class="btn btn-sm @(active == TrangThaiDonHang.ChuanBi ? "btn-info text-white" : "btn-outline-secondary") rounded-pill px-3">
+                Chuẩn bị
+            </a>
+
+            <a asp-action="Index" asp-route-trangThai="@TrangThaiDonHang.DangGiao"
+               class="btn btn-sm @(active == TrangThaiDonHang.DangGiao ? "btn-primary" : "btn-outline-secondary") rounded-pill px-3">
+                Đang giao
+            </a>
+
+            <a asp-action="Index" asp-route-trangThai="@TrangThaiDonHang.HoanTat"
+               class="btn btn-sm @(active == TrangThaiDonHang.HoanTat ? "btn-success" : "btn-outline-secondary") rounded-pill px-3">
+                Hoàn tất
+            </a>
+
+            <a asp-action="Index" asp-route-trangThai="@TrangThaiDonHang.DaHuy"
+               class="btn btn-sm @(active == TrangThaiDonHang.DaHuy ? "btn-danger" : "btn-outline-secondary") rounded-pill px-3">
+                Đã huỷ
+            </a>
+        </div>
+    </div>
+
+    <div class="card rounded-3">
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Ngày đặt</th>
+                        <th>Trạng thái</th>
+                        <th class="text-end">Tổng</th>
+                        <th class="text-end">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var d in Model)
+                    {
+                        var allowReopen = d.TrangThai == TrangThaiDonHang.HoanTat
+                        && (DateTime.UtcNow - d.NgayCapNhat) <= TimeSpan.FromMinutes(10);
+
+
+                        <tr>
+                            <td class="fw-semibold">@d.MaDon</td>
+                            <td>@d.NgayDat.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                            <td><span class="@Badge(d.TrangThai)">@d.TrangThai</span></td>
+                            <td class="text-end">@d.TongThanhToan.ToString("n0") đ</td>
+
+                            <td class="text-end">
+                                <a class="btn btn-sm btn-outline-primary me-2"
+                                   asp-action="Details"
+                                   asp-route-id="@d.Id">
+                                    Xem
+                                </a>
+
+                                @* Flow chuẩn: chỉ đi tới; Huỷ yêu cầu lý do *@
+                                @if (!Ended(d.TrangThai))
+                                {
+                                    <form method="post"
+                                          asp-action="QuickUpdate"
+                                          asp-route-id="@d.Id"
+                                          class="d-inline-flex align-items-center quick-update-form">
+                                        @Html.AntiForgeryToken()
+
+                                        @{
+                                            var CXN = TrangThaiDonHang.ChoXacNhan;
+                                            var CHB = TrangThaiDonHang.ChuanBi;
+                                            var DGi = TrangThaiDonHang.DangGiao;
+                                            var HT = TrangThaiDonHang.HoanTat;
+                                            var DH = TrangThaiDonHang.DaHuy;
+
+                                            var items = new List<SelectListItem>
+                                {
+                                new("Chờ xác nhận", ((int)CXN).ToString()) { Selected = d.TrangThai == CXN, Disabled = d.TrangThai > CXN },
+                                new("Chuẩn bị"     , ((int)CHB).ToString()) { Selected = d.TrangThai == CHB, Disabled = d.TrangThai > CHB },
+                                new("Đang giao"    , ((int)DGi).ToString()) { Selected = d.TrangThai == DGi, Disabled = d.TrangThai > DGi },
+                                new("Hoàn tất"     , ((int)HT ).ToString()) { Selected = d.TrangThai == HT  },
+                                new("Huỷ đơn"      , ((int)DH ).ToString()) { Selected = d.TrangThai == DH , Disabled = d.TrangThai >= DGi }
+                                };
+                                        }
+
+                                        <!-- Hidden fields cho UpdateStatusDto (flow chuẩn) -->
+                                        <input type="hidden" name="To" value="@((int)d.TrangThai)" />
+                                        <input type="hidden" name="ReasonCode" />
+                                        <input type="hidden" name="Note" />
+                                        <input type="hidden" name="NotifyCustomer" value="false" />
+                                        <input type="hidden" name="IsOverride" value="false" />
+
+                                        <select class="form-select form-select-sm me-2 status-select"
+                                                data-current="@((int)d.TrangThai)"
+                                                data-order-id="@d.Id"
+                                                asp-items="items">
+                                        </select>
+                                    </form>
+                                }
+
+                                @* Override: chỉ Admin và chỉ khi đang ở Chuẩn bị / Đang giao *@
+                                @if ((User.IsInRole("Admin") || User.IsInRole("QuanTri")) &&
+                               (d.TrangThai == TrangThaiDonHang.ChuanBi || d.TrangThai == TrangThaiDonHang.DangGiao))
+                                {
+                                    <button type="button"
+                                            class="btn btn-sm btn-warning"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#overrideModal"
+                                            data-order-id="@d.Id"
+                                            data-current="@((int)d.TrangThai)">
+                                        Quay lại (override)
+                                    </button>
+                                }
+
+                                @* Mở lại ≤10' sau Hoàn tất: chỉ Admin *@
+                                @if ((User.IsInRole("Admin") || User.IsInRole("QuanTri")) && allowReopen)
+                                {
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-warning"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#reopenModal"
+                                            data-order-id="@d.Id">
+                                        Mở lại (≤10’)
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@if (TempData["toast"] is string msg)
+{
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index:1080">
+        <div class="toast align-items-center text-bg-dark show" role="alert">
+            <div class="d-flex">
+                <div class="toast-body">@msg</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>
+        </div>
+    </div>
+}
+
+@* ===================== MODAL LÝ DO (HUỶ trong flow chuẩn) ===================== *@
+<div class="modal fade" id="reasonModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nhập lý do thay đổi trạng thái</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Lý do</label>
+                    <select id="reasonCode" class="form-select">
+                        <option value="">-- Chọn lý do --</option>
+                        <option value="CUSTOMER_REQUEST">Khách yêu cầu huỷ</option>
+                        <option value="OUT_OF_STOCK">Hết hàng/thiếu tồn</option>
+                        <option value="PAYMENT_FAILED">Thanh toán thất bại</option>
+                        <option value="ADDRESS_ISSUE">Địa chỉ/không liên hệ được</option>
+                        <option value="OTHER">Khác...</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ghi chú</label>
+                    <textarea id="reasonNote" class="form-control" rows="3" placeholder="Mô tả chi tiết..."></textarea>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="notifyCustomer">
+                    <label class="form-check-label" for="notifyCustomer">Thông báo khách hàng</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Huỷ</button>
+                <button type="button" class="btn btn-primary" id="reasonConfirmBtn">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* ===================== MODAL OVERRIDE (quay lại trạng thái cũ) ===================== *@
+<div class="modal fade" id="overrideModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="post" asp-action="QuickUpdate" class="modal-content">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" />
+            <input type="hidden" name="IsOverride" value="true" />
+            <input type="hidden" name="NotifyCustomer" value="false" />
+
+            <div class="modal-header">
+                <h5 class="modal-title">Quay lại trạng thái trước (Override)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Chọn trạng thái</label>
+                    <select class="form-select" name="To" id="ovTo"></select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Lý do</label>
+                    <select class="form-select" name="ReasonCode" id="ovReason" required>
+                        <option value="">-- Chọn lý do --</option>
+                        <option value="SYSTEM_ADJUST">Điều chỉnh hệ thống</option>
+                        <option value="ADDRESS_ISSUE">Vấn đề địa chỉ/ship</option>
+                        <option value="CUSTOMER_REQUEST">Khách yêu cầu</option>
+                        <option value="OTHER">Khác...</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ghi chú</label>
+                    <textarea class="form-control" name="Note" rows="3" placeholder="Mô tả chi tiết..."></textarea>
+                </div>
+                <div class="alert alert-warning small">
+                    Override chỉ dành cho Admin và sẽ được ghi vào lịch sử.
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Đóng</button>
+                <button class="btn btn-primary" type="submit">Xác nhận</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@* ===================== MODAL MỞ LẠI ≤10’ SAU HOÀN TẤT ===================== *@
+<div class="modal fade" id="reopenModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="post" asp-action="Reopen" class="modal-content">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" />
+            <div class="modal-header">
+                <h5 class="modal-title">Mở lại đơn (≤10 phút)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label">Lý do</label>
+                    <select class="form-select" name="reasonCode" required>
+                        <option value="">-- Chọn lý do --</option>
+                        <option value="SYSTEM_ADJUST">Điều chỉnh hệ thống</option>
+                        <option value="CUSTOMER_REQUEST">Khách yêu cầu</option>
+                        <option value="ADDRESS_ISSUE">Vấn đề địa chỉ</option>
+                        <option value="OTHER">Khác...</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ghi chú</label>
+                    <textarea class="form-control" name="note" rows="3" placeholder="Mô tả chi tiết (nếu có)"></textarea>
+                </div>
+                <div class="alert alert-warning small">
+                    Hệ thống sẽ đưa đơn về trạng thái ngay trước khi “Hoàn tất” và ghi lịch sử override.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" type="button" data-bs-dismiss="modal">Đóng</button>
+                <button class="btn btn-warning" type="submit">Xác nhận mở lại</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function(){
+          // Flow chuẩn: cần lý do khi HUỶ (dùng số, không bọc chuỗi -> sạch cảnh báo)
+          const NEED_REASON_TO = new Set([ @((int)ShopMVC.Models.TrangThaiDonHang.DaHuy) ]);
+
+          let pending = { form: null, to: null };
+
+          document.querySelectorAll('.status-select').forEach(sel => {
+            sel.addEventListener('change', function(){
+              const form = this.closest('form');
+              const to = Number(this.value);
+
+              form.querySelector('input[name="To"]').value = to;
+              form.querySelector('input[name="IsOverride"]').value = 'false';
+
+              if (NEED_REASON_TO.has(to)) {
+                pending = { form, to };
+                const modal = new bootstrap.Modal(document.getElementById('reasonModal'));
+                modal.show();
+              } else {
+                form.submit();
+              }
+            });
+          });
+
+          document.getElementById('reasonConfirmBtn').addEventListener('click', function(){
+            if (!pending.form) return;
+            const reasonCode = document.getElementById('reasonCode').value;
+            const note = document.getElementById('reasonNote').value.trim();
+            const notify = document.getElementById('notifyCustomer').checked;
+
+            if (!reasonCode && !note){
+              alert('Vui lòng chọn lý do hoặc nhập ghi chú.');
+              return;
+            }
+
+            pending.form.querySelector('input[name="ReasonCode"]').value = reasonCode || '';
+            pending.form.querySelector('input[name="Note"]').value = note || '';
+            pending.form.querySelector('input[name="NotifyCustomer"]').value = notify ? 'true' : 'false';
+
+            bootstrap.Modal.getInstance(document.getElementById('reasonModal')).hide();
+            pending.form.submit();
+
+            // reset modal
+            document.getElementById('reasonCode').value = '';
+            document.getElementById('reasonNote').value = '';
+            document.getElementById('notifyCustomer').checked = false;
+            pending = { form:null, to:null };
+          });
+
+          // Override: build trạng thái nhỏ hơn current (không gợi ý Huỷ)
+          const Stt = {
+            ChoXacNhan: @((int)ShopMVC.Models.TrangThaiDonHang.ChoXacNhan),
+            ChuanBi:    @((int)ShopMVC.Models.TrangThaiDonHang.ChuanBi),
+            DangGiao:   @((int)ShopMVC.Models.TrangThaiDonHang.DangGiao),
+            HoanTat:    @((int)ShopMVC.Models.TrangThaiDonHang.HoanTat),
+            DaHuy:      @((int)ShopMVC.Models.TrangThaiDonHang.DaHuy)
+          };
+
+          const labels = {};
+          labels[Stt.ChoXacNhan] = 'Chờ xác nhận';
+          labels[Stt.ChuanBi]    = 'Chuẩn bị';
+          labels[Stt.DangGiao]   = 'Đang giao';
+          labels[Stt.HoanTat]    = 'Hoàn tất';
+
+          const overrideModal = document.getElementById('overrideModal');
+          overrideModal.addEventListener('show.bs.modal', evt => {
+            const btn = evt.relatedTarget;
+            const orderId = btn.getAttribute('data-order-id');
+            const current = Number(btn.getAttribute('data-current'));
+
+            const idInput = overrideModal.querySelector('input[name="id"]');
+            const toSel   = overrideModal.querySelector('#ovTo');
+
+            idInput.value = orderId;
+
+            const options = [];
+            for (const v of [Stt.ChoXacNhan, Stt.ChuanBi, Stt.DangGiao]) {
+              if (v < current) options.push({ value: v, text: labels[v] });
+            }
+            toSel.innerHTML = options.map(o => `<option value="${o.value}">${o.text}</option>`).join('');
+          });
+
+          // Reopen: set id vào form
+          const reopenModal = document.getElementById('reopenModal');
+          reopenModal.addEventListener('show.bs.modal', ev => {
+            const btn = ev.relatedTarget;
+            reopenModal.querySelector('input[name="id"]').value = btn.getAttribute('data-order-id');
+          });
+        })();
+    </script>
+}

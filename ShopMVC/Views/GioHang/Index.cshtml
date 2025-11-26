@@ -1,0 +1,425 @@
+﻿@model List<ShopMVC.Models.ViewModels.GioHangItem>
+@{
+    ViewData["Title"] = "Giỏ hàng của tôi";
+    decimal phiShip = 30000m;
+}
+
+@section Styles {
+    <style>
+        body {
+            background-color: #f5f5fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Card Styles: Gọn gàng hơn */
+        .card-box {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #e5e5e5;
+            margin-bottom: 1rem;
+        }
+
+        /* Table Styles */
+        .table-cart th {
+            border: none;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+            padding: 1rem;
+            background: #fff;
+        }
+
+        .table-cart td {
+            vertical-align: middle;
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .table-cart tr:last-child td {
+            border-bottom: none;
+        }
+
+        .img-cart {
+            width: 70px; /* Thu nhỏ ảnh xíu cho gọn row */
+            height: 70px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #eee;
+        }
+
+        .product-name {
+            font-weight: 500;
+            color: #333;
+            text-decoration: none;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            font-size: 0.95rem;
+        }
+
+            .product-name:hover {
+                color: #ee4d2d;
+            }
+
+        /* Quantity Input */
+        .qty-group {
+            display: inline-flex;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .qty-btn {
+            border: none;
+            background: #fff;
+            padding: 2px 10px;
+            font-size: 1rem;
+            color: #555;
+            cursor: pointer;
+        }
+
+            .qty-btn:hover {
+                background: #f8f8f8;
+            }
+
+        .qty-input {
+            width: 35px;
+            border: none;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            text-align: center;
+            font-size: 0.9rem;
+            outline: none;
+            color: #333;
+        }
+
+        /* SIDEBAR STYLES (Đã chỉnh sửa) */
+        .checkout-sidebar {
+            position: sticky;
+            top: 20px; /* Cách top 20px thôi cho đẹp */
+            z-index: 10;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .summary-label {
+            color: #666;
+        }
+
+        .summary-value {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .total-section {
+            border-top: 1px dashed #ddd;
+            padding-top: 15px;
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .total-price {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ee4d2d;
+            line-height: 1;
+        }
+
+        /* Button Checkout */
+        #btnCheckout {
+            background-color: #ee4d2d;
+            border-color: #ee4d2d;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+            #btnCheckout:hover:not(:disabled) {
+                background-color: #d73211;
+                box-shadow: 0 4px 10px rgba(238, 77, 45, 0.2);
+            }
+
+            #btnCheckout:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+
+        /* Voucher Box giả lập */
+        .voucher-box {
+            border: 1px solid #cce5ff;
+            background: #f0f7ff;
+            border-radius: 4px;
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #0056b3;
+            cursor: pointer;
+            margin-bottom: 1rem;
+        }
+
+        /* Policy Icons */
+        .policy-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+            .policy-item i {
+                font-size: 1.1rem;
+                width: 25px;
+                color: #28a745;
+            }
+
+        .border-dashed {
+            border-top: 1px dashed #e0e0e0 !important;
+        }
+
+        .policy-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .policy-item i {
+            font-size: 1.1rem;
+            width: 28px; /* Tăng chiều rộng icon để chữ thẳng hàng */
+            text-align: center;
+            margin-right: 5px;
+        }
+    </style>
+}
+
+<div class="container py-4">
+    <div class="d-flex align-items-center mb-3">
+        <h4 class="fw-bold mb-0 text-uppercase text-secondary" style="letter-spacing: 0.5px;">Giỏ hàng</h4>
+        <span class="badge bg-secondary ms-2 rounded-pill">@Model.Count</span>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5 card-box">
+            <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/cart/9bdd8040b334d31946f4.png" alt="Empty Cart" style="width: 120px; opacity: 0.6">
+            <p class="text-muted mt-3 mb-4">Giỏ hàng chưa có sản phẩm nào</p>
+            <a asp-controller="SanPham" asp-action="Index" class="btn btn-outline-danger px-4">Tiếp tục mua sắm</a>
+        </div>
+    }
+    else
+    {
+        <div class="row g-3 align-items-start">
+            <div class="col-lg-8">
+                <div class="card-box px-3 py-2 mb-2 d-flex align-items-center">
+                    <div class="form-check m-0">
+                        <input id="checkAll" type="checkbox" class="form-check-input" style="cursor: pointer;">
+                        <label for="checkAll" class="form-check-label ms-2 user-select-none small fw-bold" style="cursor: pointer;">CHỌN TẤT CẢ (@Model.Count SẢN PHẨM)</label>
+                    </div>
+                    <div class="ms-auto">
+                        <form method="post" asp-controller="GioHang" asp-action="XoaHet" onsubmit="return confirm('Xóa sạch giỏ hàng?');">
+                            <button class="btn btn-sm text-muted hover-danger"><i class="bi bi-trash"></i> Xóa hết</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card-box p-0">
+                    <div class="table-responsive">
+                        <table class="table table-cart mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="width: 30px;"></th>
+                                    <th style="width: 45%;">Sản phẩm</th>
+                                    <th class="text-center">Đơn giá</th>
+                                    <th class="text-center">Số lượng</th>
+                                    <th class="text-end">Thành tiền</th>
+                                    <th style="width: 30px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var i in Model)
+                                {
+                                    <tr data-id="@i.IdSanPham" data-dongia="@i.DonGia" data-thanhtien="@i.ThanhTien">
+                                        <td>
+                                            <input type="checkbox" class="row-check form-check-input" style="cursor: pointer;">                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-start">
+                                                <a asp-controller="SanPham" asp-action="ChiTiet" asp-route-id="@i.IdSanPham">
+                                                    <img src="@i.Anh" class="img-cart flex-shrink-0" alt="@i.Ten">
+                                                </a>
+                                                <div class="ms-3">
+                                                    <a asp-controller="SanPham" asp-action="ChiTiet" asp-route-id="@i.IdSanPham" class="product-name" title="@i.Ten">
+                                                        @i.Ten
+                                                    </a>
+                                                    <div class="mt-1">
+                                                        <span class="badge bg-light text-secondary border fw-normal" style="font-size: 0.75rem;">Mặc định</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center text-muted small">@i.DonGia.ToString("n0")đ</td>
+                                        <td class="text-center">
+                                            <div class="qty-group">
+                                                <form method="post" asp-controller="GioHang" asp-action="Giam" asp-route-id="@i.IdSanPham" class="d-inline">
+                                                    <button class="qty-btn" type="submit">−</button>
+                                                </form>
+                                                <input type="text" class="qty-input" value="@i.SoLuong" readonly>
+                                                <form method="post" asp-controller="GioHang" asp-action="Tang" asp-route-id="@i.IdSanPham" class="d-inline">
+                                                    <button class="qty-btn" type="submit">+</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                        <td class="text-end fw-bold text-dark">@i.ThanhTien.ToString("n0")đ</td>
+                                        <td class="text-end">
+                                            <form method="post" asp-controller="GioHang" asp-action="Xoa" asp-route-id="@i.IdSanPham">
+                                                <button class="btn btn-sm text-danger border-0 p-1"><i class="bi bi-trash3"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 checkout-sidebar">
+                <div class="card-box p-3">
+                    <h6 class="fw-bold mb-3 text-dark">Chi tiết thanh toán</h6>
+
+                    <div class="summary-row">
+                        <span class="summary-label">Tổng tiền hàng</span>
+                        <span class="summary-value" id="subtotal">0đ</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Phí vận chuyển</span>
+                        <span class="summary-value">@phiShip.ToString("n0")đ</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label">Giảm giá vận chuyển</span>
+                        <span class="summary-value text-success">-0đ</span>
+                    </div>
+
+                    <div class="total-section">
+                        <span class="text-dark fw-bold">Tổng thanh toán</span>
+                        <div class="text-end">
+                            <span class="total-price d-block" id="grandtotal">0đ</span>
+                            <span class="small text-muted">(Đã bao gồm VAT)</span>
+                        </div>
+                    </div>
+
+                    <form id="checkoutForm" method="post" asp-controller="DatHang" asp-action="ChonMua" class="mt-3">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger w-100 py-2 text-uppercase rounded shadow-sm" id="btnCheckout" disabled>
+                            Mua hàng ngay
+                        </button>
+                    </form>
+
+                    <div class="mt-4 pt-3 border-top border-dashed">
+                        <div class="policy-item">
+                            <i class="bi bi-shield-check-fill text-success"></i>
+                            <span>Cam kết chính hãng 100%</span>
+                        </div>
+                        <div class="policy-item">
+                            <i class="bi bi-truck-front-fill text-primary"></i>
+                            <span>Freeship mọi đơn từ 300k</span>
+                        </div>
+                        <div class="policy-item">
+                            <i class="bi bi-arrow-repeat text-warning"></i>
+                            <span>Hoàn trả 200% nếu hàng giả</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        function fmt(n) { return n.toLocaleString('vi-VN') + 'đ'; }
+
+        function recalc() {
+            const checks = document.querySelectorAll('.row-check');
+            let sum = 0;
+            let count = 0;
+
+            checks.forEach(ch => {
+                if (ch.checked) {
+                    const tr = ch.closest('tr');
+                    sum += parseFloat(tr.dataset.thanhtien);
+                    count++;
+                }
+            });
+
+            // Logic phí ship: Có thể làm động, ở đây tao để cứng
+            const ship = @phiShip;
+            const grandTotal = sum > 0 ? (sum + ship) : 0;
+
+            document.getElementById('subtotal').textContent = fmt(sum);
+
+            // Nếu sum = 0 thì tổng = 0 luôn
+            if(sum === 0) {
+                 document.getElementById('grandtotal').textContent = '0đ';
+            } else {
+                 document.getElementById('grandtotal').textContent = fmt(grandTotal);
+            }
+
+            const btn = document.getElementById('btnCheckout');
+            if (sum <= 0) {
+                btn.disabled = true;
+                btn.innerHTML = 'MUA HÀNG';
+            } else {
+                btn.disabled = false;
+                btn.innerHTML = `MUA HÀNG (${count})`;
+            }
+        }
+
+        const checkAll = document.getElementById('checkAll');
+        if(checkAll){
+            checkAll.addEventListener('change', () => {
+                document.querySelectorAll('.row-check').forEach(x => x.checked = checkAll.checked);
+                recalc();
+            });
+        }
+
+        document.querySelectorAll('.row-check').forEach(x => x.addEventListener('change', () => {
+            if (!x.checked && checkAll) checkAll.checked = false;
+            if(checkAll && document.querySelectorAll('.row-check:checked').length === document.querySelectorAll('.row-check').length){
+                checkAll.checked = true;
+            }
+            recalc();
+        }));
+
+        recalc();
+
+        document.getElementById('checkoutForm')?.addEventListener('submit', (e) => {
+            const form = e.currentTarget;
+            form.querySelectorAll('input[name="ids"]').forEach(h => h.remove());
+            const checkedBoxes = document.querySelectorAll('.row-check:checked');
+
+            if(checkedBoxes.length === 0){
+                e.preventDefault();
+                alert('Bạn chưa chọn sản phẩm nào!');
+                return;
+            }
+
+            checkedBoxes.forEach(ch => {
+                const id = ch.closest('tr').dataset.id;
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'ids';
+                input.value = id;
+                form.appendChild(input);
+            });
+        });
+    </script>
+}

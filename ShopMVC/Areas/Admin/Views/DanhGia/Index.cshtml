@@ -1,0 +1,150 @@
+﻿@model List<ShopMVC.Models.DanhGia>
+@{
+    ViewData["Title"] = "Quản lý Đánh giá";
+
+    bool onlyFeatured = ViewBag.OnlyFeatured == true;
+    string? keyword = ViewBag.Keyword as string;
+    string? currentFilter = ViewBag.CurrentFilter as string;
+}
+
+<h2 class="mb-3">Quản lý Đánh giá</h2>
+
+<!-- ====================== BỘ LỌC ====================== -->
+<form method="get" class="d-flex flex-wrap gap-2 mb-3 align-items-center">
+    <a asp-action="Index" class="btn btn-sm @(string.IsNullOrEmpty(currentFilter) ? "btn-primary" : "btn-outline-primary")">
+        Tất cả
+    </a>
+    <a asp-action="Index" asp-route-trangThai="@TrangThaiDanhGia.ChoDuyet" class="btn btn-sm @(currentFilter == "ChoDuyet" ? "btn-warning" : "btn-outline-warning")">
+        Chờ duyệt
+    </a>
+    <a asp-action="Index" asp-route-trangThai="@TrangThaiDanhGia.DaDuyet" class="btn btn-sm @(currentFilter == "DaDuyet" ? "btn-success" : "btn-outline-success")">
+        Đã duyệt
+    </a>
+    <a asp-action="Index" asp-route-trangThai="@TrangThaiDanhGia.TuChoi" class="btn btn-sm @(currentFilter == "TuChoi" ? "btn-danger" : "btn-outline-danger")">
+        Từ chối
+    </a>
+
+    <div class="vr mx-2"></div>
+
+    <input type="text"
+           name="keyword"
+           value="@keyword"
+           class="form-control form-control-sm"
+           placeholder="Tìm theo nội dung / SP / user..."
+           style="width:200px" />
+
+    <div class="form-check ms-2">
+        <input class="form-check-input" type="checkbox" name="onlyFeatured" value="true" @(onlyFeatured ? "checked" : "") />
+        <label class="form-check-label small">Chỉ xem nổi bật</label>
+    </div>
+
+    <button type="submit" class="btn btn-sm btn-outline-primary ms-2">Lọc</button>
+</form>
+
+<!-- ====================== BẢNG DỮ LIỆU ====================== -->
+<table class="table table-bordered align-middle">
+    <thead class="table-light">
+        <tr>
+            <th style="width: 180px">Sản phẩm</th>
+            <th style="width: 120px">Người dùng</th>
+            <th>Sao</th>
+            <th>Nội dung</th>
+            <th style="width: 110px">Ảnh</th>
+            <th style="width: 80px">Ngày</th>
+            <th style="width: 100px">Trạng thái</th>
+            <th style="width: 90px">Nổi bật</th>
+            <th style="width: 150px">Hành động</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <!-- Sản phẩm -->
+                <td>
+                    <strong>@(item.SanPham?.TenDayDu ?? "N/A")</strong>
+                    <br />
+                    <span class="text-muted small">ID: @item.IdSanPham</span>
+                </td>
+
+                <!-- Người dùng -->
+                <td>
+                    @item.UserId
+                    @if (!item.HienThiTen)
+                    {
+                        <span class="badge bg-secondary small ms-1">Ẩn tên</span>
+                    }
+                </td>
+
+                <!-- Số sao -->
+                <td class="text-warning fw-bold">@item.SoSao ★</td>
+
+                <!-- Nội dung -->
+                <td>@item.NoiDung</td>
+
+                <!-- Ảnh -->
+                <td>
+                    @if (!string.IsNullOrEmpty(item.HinhAnh))
+                    {
+                        <img src="@item.HinhAnh"
+                             style="width: 80px; height: 80px; object-fit: cover; border-radius:6px;" />
+                    }
+                </td>
+
+                <!-- Ngày -->
+                <td>@item.NgayTao.ToString("dd/MM/yy")</td>
+
+                <!-- Trạng thái -->
+                <td>
+                    <span class="badge
+                        @(item.TrangThai == TrangThaiDanhGia.DaDuyet ? "bg-success"
+                        : item.TrangThai == TrangThaiDanhGia.ChoDuyet ? "bg-warning"
+                        : "bg-danger")">
+                        @item.TrangThai
+                    </span>
+                </td>
+
+                <!-- === NỔI BẬT === -->
+                <td class="text-center">
+
+                    @if (item.TrangThai == TrangThaiDanhGia.DaDuyet)
+                    {
+                        <form asp-action="ToggleNoiBat"
+                              asp-route-id="@item.Id"
+                              method="post"
+                              class="d-inline">
+                            <button type="submit"
+                                    class="btn btn-sm @(item.LaNoiBat ? "btn-warning" : "btn-outline-secondary")"
+                                    title="@(item.LaNoiBat ? "Bỏ nổi bật" : "Đặt nổi bật")">
+                                <i class="bi bi-star@(item.LaNoiBat ? "-fill" : "")"></i>
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="text-muted small">--</span>
+                    }
+                </td>
+
+                <!-- Hành động -->
+                <td>
+                    @if (item.TrangThai == TrangThaiDanhGia.ChoDuyet)
+                    {
+                        <form asp-action="Duyet" asp-route-id="@item.Id" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-success">Duyệt</button>
+                        </form>
+
+                        <form asp-action="TuChoi" asp-route-id="@item.Id" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-sm btn-danger">Từ chối</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <span class="text-muted small fst-italic">Đã xử lý</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

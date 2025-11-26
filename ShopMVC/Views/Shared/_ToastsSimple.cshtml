@@ -1,0 +1,57 @@
+﻿@using System.Text.Json
+@{
+    // Gom các thông báo từ TempData (không cần class)
+    var msgs = new List<(string css, string text)>();
+
+    string ok = TempData["Ok"] as string;
+    string err = TempData["Err"] as string;
+    string info = TempData["Info"] as string;
+    string warn = TempData["Warn"] as string;
+
+    if (!string.IsNullOrWhiteSpace(ok)) msgs.Add(("text-bg-success", ok));
+    if (!string.IsNullOrWhiteSpace(err)) msgs.Add(("text-bg-danger", err));
+    if (!string.IsNullOrWhiteSpace(info)) msgs.Add(("text-bg-primary", info));
+    if (!string.IsNullOrWhiteSpace(warn)) msgs.Add(("text-bg-warning text-dark", warn));
+
+    // (Tuỳ chọn) nếu m muốn bắn nhiều message 1 lần qua JSON/string
+    // TempData["Msgs"] = "[{\"level\":\"success\",\"message\":\"A\"},{\"level\":\"error\",\"message\":\"B\"}]"
+    var raw = TempData["Msgs"] as string;
+    if (!string.IsNullOrWhiteSpace(raw))
+    {
+        try
+        {
+            var arr = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(raw) ?? new();
+            foreach (var it in arr)
+            {
+                var level = it.TryGetValue("level", out var lv) ? lv?.ToLower() : "info";
+                var text = it.TryGetValue("message", out var tx) ? tx : "";
+                var css = level switch
+                {
+                    "success" => "text-bg-success",
+                    "error" => "text-bg-danger",
+                    "warn" or "warning" => "text-bg-warning text-dark",
+                    _ => "text-bg-primary"
+                };
+                if (!string.IsNullOrWhiteSpace(text)) msgs.Add((css, text));
+            }
+        }
+        catch { }
+    }
+}
+@if (msgs.Count > 0)
+{
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index:1080;">
+        @foreach (var m in msgs)
+        {
+            <div class="toast align-items-center @m.css border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="4000">
+                <div class="d-flex">
+                    <div class="toast-body">@m.text</div>
+                    <button type="button" class="btn-close @(m.css.Contains("text-bg-warning") ? "" : "btn-close-white") me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        }
+    </div>
+    <script>
+        document.querySelectorAll('.toast').forEach(el => new bootstrap.Toast(el).show());
+    </script>
+}

@@ -1,0 +1,482 @@
+﻿@model IEnumerable<ShopMVC.Models.DonHang>
+@using ShopMVC.Models
+@using System.Linq
+
+@{
+    ViewData["Title"] = "Đơn hàng của tôi";
+    string? currentStatus = ViewBag.StatusFilter;
+    string? currentKeyword = ViewBag.Keyword;
+
+    var allStatuses = new List<TrangThaiDonHang>
+    {
+        TrangThaiDonHang.ChoXacNhan,
+        TrangThaiDonHang.ChuanBi,
+        TrangThaiDonHang.DangGiao,
+        TrangThaiDonHang.HoanTat,
+        TrangThaiDonHang.DaHuy
+    };
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --brand-color: #ff3366;
+            --brand-hover: #e62e5c;
+            --bg-body: #f5f5fa;
+            --text-primary: #333;
+            --text-secondary: #757575;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        /* HEADER & SEARCH */
+        .header-section {
+            background: #fff;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .search-wrapper {
+            padding: 15px 0;
+            background: #fff;
+        }
+
+        .shopee-search-box {
+            background: #eaeaea;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid transparent;
+            padding: 2px;
+        }
+
+            .shopee-search-box:focus-within {
+                background: #fff;
+                border-color: #999;
+            }
+
+        .search-input {
+            flex-grow: 1;
+            border: none;
+            padding: 10px 15px;
+            outline: none;
+            background: transparent;
+            color: #333;
+        }
+
+        .btn-search {
+            background-color: var(--brand-color);
+            color: #fff;
+            border: none;
+            width: 60px;
+            height: 36px;
+            border-radius: 2px;
+        }
+
+        /* TABS */
+        .nav-tabs-custom {
+            display: flex;
+            overflow-x: auto;
+            background: #fff;
+            border-top: 1px solid rgba(0,0,0,.05);
+        }
+
+            .nav-tabs-custom::-webkit-scrollbar {
+                display: none;
+            }
+
+        .tab-item {
+            flex: 1;
+            text-align: center;
+            padding: 15px 0;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            border-bottom: 2px solid transparent;
+            min-width: 140px;
+            cursor: pointer;
+        }
+
+            .tab-item:hover {
+                color: var(--brand-color);
+            }
+
+            .tab-item.active {
+                color: var(--brand-color);
+                border-bottom-color: var(--brand-color);
+            }
+
+        /* ORDER CARD */
+        .order-card {
+            background: #fff;
+            margin-bottom: 12px;
+            box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+        }
+
+        .card-head {
+            padding: 12px 24px;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Shopee Badges */
+        .badge-like {
+            background-color: #ee4d2d;
+            color: #fff;
+            font-size: 10px;
+            padding: 2px 4px;
+            border-radius: 2px;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .shop-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+
+        .status-text {
+            text-transform: uppercase;
+            font-size: 13px;
+            color: var(--brand-color);
+        }
+
+            .status-text.gray {
+                color: #777;
+            }
+
+        /* Products */
+        .product-row {
+            display: flex;
+            padding: 12px 24px;
+            border-bottom: 1px solid #f5f5f5;
+            text-decoration: none;
+            color: inherit;
+            transition: 0.1s;
+        }
+
+            .product-row:hover {
+                background-color: #fafafa;
+            }
+
+        .thumb {
+            width: 80px;
+            height: 80px;
+            border: 1px solid #e1e1e1;
+            object-fit: cover;
+            background: #f5f5f5;
+        }
+
+        .hidden-row {
+            display: none;
+        }
+        /* Class để ẩn các sản phẩm thứ 3 trở đi */
+
+        /* View More Button */
+        .view-more-container {
+            text-align: center;
+            border-bottom: 1px solid #eaeaea;
+            cursor: pointer;
+            background: #fffcfb;
+            padding: 10px;
+            transition: 0.2s;
+        }
+
+            .view-more-container:hover {
+                background: #fdfdfd;
+            }
+
+        .view-more-text {
+            font-size: 13px;
+            color: #777;
+        }
+
+            .view-more-text:hover {
+                color: var(--brand-color);
+            }
+
+        /* Footer */
+        .card-foot {
+            padding: 24px;
+            background: #fffefb;
+        }
+
+        .freeship-line {
+            font-size: 12px;
+            color: #26aa99;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+
+        .total-price {
+            color: var(--brand-color);
+            font-size: 20px;
+            font-weight: 500;
+            margin-left: 10px;
+        }
+
+        /* Action Buttons */
+        .btn-s {
+            min-width: 150px;
+            padding: 8px 0;
+            border-radius: 2px;
+            font-size: 14px;
+            margin-left: 10px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-solid {
+            background: var(--brand-color);
+            color: #fff;
+            border: 1px solid var(--brand-color);
+        }
+
+            .btn-solid:hover {
+                background: var(--brand-hover);
+                color: #fff;
+            }
+
+        .btn-outline {
+            background: #fff;
+            color: #555;
+            border: 1px solid #ddd;
+        }
+
+            .btn-outline:hover {
+                background: #f8f8f8;
+                color: #333;
+            }
+
+    </style>
+}
+
+<div class="header-section">
+    <div class="container search-wrapper">
+        <form asp-action="CuaToi" method="get" class="shopee-search-box">
+            <i class="bi bi-search ps-3 text-secondary"></i>
+            @if (!string.IsNullOrEmpty(currentStatus))
+            {
+                <input type="hidden" name="status" value="@currentStatus" />
+            }
+            <input type="text" name="keyword" class="search-input" value="@currentKeyword" placeholder="Tìm kiếm theo Tên Shop, ID đơn hàng hoặc Tên Sản phẩm...">
+            <button type="submit" class="btn-search"><i class="bi bi-search"></i></button>
+        </form>
+    </div>
+    <div class="container nav-tabs-custom">
+        <a href="@Url.Action("CuaToi", "DonHang")" class="tab-item @(string.IsNullOrEmpty(currentStatus) ? "active" : "")">Tất cả</a>
+        @foreach (var status in allStatuses)
+        {
+            string sStr = status.ToString();
+            bool isActive = string.Equals(currentStatus, sStr, StringComparison.OrdinalIgnoreCase);
+            <a href="@Url.Action("CuaToi", "DonHang", new { status = sStr, keyword = currentKeyword })" class="tab-item @(isActive ? "active" : "")">@GetStatusLabel(status)</a>
+        }
+    </div>
+</div>
+
+<div class="container pb-5">
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5 bg-white shadow-sm">
+            <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/5fafbb923393b712b96488590b8f781d.png" style="width: 120px; opacity: 0.7">
+            <p class="text-muted mt-3">Chưa có đơn hàng nào</p>
+            <a asp-controller="SanPham" asp-action="Index" class="btn-s btn-solid text-white mx-0">MUA NGAY</a>
+        </div>
+    }
+    else
+    {
+        @foreach (var d in Model)
+        {
+            <div class="order-card">
+                <div class="card-head">
+                    <div class="shop-name">
+                        <span class="badge-like">Yêu thích</span>
+                        <span>Shop Chính Hãng</span>
+                    </div>
+                    <div class="status-text @(d.TrangThai == TrangThaiDonHang.DaHuy || d.TrangThai == TrangThaiDonHang.HoanTat ? "gray" : "")">
+                        <i class="bi bi-truck me-1"></i> @GetStatusLabel(d.TrangThai).ToUpper()
+                    </div>
+                </div>
+
+                <div class="product-list-wrapper">
+                    @{
+                        var items = d.ChiTiets.ToList();
+                        int maxShow = 2;
+                    }
+
+                    @for (int i = 0; i < items.Count; i++)
+                    {
+                        var item = items[i];
+                        string imgUrl = item.SanPham?.Anhs?.OrderByDescending(a => a.LaAnhChinh).FirstOrDefault()?.Url ?? "/images/no-image.png";
+                        string hiddenClass = i >= maxShow ? "hidden-row" : "";
+                        string rowId = i >= maxShow ? $"hidden-item-{d.Id}" : "";
+
+                        <a asp-controller="SanPham"
+                           asp-action="ChiTiet"
+                           asp-route-id="@(item.IdSanPham)"
+                           class="product-row @hiddenClass @rowId">
+                            <img src="@imgUrl" class="thumb" />
+                            <div class="ms-3 flex-grow-1">
+                                <div style="font-size: 16px; color: #333; margin-bottom: 5px;">@(item.SanPham?.TenDayDu ?? "Sản phẩm lỗi")</div>
+                                <div class="text-secondary" style="font-size: 14px;">Phân loại: Mặc định</div>
+                                <div class="mt-1">x @item.SoLuong</div>
+                            </div>
+                            <div class="text-end">
+                                @if (item.DonGia > 0)
+                                {
+                                    <span class="text-decoration-line-through text-muted small me-2">@((item.DonGia * 1.2m).ToString("n0"))đ</span>
+                                }
+                                <span style="color: var(--brand-color);">@item.DonGia.ToString("n0")đ</span>
+                            </div>
+                        </a>
+                    }
+                </div>
+
+                @if (d.ChiTiets.Count > 2)
+                {
+                    <div class="view-more-container" onclick="toggleItems('@d.Id')" id="btn-toggle-@d.Id">
+                        <span class="view-more-text">
+                            Xem thêm @(d.ChiTiets.Count - 2) sản phẩm khác <i class="bi bi-chevron-down ms-1"></i>
+                        </span>
+                    </div>
+                }
+
+                <div class="card-foot">
+                    <div class="freeship-line">
+                        <i class="bi bi-truck-front text-success me-1 fs-5"></i>
+                        <span>Đã được miễn phí vận chuyển</span>
+                    </div>
+
+                    <div class="d-flex justify-content-end align-items-center mb-2">
+                        <span class="text-muted">Thành tiền:</span>
+                        <span class="total-price">@d.TongThanhToan.ToString("n0")đ</span>
+                    </div>
+
+                    @* Gợi ý đánh giá khi đơn đã hoàn tất *@
+                    @if (d.TrangThai == TrangThaiDonHang.HoanTat)
+                    {
+                        <div class="text-end mb-2">
+                            <span class="text-secondary" style="font-size:13px;">
+                                Đơn đã hoàn thành, hãy đánh giá sản phẩm bạn đã mua nhé.
+                            </span>
+                        </div>
+                    }
+
+                    <div class="text-end">
+                        @* Nút xem chi tiết luôn có *@
+                        <a asp-controller="DonHang"
+                           asp-action="ChiTiet"
+                           asp-route-id="@d.Id"
+                           class="btn-s btn-outline">
+                            Xem Chi Tiết
+                        </a>
+
+                        @* Nút đánh giá sản phẩm - chỉ hiện khi đơn Hoàn tất *@
+                        @if (d.TrangThai == TrangThaiDonHang.HoanTat)
+                        {
+                            <a asp-controller="DonHang"
+                               asp-action="ChiTiet"
+                               asp-route-id="@d.Id"
+                               class="btn-s btn-outline">
+                                Đánh Giá Sản Phẩm
+                            </a>
+
+                            <a asp-controller="DonHang"
+                               asp-action="MuaLai"
+                               asp-route-id="@d.Id"
+                               class="btn-s btn-solid">
+                                Mua Lại
+                            </a>
+
+                        }
+                        else if (d.TrangThai == TrangThaiDonHang.DaHuy)
+                        {
+                            <a asp-controller="DonHang"
+                               asp-action="MuaLai"
+                               asp-route-id="@d.Id"
+                               class="btn-s btn-solid">
+                                Mua Lại
+                            </a>
+
+                        }
+
+                        @if (d.TrangThai == TrangThaiDonHang.ChoXacNhan)
+                        {
+                            <button class="btn-s btn-outline text-danger border-danger-subtle" onclick="confirmCancel('@d.Id')">Hủy Đơn</button>
+                            <form id="cancel-form-@d.Id" asp-controller="DonHang" asp-action="HuyDon" asp-route-id="@d.Id" method="post" style="display:none;"></form>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@functions {
+    public string GetStatusLabel(TrangThaiDonHang s) => s switch
+    {
+        TrangThaiDonHang.ChoXacNhan => "Chờ xác nhận",
+        TrangThaiDonHang.ChuanBi => "Đang chuẩn bị",
+        TrangThaiDonHang.DangGiao => "Đang vận chuyển",
+        TrangThaiDonHang.HoanTat => "Hoàn thành",
+        TrangThaiDonHang.DaHuy => "Đã hủy",
+        _ => s.ToString()
+    };
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function toggleItems(orderId) {
+            const hiddenRows = document.querySelectorAll(`.hidden-item-${orderId}`);
+            const btn = document.getElementById(`btn-toggle-${orderId}`);
+            const spanText = btn.querySelector('.view-more-text');
+
+            const isHidden = hiddenRows[0].style.display === 'none' || window.getComputedStyle(hiddenRows[0]).display === 'none';
+
+            if (isHidden) {
+                hiddenRows.forEach(row => row.style.display = 'flex');
+                spanText.innerHTML = `Thu gọn <i class="bi bi-chevron-up ms-1"></i>`;
+            } else {
+                hiddenRows.forEach(row => row.style.display = 'none');
+                spanText.innerHTML = `Xem thêm sản phẩm <i class="bi bi-chevron-down ms-1"></i>`;
+            }
+        }
+
+        function confirmCancel(orderId) {
+            Swal.fire({
+                title: 'Hủy đơn hàng?',
+                text: "Bạn chắc chắn muốn hủy đơn hàng này không?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ff3366',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Đồng ý',
+                cancelButtonText: 'Đóng'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('cancel-form-' + orderId).submit();
+                }
+            })
+        }
+    </script>
+}

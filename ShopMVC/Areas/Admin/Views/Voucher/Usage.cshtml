@@ -1,0 +1,136 @@
+﻿@using ShopMVC.Models
+@model ShopMVC.Models.ViewModels.VoucherUsageVM
+
+@{
+    ViewData["Title"] = "Sử dụng voucher " + Model.Voucher.Code;
+
+    int page = ViewBag.Page ?? 1;
+    int pageSize = ViewBag.PageSize ?? 20;
+    int total = ViewBag.Total ?? 0;
+    int totalPages = (int)Math.Ceiling((double)total / pageSize);
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0">Voucher: @Model.Voucher.Code</h3>
+    <a asp-action="Index" class="btn btn-outline-secondary">Về danh sách</a>
+</div>
+
+<div class="mb-3">
+    <div><b>Tên:</b> @Model.Voucher.Ten</div>
+    <div>
+        <b>Thời gian:</b>
+        @Model.Voucher.NgayBatDau.ToString("dd/MM/yyyy")
+        -
+        @Model.Voucher.NgayHetHan.ToString("dd/MM/yyyy")
+    </div>
+    <div>
+        <b>Đã dùng (không tính đơn hủy):</b>
+        @Model.UsedCount /
+        @(Model.Voucher.SoLanSuDungToiDa == 0 ? "∞" : Model.Voucher.SoLanSuDungToiDa.ToString())
+    </div>
+    <div>
+        <b>Tổng tiền giảm:</b> @Model.TotalDiscount.ToString("n0") đ
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th>Mã đơn</th>
+                <th>Ngày đặt</th>
+                <th>Khách</th>
+                <th>Trạng thái</th>
+                <th>Giảm</th>
+                <th>Tổng thanh toán</th>
+                <th style="width:110px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Orders != null && Model.Orders.Any())
+            {
+                foreach (var o in Model.Orders)
+                {
+                    <tr>
+                        <td>@o.MaDon</td>
+                        <td>@o.NgayDat.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>@o.HoTenNhan</td>
+                        <td>
+                            @* Dùng if/else thay cho switch để tránh lỗi Razor *@
+                            @if (o.TrangThai == TrangThaiDonHang.ChoXacNhan)
+                            {
+                                <span class="badge bg-warning text-dark">Chờ xác nhận</span>
+                            }
+                            else if (o.TrangThai == TrangThaiDonHang.ChuanBi)
+                            {
+                                <span class="badge bg-info text-dark">Chuẩn bị</span>
+                            }
+                            else if (o.TrangThai == TrangThaiDonHang.DangGiao)
+                            {
+                                <span class="badge bg-primary">Đang giao</span>
+                            }
+                            else if (o.TrangThai == TrangThaiDonHang.HoanTat)
+                            {
+                                <span class="badge bg-success">Hoàn tất</span>
+                            }
+                            else if (o.TrangThai == TrangThaiDonHang.DaHuy)
+                            {
+                                <span class="badge bg-secondary">Đã hủy</span>
+                            }
+                        </td>
+                        <td>@o.TienGiam.ToString("n0") đ</td>
+                        <td>@o.TongThanhToan.ToString("n0") đ</td>
+                        <td class="text-end">
+                            <a asp-area="Admin"
+                               asp-controller="DonHang"
+                               asp-action="Details"
+                               asp-route-id="@o.Id"
+                               class="btn btn-sm btn-outline-primary">
+                                Xem
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" class="text-center text-muted py-4">
+                        Chưa có đơn nào dùng voucher này.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (totalPages > 1)
+{
+    <nav>
+        <ul class="pagination">
+            <li class="page-item @(page == 1 ? "disabled" : "")">
+                <a class="page-link"
+                   href="@Url.Action("Usage", new { id = Model.Voucher.Id, page = page - 1, pageSize })">
+                    «
+                </a>
+            </li>
+
+            @for (int p = 1; p <= totalPages; p++)
+            {
+                <li class="page-item @(p == page ? "active" : "")">
+                    <a class="page-link"
+                       href="@Url.Action("Usage", new { id = Model.Voucher.Id, page = p, pageSize })">
+                        @p
+                    </a>
+                </li>
+            }
+
+            <li class="page-item @(page == totalPages ? "disabled" : "")">
+                <a class="page-link"
+                   href="@Url.Action("Usage", new { id = Model.Voucher.Id, page = page + 1, pageSize })">
+                    »
+                </a>
+            </li>
+        </ul>
+    </nav>
+}

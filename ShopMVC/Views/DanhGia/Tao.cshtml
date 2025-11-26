@@ -1,0 +1,201 @@
+﻿@model ShopMVC.Models.ViewModels.DanhGiaVM
+@{
+    ViewData["Title"] = "Đánh giá sản phẩm";
+}
+
+<style>
+    .star-rating {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        font-size: 2.5rem;
+        cursor: pointer;
+    }
+
+        .star-rating input {
+            display: none;
+        }
+
+        .star-rating label {
+            color: #ccc;
+            padding: 0 5px;
+            transition: all 0.2s;
+        }
+
+            .star-rating input:checked ~ label,
+            .star-rating label:hover,
+            .star-rating label:hover ~ label {
+                color: #f7d943;
+            }
+
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+
+    .upload-box {
+        border: 2px dashed #ddd;
+        padding: 2rem;
+        text-align: center;
+        cursor: pointer;
+        background: #fcfcfc;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative; /* Thêm để quản lý ảnh preview */
+        overflow: hidden; /* Ẩn phần ảnh thừa */
+    }
+
+        .upload-box:hover {
+            background: #f9f9f9;
+        }
+
+        .upload-box i {
+            font-size: 2rem;
+            color: #dc3545;
+        }
+
+    /* Style cho ảnh preview */
+    .image-preview {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Để ảnh vừa khung */
+        display: none; /* Mặc định ẩn */
+    }
+
+    .clear-image-btn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(255, 255, 255, 0.8);
+        border: none;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        font-size: 1rem;
+        cursor: pointer;
+        display: none; /* Mặc định ẩn */
+        z-index: 10;
+        color: #dc3545;
+    }
+
+        .clear-image-btn:hover {
+            background: #dc3545;
+            color: white;
+        }
+</style>
+
+<div class="container py-5" style="max-width: 700px;">
+
+    <h3 class="text-center">Đánh giá sản phẩm</h3>
+
+    <div class="d-flex align-items-center my-3 p-3 bg-light rounded">
+        <img src="@(Model.AnhSanPham ?? "/images/default.jpg")" style="width: 60px; height: 60px; object-fit: cover;" class="me-3" />
+        <h5>@Model.TenSanPham</h5>
+    </div>
+
+    <form asp-action="Tao" method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="IdSanPham" />
+        <input type="hidden" asp-for="IdDonHang" />
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Chất lượng sản phẩm:</label>
+            <div class="star-rating">
+                <input type="radio" id="sao-5" asp-for="SoSao" value="5" /><label for="sao-5">★</label>
+                <input type="radio" id="sao-4" asp-for="SoSao" value="4" /><label for="sao-4">★</label>
+                <input type="radio" id="sao-3" asp-for="SoSao" value="3" /><label for="sao-3">★</label>
+                <input type="radio" id="sao-2" asp-for="SoSao" value="2" /><label for="sao-2">★</label>
+                <input type="radio" id="sao-1" asp-for="SoSao" value="1" /><label for="sao-1">★</label>
+            </div>
+            <span asp-validation-for="SoSao" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Thêm hình ảnh/video:</label>
+
+            <div class="row g-1">
+                <div class="col-6">
+                    <label for="fileHinhAnh" class="upload-box rounded">
+                        <i class="bi bi-camera"></i>
+                        <div>Thêm Hình ảnh</div>
+                        <img id="imagePreview" src="#" alt="Ảnh xem trước" class="image-preview" />
+                        <button type="button" id="clearImageBtn" class="clear-image-btn">x</button>
+                    </label>
+                    <input type="file" asp-for="FileHinhAnh" id="fileHinhAnh" class="d-none" accept="image/*" />
+                </div>
+                <div class="col-6">
+                    <div class="upload-box rounded text-muted" style="cursor: not-allowed;">
+                        <i class="bi bi-camera-video"></i>
+                        <div>Thêm Video (N/A)</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-text">Gửi video là tính năng nâng cao, sẽ được bổ sung sau.</div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label fw-bold">Nhận xét của bạn:</label>
+            <textarea asp-for="NoiDung" class="form-control" rows="5" placeholder="Hãy chia sẻ nhận xét cho sản phẩm này bạn nhé!"></textarea>
+        </div>
+
+        <div class="mb-3 form-check form-switch">
+            <input class="form-check-input" type="checkbox" asp-for="HienThiTen">
+            <label class="form-check-label" asp-for="HienThiTen">Hiển thị tên đăng nhập trên đánh giá này</label>
+        </div>
+
+        <hr />
+        <div class="d-flex justify-content-end">
+            <a asp-controller="DonHang" asp-action="ChiTiet" asp-route-id="@Model.IdDonHang" class="btn btn-outline-secondary me-2">Trở về</a>
+            <button type="submit" class="btn btn-danger">Gửi đánh giá</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('fileHinhAnh');
+            const imagePreview = document.getElementById('imagePreview');
+            const uploadBox = document.querySelector('.upload-box');
+            const clearImageBtn = document.getElementById('clearImageBtn');
+            const cameraIcon = uploadBox.querySelector('.bi-camera');
+            const uploadText = uploadBox.querySelector('div:first-of-type'); // Lấy div chứa "Thêm Hình ảnh"
+
+            fileInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = 'block';
+                        clearImageBtn.style.display = 'block';
+                        // Ẩn icon camera và text "Thêm Hình ảnh"
+                        cameraIcon.style.display = 'none';
+                        uploadText.style.display = 'none';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    // Reset nếu không có file nào được chọn
+                    imagePreview.style.display = 'none';
+                    clearImageBtn.style.display = 'none';
+                    cameraIcon.style.display = 'block';
+                    uploadText.style.display = 'block';
+                    imagePreview.src = '#';
+                }
+            });
+
+            clearImageBtn.addEventListener('click', function() {
+                fileInput.value = ''; // Xóa file đã chọn
+                imagePreview.style.display = 'none';
+                clearImageBtn.style.display = 'none';
+                cameraIcon.style.display = 'block';
+                uploadText.style.display = 'block';
+                imagePreview.src = '#';
+            });
+        });
+    </script>
+}

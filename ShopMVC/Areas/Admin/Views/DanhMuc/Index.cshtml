@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ShopMVC.Models.DanhMuc>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+<div class="container py-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h3>Danh mục</h3>
+        <a class="btn btn-primary" asp-action="Create">Thêm</a>
+    </div>
+    <table class="table">
+        <thead><tr><th>Tên</th><th>Slug</th><th>Thứ tự</th><th>Hiển thị</th><th></th></tr></thead>
+        <tbody>
+            @foreach (var m in Model)
+            {
+                <tr>
+                    <td>@m.Ten</td>
+                    <td>@m.Slug</td>
+                    <td>@m.ThuTu</td>
+                    <td>@(m.HienThi ? "✓" : "✗")</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-primary" asp-action="Edit" asp-route-id="@m.Id">Sửa</a>
+                        <form method="post" asp-action="Delete" asp-route-id="@m.Id" class="d-inline">
+                            <button class="btn btn-sm btn-link text-danger">Xoá</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
